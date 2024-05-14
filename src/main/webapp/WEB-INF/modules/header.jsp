@@ -1,0 +1,26 @@
+<script src="js/hamburger.js"></script>
+<div class="header">
+    <div class="logo mid-text">
+        D<span class="normal-text">&</span>M
+    </div>
+
+    <ul class="menuBar small-text">
+        <li><a href="">About</a></li>
+        <li><a href="">Fan Zone</a></li>
+        <li><a href="">Collections</a></li>
+    </ul>
+
+    <div class="icons">
+        <form action="" class="searchBar mr-20">
+            <input type="text" name="searchBar" placeholder="Search ...">
+            <a href=""><img src="img/search.svg" alt=""></a>
+        </form>
+
+        <a href="signup.jsp"><img src="img/user.svg" alt="" class="mr-20"></a>
+        <a href="myCart.jsp"><img src="img/shopping-cart.svg" alt=""></a>
+    </div>
+
+    <div class="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+</div>
