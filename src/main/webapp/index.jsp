@@ -21,7 +21,7 @@
     <img src="img/heroBackground.png" alt="">
 </div>
 
-<div class="poster">
+<div class="poster" id = "fanZoneSection">
     <div class="poster__content">
         <h3 class="big-text stroke">Fan Zone</h3>
         <p class="small-text">
@@ -31,7 +31,7 @@
             Whether you're cheering for your favourite team or celebrating the latest victories,
             join us as we unite fans from around the world in the thrilling world of football fandom!
         </p>
-
+        <button>Explore</button>
     </div>
     <div class="poster__img">
         <img src="img/fanZoneSection.png" alt="">

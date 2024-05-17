@@ -1,12 +1,12 @@
 <script src="js/hamburger.js"></script>
 <div class="header">
     <div class="logo mid-text">
-        D<span class="normal-text">&</span>M
+        <a href="index.jsp">D<span class="normal-text">&</span>M</a>
     </div>
 
     <ul class="menuBar small-text">
         <li><a href="">About</a></li>
-        <li><a href="">Fan Zone</a></li>
+        <li><a href="#fanZoneSection">Fan Zone</a></li>
         <li><a href="">Collections</a></li>
     </ul>
 
