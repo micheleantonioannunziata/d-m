@@ -16,7 +16,14 @@
             <a href=""><img src="img/search.svg" alt=""></a>
         </form>
 
-        <a href="signup.jsp"><img src="img/user.svg" alt="" class="mr-20"></a>
+        <%
+            String ref;
+            if(session.getAttribute("utente") == null)
+                ref = "signup.jsp";
+            else ref = "userArea.jsp";
+        %>
+
+        <a href="<%= ref %>"><img src="img/user.svg" alt="" class="mr-20"></a>
         <a href="myCart.jsp"><img src="img/shopping-cart.svg" alt=""></a>
     </div>
 

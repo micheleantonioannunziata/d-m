@@ -17,7 +17,7 @@
     scroll-behavior: smooth;
 }
 
-body{overflow-x: hidden;}
+body{overflow-x: hidden; transition: 0.8s}
 
 /* header */
 .header {
@@ -95,19 +95,22 @@ body{overflow-x: hidden;}
     transform: translate(-50%, -50%);
 }
 
-/* poster */
+/* poster di default */
 .poster{
     display: flex;
     height: 100vh;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
 }
 
-.poster__img{width: 50%; height: 100%;}
-.poster__img img{width: 100%; object-fit: cover; height: 100%;}
+.poster__img{width: 50%; height: 100%; position: relative;}
+.poster__img img{width: 100%; object-fit: cover; height: auto; position: absolute; bottom: 0;}
 .poster__content{width: 50%;padding: 50px; padding-left: 3%}
 
-#fanZoneSection {margin-top: 15vh}
+#fanZoneSection .poster__content{width: 55%;}
+#fanZoneSection .poster__img {width: 45%;}
+#fanZoneSection .poster__img img{height: 85vh;}
 #fanZoneSection h3 {padding-bottom: 7%;}
 #fanZoneSection p{padding: 5% 0;}
 #fanZoneSection.poster .poster__content button {
@@ -121,9 +124,10 @@ body{overflow-x: hidden;}
 }
 
 @media (max-width: 768px) {
-    .poster{flex-wrap: wrap; height: auto;}
-    .poster__img,
-    .poster__content{width: 100%;}
+    #fanZoneSection.poster, #loginSection.poster{flex-wrap: wrap;}
+    #fanZoneSection .poster__img, #fanZoneSection .poster__content,
+    #loginSection .poster__img, #loginSection .poster__content {width: 100%;}
+    #fanZoneSection .poster__img img{height: 100%;}
 }
 
 
@@ -135,7 +139,7 @@ body{overflow-x: hidden;}
 .mid-text {font-size: 48px;font-weight: 600;}
 .big-text {font-size: 100px;font-weight: 900;}
 .normal-text {font-size: 32px;font-weight: 500;}
-.small-text {font-size: 20px;font-weight: 300;}
+.small-text {font-size: 16px;font-weight: 300;}
 .upp {text-transform: uppercase;}
 .white {color: white;}
 
@@ -160,21 +164,24 @@ body{overflow-x: hidden;}
     .menu--open{right:0; }
 
     .hamburger{
+        position: relative;
         display: block;
         width: 30px;
         height: 30px;
     }
 
     .hamburger.active span:first-child {
+        position: absolute;
         transform: rotate(45deg);
         top: 50%;
     }
 
     .hamburger.active span:nth-child(2) {
-        opacity: 1;
+        opacity: 0;
     }
 
     .hamburger.active span:last-child {
+        position: absolute;
         transform: rotate(-45deg);
         top: 50%;
     }
@@ -186,42 +193,61 @@ body{overflow-x: hidden;}
         background: var(--color-primary);
         margin-bottom: 5px;
     }
-
 }
 
 
 /* login form */
-.container {
-    display: grid;
-    grid-template-columns: 0.5fr 0.3fr 0.8fr;
-    height: 100vh;
-    padding-left: 3%;
+.poster#loginSection {
     background: rgb(255,255,255);
     background: linear-gradient(141deg, rgba(255,255,255,1) 59%, rgba(0,0,0,1) 100%);
+    overflow-y: hidden;
 }
 
-.container form {
+#loginSection.poster .poster__img img{height: auto;}
+#loginSection.poster .poster__content .logo{height: 15vh;
+    font-style: italic;display: flex; align-items: center}
+#loginSection.poster .poster__content .logo a{color: var(--color-primary)}
+
+#loginSection.poster .poster__content form{height: 85vh; display: flex;
+    flex-direction: column; justify-content: center;}
+
+#loginSection.poster .poster__content form .input{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.container form input {
+#loginSection.poster .poster__content form .input input,
+#loginSection.poster .poster__content form input{
     margin: 25px 0;
     padding: 12px 14px;
     font-size: 17px;
+    width: 75%;
 }
 
-.image {
-    background-image: url('../img/zieloLogin.png');
-    background-size: cover;
-    height: auto;
-}
-
-.container form input[type = submit] {
+#loginSection.poster .poster__content form input[type = submit] {
+    width: 100%;
     background: var(--color-primary);
     border: none;
     border-radius: 20px;
+    font-weight: 700;
+}
+
+#loginSection.poster .poster__content form h4{padding: 20px 0;}
+
+#loginSection.poster .poster__content form h4 a{color: var(--color-primary);
+    text-decoration: underline; font-weight: 700;}
+
+@media (max-width: 1200px) {
+    #loginSection.poster .poster__img{position: relative;}
+    #loginSection.poster .poster__img img{position: absolute; bottom: 0;}
+}
+
+@media (max-width: 768px) {
+    #loginSection.poster{flex-wrap: wrap;}
+    #loginSection.poster .poster__content {width: 100%; padding-top: 0;}
+    #loginSection.poster .poster__img{width: 0;}
+    #fanZoneSection .poster__img img{height: 100%;}
 }
 
 /* gridItemByFilter */
