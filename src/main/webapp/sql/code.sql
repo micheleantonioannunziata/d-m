@@ -32,7 +32,7 @@ create table if not exists Taglie (
     );
 
 create table if not exists ProdottiTaglie (
-                                              Prodotto int, Taglia varchar(5),
+    Prodotto int, Taglia varchar(5), # ciao
     Quantita int,
     primary key (Prodotto, Taglia),
     foreign key (Prodotto) references Prodotti(ID_Prodotto),
