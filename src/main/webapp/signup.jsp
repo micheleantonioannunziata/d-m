@@ -16,20 +16,22 @@
 
         <form action="signup-servlet" method="post">
             <div class="input">
-                <img src="img/users.png">
+                <img src="img/users.svg">
                 <input type="text" name="username" required placeholder="Username">
             </div>
             <div class="input">
-                <img src="img/mail.png">
+                <img src="img/mail.svg">
                 <input type="email" name="email" required placeholder="Email">
             </div>
             <div class="input">
-                <img src="img/unlock.png">
+                <img src="img/unlock.svg">
                 <input type="password" id="password" name="password" required  placeholder="Password">
+                <img src="img/eye.svg" id="eyePassword" alt="">
             </div>
             <div class="input">
-                <img src="img/check-square.png">
+                <img src="img/check-square.svg">
                 <input type="password" id = "confirmPassword" name="confirmPassword" required  placeholder="Confirm Password">
+                <img id="eyeConfirmPassword" src="img/eye.svg" alt="">
             </div>
 
             <h4 class="small-text">Have you already an account?
@@ -49,6 +51,6 @@
         <img src="img/zieloSignUp.png" alt="">
     </div>
 </div>
-<script type="text/javascript" src="js/checkConfirmPassword.js"></script>
+<script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>
 </body>
 </html>

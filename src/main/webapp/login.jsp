@@ -17,13 +17,14 @@
             <form action="login-servlet" method="post">
 
                 <div class="input">
-                    <img src="img/mail.png" alt="">
+                    <img src="img/mail.svg" alt="">
                     <input type="text" name="username" required placeholder="Username">
                 </div>
 
                 <div class="input">
-                    <img src="img/unlock.png">
-                    <input type="password" name="password" required  placeholder="Password">
+                    <img src="img/unlock.svg">
+                    <input id="password" type="password" name="password" required  placeholder="Password">
+                    <img src="img/eye.svg" id="eyePassword" alt="">
                 </div>
 
                 <h4 class="small-text">Haven't you an account yet?
@@ -41,5 +42,6 @@
             <img src="img/zieloLogin.png" alt="">
         </div>
     </div>
+    <script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>
     </body>
 </html>

@@ -215,6 +215,7 @@ body{overflow-x: hidden; transition: 0.8s}
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 #loginSection.poster .poster__content form .input input,
@@ -245,6 +246,13 @@ body{overflow-x: hidden; transition: 0.8s}
     margin: 10px auto;
     font-weight: 600;
     color: #d02e2e;
+}
+
+#loginSection.poster .poster__content form .input img#eyePassword,
+#loginSection.poster .poster__content form .input img#eyeConfirmPassword{
+    position: absolute;
+    right: 2%;
+    width: 30px;
 }
 
 @media (max-width: 1200px) {

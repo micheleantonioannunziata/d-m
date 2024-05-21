@@ -124,7 +124,7 @@
                 <img src="img/prod/<%= prodotto.getId() %>.png" alt="">
                 <h4 class="small-text"><%= prodotto.getNome() %></h4>
                 <h2 class="normal-text">€ <%= prodotto.getPrezzo() %></h2>
-                <button><img src="img/arrow-right-circle.png"></button>
+                <button><img src="img/arrow-right-circle.svg"></button>
             </div>
             <% } %>
         <% } %>
