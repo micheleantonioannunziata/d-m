@@ -31,12 +31,16 @@ public class SignUpServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
         // effettua controlli
-        if (password.length() < 6 || password.length() > 20 ||
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("error", "le password non coincidono");
+        }
+        else if (password.length() < 6 || password.length() > 20 ||
                 !containsSpecialCharactersOrNumbers(password) || !email.contains("@")
                 || username.length() < 5 || username.length() > 20) {
-            request.setAttribute("error", "password o username sbagliato");
+            request.setAttribute("error", "password o username non validi");
             address = "signup.jsp";
         }
         else {

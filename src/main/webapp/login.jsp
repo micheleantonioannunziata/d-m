@@ -29,9 +29,12 @@
                 <h4 class="small-text">Haven't you an account yet?
                     <a href="signup.jsp">
                         Sign up</a></h4>
-
+                <% String error = (String) request.getAttribute("error");
+                    if (error != null) {
+                %>
+                    <p><%= error %></p>
+                <%}%>
                 <input type="submit" value="Log in">
-                ${error}
             </form>
         </div>
         <div class="poster__img">

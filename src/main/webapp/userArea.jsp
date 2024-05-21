@@ -15,13 +15,17 @@
 
     ${utente.username}, ${utente.email}
 
-    Order History: <br>
+    <%
+        if (ordiniUtente != null) {
+    %>
+            Order History: <br>
+    <%
+            for (Ordine ordine: ordiniUtente) {
+                Prodotto p = prodottoDAO.doRetrieveById(ordine.getIdProdotto());%>
 
-    <% for (Ordine ordine: ordiniUtente) {
-        Prodotto p = prodottoDAO.doRetrieveById(ordine.getIdProdotto());%>
+                <li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
 
-        <li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
-
-    <% } %>
+        <% }
+    }%>
 </body>
 </html>

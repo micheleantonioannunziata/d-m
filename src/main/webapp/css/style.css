@@ -203,7 +203,7 @@ body{overflow-x: hidden; transition: 0.8s}
     overflow-y: hidden;
 }
 
-#loginSection.poster .poster__img img{height: auto;}
+#loginSection.poster .poster__img img{width: 80%; position: absolute; right: 0; bottom: 0;}
 #loginSection.poster .poster__content .logo{height: 15vh;
     font-style: italic;display: flex; align-items: center}
 #loginSection.poster .poster__content .logo a{color: var(--color-primary)}
@@ -237,6 +237,15 @@ body{overflow-x: hidden; transition: 0.8s}
 
 #loginSection.poster .poster__content form h4 a{color: var(--color-primary);
     text-decoration: underline; font-weight: 700;}
+#loginSection.poster .poster__content form p{background: #fd9e9e;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 2px;
+    width: 50%;
+    margin: 10px auto;
+    font-weight: 600;
+    color: #d02e2e;
+}
 
 @media (max-width: 1200px) {
     #loginSection.poster .poster__img{position: relative;}
