@@ -2,6 +2,7 @@
 <%@ page import="model.Ordine" %>
 <%@ page import="model.Prodotto" %>
 <%@ page import="model.ProdottoDAO" %>
+<%@ page import="model.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,7 +14,18 @@
         ProdottoDAO prodottoDAO = new ProdottoDAO();
     %>
 
-    ${utente.username}, ${utente.email}
+
+    <%
+        Utente u = (Utente) session.getAttribute("utente");
+        if (u.isAdmin()) {
+    %>
+        utente amministratore
+    <% } %>
+
+    <%=u.getEmail() %>
+    <%=u.getUsername()%>
+
+
 
     <%
         if (ordiniUtente != null) {
@@ -27,5 +39,6 @@
 
         <% }
     }%>
+
 </body>
 </html>

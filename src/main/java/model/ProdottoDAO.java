@@ -19,6 +19,7 @@ public class ProdottoDAO {
             p.setSquadra(rs.getString(5));
             p.setProduttore(rs.getString(6));
             p.setCollezione(rs.getString(7));
+            p.setUrlImmagine(rs.getString(8));
 
             // prendi tutte le taglie (e le quantità associate) del prodotto
             p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
@@ -42,6 +43,7 @@ public class ProdottoDAO {
                 p.setSquadra(rs.getString(5));
                 p.setProduttore(rs.getString(6));
                 p.setCollezione(rs.getString(7));
+                p.setUrlImmagine(rs.getString(8));
                 return p;
             }
             return null;

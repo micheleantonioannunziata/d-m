@@ -6,7 +6,7 @@
 
     <ul class="menuBar small-text">
         <li><a href="">About</a></li>
-        <li><a href="#fanZoneSection">Fan Zone</a></li>
+        <li><a href="fanZone.jsp">Fan Zone</a></li>
         <li><a href="">Collections</a></li>
     </ul>
 

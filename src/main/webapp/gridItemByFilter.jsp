@@ -3,6 +3,7 @@
 <%@ page import="model.Prodotto" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Squadra" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,15 +20,14 @@
         // ottieni lista delle taglie dalla servletContext
         List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");
 
-        List<String> squadre = new ArrayList<>();
+        // ottieni lista della squadre dalla servletContext
+        List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre");
+
         List<String> collezioni = new ArrayList<>();
         List<String> produttori = new ArrayList<>();
 
-        // ottieni squadre, produttori, collezioni
+        // ottieni produttori, collezioni
         for (Prodotto prodotto: prodotti) {
-            if (prodotto.getSquadra() != null && !squadre.contains(prodotto.getSquadra()))
-                squadre.add(prodotto.getSquadra());
-
             if (prodotto.getProduttore() != null && !produttori.contains(prodotto.getProduttore()))
                 produttori.add(prodotto.getProduttore());
 
@@ -64,13 +64,13 @@
         </select>
 
         <select name="squadra">
-            <% for (String squadra : squadre) { %>
-            <option value="<%= squadra %>"
-                    <% if (squadra.equalsIgnoreCase(lastSquadra)) { %>
+            <% for (Squadra squadra : squadre) { %>
+            <option value="<%= squadra.getNome() %>"
+                    <% if (squadra.getNome().equalsIgnoreCase(lastSquadra)) { %>
                     selected
                     <% } %>
             >
-                <%= squadra %>
+                <%= squadra.getNome() %>
             </option>
             <% } %>
         </select>
@@ -121,7 +121,7 @@
         <% } else { %>
             <% for (Prodotto prodotto: prodottiFiltrati) { %>
             <div class="card">
-                <img src="img/prod/<%= prodotto.getId() %>.png" alt="">
+                <img src="<%= prodotto.getUrlImmagine() %>" alt="">
                 <h4 class="small-text"><%= prodotto.getNome() %></h4>
                 <h2 class="normal-text">€ <%= prodotto.getPrezzo() %></h2>
                 <button><img src="img/arrow-right-circle.svg"></button>

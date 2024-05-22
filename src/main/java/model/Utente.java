@@ -9,6 +9,8 @@ public class Utente {
     String username, email, passwordhash;
     int id;
 
+    boolean isAdmin;
+
     public String getUsername() {
         return username;
     }
@@ -49,5 +51,13 @@ public class Utente {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

@@ -6,7 +6,7 @@ public class UtenteDAO {
     public Utente doRetrieveByUsernamePassword(String username, String password) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("select id_utente, username, email, passwordhash from\n" +
+                    con.prepareStatement("select id_utente, username, email, passwordhash, isAdmin from\n" +
                             "utenti where username = ? and passwordhash = SHA1(?)");
             ps.setString(1, username);
             ps.setString(2, password);
@@ -17,6 +17,7 @@ public class UtenteDAO {
                 u.setUsername(rs.getString(2));
                 u.setEmail(rs.getString(3));
                 u.setPassword(rs.getString(4));
+                u.setAdmin(rs.getBoolean(5));
                 return u;
             }
             return null;
@@ -33,6 +34,7 @@ public class UtenteDAO {
             ps.setString(1, utente.getUsername());
             ps.setString(2, utente.getEmail());
             ps.setString(3, utente.getPasswordHash());
+
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

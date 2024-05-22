@@ -34,7 +34,8 @@
                     if (error != null) {
                 %>
                     <p><%= error %></p>
-                <%}%>
+                <%  request.removeAttribute("error");
+                    }%>
                 <input type="submit" value="Log in">
             </form>
         </div>

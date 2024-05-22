@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         Utente utente = service.doRetrieveByUsernamePassword(username, password);
 
         if (utente == null) {
-            request.setAttribute("error", "creadenziali sbagliate");
+            request.setAttribute("error", "credenziali sbagliate");
             address = "login.jsp";
         }
         else {

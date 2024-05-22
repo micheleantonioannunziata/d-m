@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Prodotto {
     int id;
-    String nome, tipologia, squadra, produttore, collezione;
+    String nome, tipologia, squadra, produttore, collezione, urlImmagine;
     Double prezzo;
 
     // un prodotto può avere più taglie (String) ad ognuna delle quali
@@ -66,6 +66,14 @@ public class Prodotto {
 
     public void setCollezione(String collezione) {
         this.collezione = collezione;
+    }
+
+    public String getUrlImmagine() {
+        return urlImmagine;
+    }
+
+    public void setUrlImmagine(String urlImmagine) {
+        this.urlImmagine = urlImmagine;
     }
 
     public Map<String, Integer> getTaglieQuantita() {
