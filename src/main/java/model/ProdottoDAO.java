@@ -44,6 +44,7 @@ public class ProdottoDAO {
                 p.setProduttore(rs.getString(6));
                 p.setCollezione(rs.getString(7));
                 p.setUrlImmagine(rs.getString(8));
+                p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
                 return p;
             }
             return null;

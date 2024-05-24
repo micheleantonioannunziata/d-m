@@ -124,7 +124,12 @@
                 <img src="<%= prodotto.getUrlImmagine() %>" alt="">
                 <h4 class="small-text"><%= prodotto.getNome() %></h4>
                 <h2 class="normal-text">€ <%= prodotto.getPrezzo() %></h2>
-                <button><img src="img/arrow-right-circle.svg"></button>
+                <form action="overview-servlet" method="post">
+                    <input name ="idProdotto" value="<%= prodotto.getId() %>" type="hidden">
+                    <button>
+                        <img src="img/arrow-right-circle.svg">
+                    </button>
+                </form>
             </div>
             <% } %>
         <% } %>

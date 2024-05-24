@@ -302,7 +302,7 @@ body{overflow-x: hidden; transition: 0.8s}
     margin-top: 7px;
 }
 
-.card button {
+.card form button {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -312,7 +312,7 @@ body{overflow-x: hidden; transition: 0.8s}
     background-color: var(--color-primary);
 }
 
-.card button img{height: 20px}
+.card form button img{height: 20px}
 
 @media (max-width: 500px) {
     .card{
