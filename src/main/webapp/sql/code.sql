@@ -174,7 +174,10 @@ insert into Utenti values
 
 insert into Squadre values
 ("Milan", "img/squadre/Milan.png"),
-("Napoli", "img/squadre/Napoli.png");
+("Napoli", "img/squadre/Napoli.png"),
+("Barcelona", "img/squadre/Barcelona.png"),
+("Liverpool", "img/squadre/Liverpool.png"),
+("Juventus",  "img/squadre/Juventus.png");
 
 insert into Prodotti values
 (1, "Maglia Milan Home 23/24", 99.99, "Maglia", "Milan", "Puma", "Serie A 23/24", "img/prod/1.png"),

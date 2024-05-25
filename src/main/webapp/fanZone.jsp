@@ -13,12 +13,13 @@
 
     <% List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre"); %>
 
-    <div class="grid-container" style="padding-top: 15vh">
+    <div class="grid-container" style="padding-top: 15vh" id="fanZone">
         <% for (Squadra squadra: squadre) {
          %>
             <div class="card">
                 <img src="<%=squadra.getUrlImmagine()%>" alt="">
-                <h2 class="normal-text"> <%= squadra.getNome() %></h2>
+                <h2 class="small-text"> <%= squadra.getNome() %></h2>
+                <span></span>
             </div>
         <%
         }
