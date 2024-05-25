@@ -320,3 +320,34 @@ body{overflow-x: hidden; transition: 0.8s}
         margin-bottom: 20px;
     }
 }
+
+/* overviewSection */
+#overviewSection.poster .poster__content{position: relative; margin-right: 3%; height: 70vh;padding-left: 0;}
+#overviewSection.poster .poster__content h2{position: absolute; bottom: 0;}
+#overviewSection.poster .poster__content button{width: 60%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 17px 14px;
+    background: var(--color-primary);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 50px;
+}
+
+#overviewSection.poster .poster__img img.zoom-image {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+#overviewSection.poster .poster__img:hover img.zoom-image {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    #overviewSection.poster{flex-wrap: wrap;}
+    #overviewSection.poster .poster__content {width: 100%;padding: 0 3%;
+        height: 40%;}
+    #overviewSection.poster .poster__img{width: 100%;}
+}

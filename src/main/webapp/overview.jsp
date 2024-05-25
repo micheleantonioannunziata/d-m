@@ -1,16 +1,12 @@
 <%@ page import="model.Prodotto" %>
 <%@ page import="model.Taglia" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: ciril
-  Date: 24/05/2024
-  Time: 11:23
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Overview</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -18,13 +14,14 @@
         List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");%>
 
     <%@include file="WEB-INF/modules/header.jsp"%>
-    <div class="poster">
+    <div class="poster" id="overviewSection">
         <div class="poster__img">
-            <img src="<%=prodotto.getUrlImmagine()%>">
+            <img src="<%=prodotto.getUrlImmagine()%>" alt="" class="zoom-image">
         </div>
         <div class="poster__content">
             <h3 class="normal-text"> <%= prodotto.getNome() %></h3>
-            <h3 class="normal-text"> <%= prodotto.getPrezzo()%></h3>
+
+            <h2 class="mid-text"> € <%= prodotto.getPrezzo()%></h2>
             <ul>
             <% for (Taglia taglia: taglie) {
                 if (taglia.getTipologia().equalsIgnoreCase(prodotto.getTipologia())) {
@@ -38,8 +35,10 @@
                 <% }
             }%>
             </ul>
-            <button> Add to card </button>
+            <button class="small-text">Add to card</button>
         </div>
     </div>
+<script type="text/javascript" src="js/imageZoomEffect.js">
+</script>
 </body>
 </html>

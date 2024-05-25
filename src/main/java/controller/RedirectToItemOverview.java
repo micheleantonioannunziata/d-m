@@ -15,9 +15,11 @@ public class RedirectToItemOverview extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("idProdotto"));
+
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         Prodotto prodotto = prodottoDAO.doRetrieveById(id);
-        req.setAttribute("prodotto",prodotto);
+        req.setAttribute("prodotto", prodotto);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("overview.jsp");
         dispatcher.forward(req,resp);
     }
