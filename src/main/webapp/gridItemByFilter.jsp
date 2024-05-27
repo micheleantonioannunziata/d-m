@@ -1,8 +1,5 @@
-<%@ page import="model.Taglia" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.Prodotto" %>
 <%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Squadra" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,128 +10,70 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <script type="text/javascript" src="js/manageFilters.js"></script>
     <%
         List<String> tipologie =  Arrays.asList("Maglia", "Pallone", "Scarpetta");
-
-        // ottieni lista di tutti i prodotti dalla servletContext
-        List<Prodotto> prodotti = (List<Prodotto>) application.getAttribute("prodotti");
-
-        // ottieni lista delle taglie dalla servletContext
-        List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");
 
         // ottieni lista della squadre dalla servletContext
         List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre");
 
-        List<String> collezioni = new ArrayList<>();
-        List<String> produttori = new ArrayList<>();
-
-        // ottieni produttori, collezioni
-        for (Prodotto prodotto: prodotti) {
-            if (prodotto.getProduttore() != null && !produttori.contains(prodotto.getProduttore()))
-                produttori.add(prodotto.getProduttore());
-
-            if (prodotto.getCollezione() != null && !collezioni.contains(prodotto.getCollezione()))
-                collezioni.add(prodotto.getCollezione());
-        }
-
-        String lastTaglia = request.getParameter("taglia");
         String lastTipologia = request.getParameter("tipologia");
         String lastSquadra = request.getParameter("squadra");
-        String lastCollezione = request.getParameter("collezione");
-        String lastProduttore = request.getParameter("produttore");
-
-        List<Prodotto> prodottiFiltrati = (List<Prodotto>) request.getAttribute("prodottiFiltrati");
-
-        if (prodottiFiltrati == null)
-            prodottiFiltrati = prodotti;
     %>
 
     <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <form action="filter-servlet" method="post" class="filters">
 
-        <select name="tipologia">
+        <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)">
+            <option value="" disabled selected>Tipologia</option>
             <% for (String tipologia : tipologie) { %>
-            <option value="<%= tipologia %>"
+                <option value="<%= tipologia %>"
                     <% if (tipologia.equalsIgnoreCase(lastTipologia)) { %>
-                    selected
-                    <% } %>
-            >
-                <%= tipologia %>
-            </option>
-            <% } %>
-        </select>
-
-        <select name="squadra">
-            <% for (Squadra squadra : squadre) { %>
-            <option value="<%= squadra.getNome() %>"
-                    <% if (squadra.getNome().equalsIgnoreCase(lastSquadra)) { %>
-                    selected
-                    <% } %>
-            >
-                <%= squadra.getNome() %>
-            </option>
-            <% } %>
-        </select>
-
-        <select name="taglia">
-            <% for (Taglia taglia : taglie) { %>
-            <option value="<%= taglia.getTaglia() %>"
-                    <% if (taglia.getTaglia().equalsIgnoreCase(lastTaglia)) { %>
                         selected
                     <% } %>
-            >
-                <%= taglia.getTaglia() %>
-            </option>
+                >
+                    <%= tipologia %>
+                </option>
             <% } %>
         </select>
 
-        <select name="collezione">
-            <% for (String collezione : collezioni) { %>
-            <option value="<%= collezione %>"
-                    <% if (collezione.equalsIgnoreCase(lastCollezione)) { %>
-                    selected
-                    <% } %>
-            >
-                <%= collezione %>
-            </option>
+        <select id="selectSquadra" name="squadra" class="hidden" onchange="updateCards()">
+            <option value="" disabled selected>Squadra</option>
+             <% for (Squadra squadra : squadre) { %>
+                <option value="<%= squadra.getNome() %>"
+                        <% if (squadra.getNome().equalsIgnoreCase(lastSquadra)) { %>
+                        selected
+                        <% } %>
+                >
+                    <%= squadra.getNome() %>
+                </option>
+
             <% } %>
         </select>
 
-        <select name="produttore">
-            <% for (String produttore : produttori) { %>
-            <option value="<%= produttore %>"
-                    <% if (produttore.equalsIgnoreCase(lastProduttore)) { %>
-                    selected
-                    <% } %>
-            >
-                <%= produttore %>
-            </option>
-            <% } %>
+        <select id="selectTaglia" name="taglia" class="hidden" onchange="updateCards()">
+            <option value="" disabled selected>Taglia</option>
         </select>
 
+        <select id="selectCollezione" name="collezione" class="hidden" onchange="updateCards()">
+            <option value="" disabled selected>Collezione</option>
+        </select>
 
-        <input type="submit" value="Go">
+        <select id="selectProduttore" name="produttore" class="hidden" onchange="updateCards()">
+            <option value="" disabled selected>Produttore</option>
+        </select>
     </form>
 
-    <div class="grid-container">
-        <% if (prodottiFiltrati.isEmpty()) { %>
-            vuoto
-        <% } else { %>
-            <% for (Prodotto prodotto: prodottiFiltrati) { %>
-            <div class="card">
-                <img src="<%= prodotto.getUrlImmagine() %>" alt="">
-                <h4 class="small-text"><%= prodotto.getNome() %></h4>
-                <h2 class="normal-text">€ <%= prodotto.getPrezzo() %></h2>
-                <form action="overview-servlet" method="post">
-                    <input name ="idProdotto" value="<%= prodotto.getId() %>" type="hidden">
-                    <button>
-                        <img src="img/arrow-right-circle.svg">
-                    </button>
-                </form>
-            </div>
-            <% } %>
-        <% } %>
-    </div>
+    <div class="grid-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
+            if (tipologia) {
+                manageFilters(tipologia);
+            }
+        });
+    </script>
 </body>
 </html>

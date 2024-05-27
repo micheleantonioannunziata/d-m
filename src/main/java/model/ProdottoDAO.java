@@ -58,7 +58,7 @@ public class ProdottoDAO {
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(
-                    "select prodotti.* from prodotti join prodottitaglie on id_prodotto = prodotto" +
+                    "select distinct prodotti.* from prodotti join prodottitaglie on id_prodotto = prodotto" +
                             " where " + field + " = ?");
             ps.setString(1, criteria);
 
@@ -73,19 +73,39 @@ public class ProdottoDAO {
     public List<Prodotto> doRetrieveByAll(String taglia, String squadra, String tipologia,
                                           String produttore, String collezione) {
         try (Connection con = ConPool.getConnection()) {
-            List<Prodotto> list = new ArrayList<>();
-            PreparedStatement ps = con.prepareStatement(
-                    "select prodotti.* from prodotti join prodottitaglie on id_prodotto = prodotto" +
-                            " where taglia = ? and squadra = ? and tipologia = ? and produttore = ? and collezione = ?");
-            ps.setString(1, taglia);
-            ps.setString(2, squadra);
-            ps.setString(3, tipologia);
-            ps.setString(4, produttore);
-            ps.setString(5, collezione);
+            List<Prodotto> result = new ArrayList<>();
+            String baseQuery = "select distinct prodotti.* from prodotti join prodottitaglie on id_prodotto = prodotto where 1=1";
+            List<String> criteria = new ArrayList<>();
 
-            this.copyResultIntoList(ps.executeQuery(), list);
+            if (!tipologia.isEmpty()) {
+                baseQuery += " AND tipologia = ?";
+                criteria.add(tipologia);
+            }
+            if (!taglia.isEmpty()) {
+                baseQuery += " AND taglia = ?";
+                criteria.add(taglia);
+            }
+            if (!squadra.isEmpty()) {
+                baseQuery += " AND squadra = ?";
+                criteria.add(squadra);
+            }
+            if (!produttore.isEmpty()) {
+                baseQuery += " AND produttore = ?";
+                criteria.add(produttore);
+            }
+            if (!collezione.isEmpty()) {
+                baseQuery += " AND collezione = ?";
+                criteria.add(collezione);
+            }
 
-            return list;
+            PreparedStatement ps = con.prepareStatement(baseQuery);
+
+            for (int i = 0; i < criteria.size(); i++)
+                ps.setString(i + 1, criteria.get(i));
+
+            this.copyResultIntoList(ps.executeQuery(), result);
+
+            return result;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -100,6 +120,25 @@ public class ProdottoDAO {
             ps.setDouble(2, to);
 
             this.copyResultIntoList(ps.executeQuery(), list);
+
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> doRetrieveColumnByCriteria(String column, String field, String criteria) {
+        try (Connection con = ConPool.getConnection()) {
+            List<String> list = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement(
+                    "select distinct " + column + " from prodotti" +
+                            " where " + field + " = ?");
+            ps.setString(1, criteria);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+                list.add(rs.getString(1));
 
             return list;
         } catch (SQLException e) {

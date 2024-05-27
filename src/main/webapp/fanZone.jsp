@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src = "js/redirectFilter.js"></script>
 </head>
 <body>
     <%@ include file="WEB-INF/modules/header.jsp"%>
@@ -16,7 +17,7 @@
     <div class="grid-container" style="padding-top: 15vh" id="fanZone">
         <% for (Squadra squadra: squadre) {
          %>
-            <div class="card">
+            <div class="card scale-in-center" data-squadra = "<%= squadra.getNome() %>" onclick = "redirectFilter(this)">
                 <img src="<%=squadra.getUrlImmagine()%>" alt="">
                 <h2 class="small-text"> <%= squadra.getNome() %></h2>
                 <span></span>

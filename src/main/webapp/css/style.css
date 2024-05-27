@@ -279,6 +279,8 @@ body{overflow-x: hidden; transition: 0.8s}
     justify-content: space-around;
 }
 
+.filters select.hidden { display: none;}
+
 .card {
     text-align: center;
     width: 280px;
@@ -389,3 +391,9 @@ body{overflow-x: hidden; transition: 0.8s}
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+/* animazione stupida ma volevo vedere se funzionava */
+.scale-in-center{animation:scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both}
+@keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}

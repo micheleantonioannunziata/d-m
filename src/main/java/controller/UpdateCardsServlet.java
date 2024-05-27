@@ -1,6 +1,5 @@
 package controller;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,13 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Prodotto;
 import model.ProdottoDAO;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "filterServlet", value = "/filter-servlet")
-public class FilterServlet extends HttpServlet {
+@WebServlet(name = "updateCardsServlet", value = "/updateCards-servlet")
+public class UpdateCardsServlet extends HttpServlet {
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String taglia = request.getParameter("taglia");
         String squadra = request.getParameter("squadra");
@@ -24,16 +26,25 @@ public class FilterServlet extends HttpServlet {
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione);
+        JSONArray prodotti = new JSONArray();
 
-        request.setAttribute("prodottiFiltrati", prodottiFiltrati);
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("gridItemByFilter.jsp");
-        dispatcher.forward(request, response);
+        for (Prodotto prodotto : prodottiFiltrati) {
+            JSONObject object = new JSONObject();
+            object.put("id", prodotto.getId());
+            object.put("nome", prodotto.getNome());
+            object.put("prezzo", prodotto.getPrezzo());
+            object.put("urlImmagine", prodotto.getUrlImmagine());
+            prodotti.add(object);
+        }
+
+        out.print(prodotti);
+        out.flush();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-
-
 }
