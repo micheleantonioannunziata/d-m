@@ -205,7 +205,7 @@ public class ProdottoDAO {
     public int doDelete(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("DELETE FROM prodotti WHERE Id_Prodotto = ?");
+                    con.prepareStatement("delete from prodotti where id_prodotto = ?");
             ps.setInt(1,id);
             ps.executeUpdate();
 

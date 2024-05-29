@@ -64,7 +64,7 @@ public class SquadraDAO {
     public String doDelete(String nome){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("DELETE FROM squadre WHERE Nome = ?");
+                    con.prepareStatement("delete from squadre where nome = ?");
             ps.setString(1,nome);
             ps.executeUpdate();
 

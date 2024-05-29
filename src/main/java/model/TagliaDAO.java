@@ -57,7 +57,7 @@ public class TagliaDAO{
     public String doDelete(String taglia){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("DELETE FROM taglie WHERE Taglia = ?");
+                    con.prepareStatement("delete from taglie where taglia = ?");
             ps.setString(1,taglia);
             ps.executeUpdate();
 

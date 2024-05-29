@@ -77,7 +77,7 @@ public class UtenteDAO{
     public int doDelete(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("DELETE FROM utenti WHERE ID_Utente = ?");
+                    con.prepareStatement("delete from utenti where id_utente = ?");
             ps.setInt(1,id);
             ps.executeUpdate();
 
