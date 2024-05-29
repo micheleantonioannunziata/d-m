@@ -19,6 +19,9 @@
         Utente u = (Utente) session.getAttribute("utente");
         if (u.isAdmin()) {
     %>
+        <form action = "admin-servlet" method="post">
+            <input type="submit" value="Admin Area">
+        </form>
         utente amministratore
     <% } %>
 

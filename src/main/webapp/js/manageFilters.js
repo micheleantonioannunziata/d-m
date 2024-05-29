@@ -16,6 +16,8 @@ function manageFilters(tipologia) {
             selects.forEach(select => {
                 select.classList.remove("hidden");
             })
+
+            // se non è maglia, nascondi la select della squadra
             if (tipologia !== "Maglia") {
                 document.getElementById("selectSquadra").classList.add("hidden");
             }
@@ -29,6 +31,7 @@ function manageFilters(tipologia) {
                 option.text = taglia.taglia;
                 selectTaglia.appendChild(option);
             });
+
             // aggiorna produttori
             const selectProduttore = document.getElementById("selectProduttore");
             selectProduttore.innerHTML = '<option value="" disabled selected>Produttore</option>'

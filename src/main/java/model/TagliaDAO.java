@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TagliaDAO {
+public class TagliaDAO{
     public List<Taglia> doRetrieveAll() {
         try (Connection con = ConPool.getConnection()) {
             List<Taglia> result = new ArrayList<>();
@@ -50,6 +50,20 @@ public class TagliaDAO {
 
             return list;
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String doDelete(String taglia){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM taglie WHERE Taglia = ?");
+            ps.setString(1,taglia);
+            ps.executeUpdate();
+
+            return taglia;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

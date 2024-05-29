@@ -1,8 +1,10 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UtenteDAO {
+public class UtenteDAO{
     public Utente doRetrieveByUsernamePassword(String username, String password) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -44,6 +46,44 @@ public class UtenteDAO {
             utente.setId(id);
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Utente> doRetrieveAll() {
+        try (Connection con = ConPool.getConnection()) {
+            List<Utente> result = new ArrayList<>();
+            PreparedStatement ps =
+                    con.prepareStatement("select * from utenti");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Utente u = new Utente();
+                u.setId(rs.getInt(1));
+                u.setUsername(rs.getString(2));
+                u.setEmail(rs.getString(3));
+                u.setPassword(rs.getString(4));
+                u.setAdmin(rs.getBoolean(5));
+
+                result.add(u);
+            }
+
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int doDelete(int id){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM utenti WHERE ID_Utente = ?");
+            ps.setInt(1,id);
+            ps.executeUpdate();
+
+            return id;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

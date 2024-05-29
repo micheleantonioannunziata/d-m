@@ -201,4 +201,18 @@ public class ProdottoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public int doDelete(int id){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM prodotti WHERE Id_Prodotto = ?");
+            ps.setInt(1,id);
+            ps.executeUpdate();
+
+            return id;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

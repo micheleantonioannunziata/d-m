@@ -1,6 +1,9 @@
 package model;
 
-public class Ordine {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ordine{
     int idOrdine, idUtente, idProdotto, quantita;
     double prezzo;
     String taglia;

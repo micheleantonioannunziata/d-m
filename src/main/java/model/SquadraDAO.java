@@ -60,4 +60,18 @@ public class SquadraDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public String doDelete(String nome){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("DELETE FROM squadre WHERE Nome = ?");
+            ps.setString(1,nome);
+            ps.executeUpdate();
+
+            return nome;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

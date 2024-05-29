@@ -19,7 +19,7 @@
         <%
             String ref;
             if(session.getAttribute("utente") == null)
-                ref = "signup.jsp";
+                ref = "login.jsp";
             else ref = "userArea.jsp";
         %>
 

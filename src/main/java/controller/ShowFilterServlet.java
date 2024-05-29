@@ -27,7 +27,7 @@ public class ShowFilterServlet extends HttpServlet {
         // prendi taglie, produttori e collezioni di quella tipologia
         List<Taglia> taglieFiltrate = tagliaDAO.doRetrieveByTipologia(tipologia);
         List<String> produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
-        List<String> collezioneFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
+        List<String> collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
 
 
         response.setContentType("application/json");
@@ -43,7 +43,7 @@ public class ShowFilterServlet extends HttpServlet {
             taglie.add(object);
         }
 
-        for (String c: collezioneFiltrate) {
+        for (String c: collezioniFiltrate) {
             JSONObject object = new JSONObject();
             object.put("nome", c);
             collezioni.add(object);
