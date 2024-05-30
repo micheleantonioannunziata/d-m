@@ -32,6 +32,14 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("ordini", ordini);
         request.setAttribute("prodottitaglie", prodottiTaglie);
 
+        request.setAttribute("columnDataTypeSquadre", Helper.doRetrieveColumnDataType("squadre"));
+        request.setAttribute("columnDataTypeProdotti", Helper.doRetrieveColumnDataType("prodotti"));
+        request.setAttribute("columnDataTypeProdottiTaglie", Helper.doRetrieveColumnDataType("prodottitaglie"));
+        request.setAttribute("columnDataTypeOrdini", Helper.doRetrieveColumnDataType("ordini"));
+        request.setAttribute("columnDataTypeUtenti", Helper.doRetrieveColumnDataType("utenti"));
+        request.setAttribute("columnDataTypeTaglie", Helper.doRetrieveColumnDataType("taglie"));
+
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("adminPage.jsp");
         dispatcher.forward(request, response);
     }

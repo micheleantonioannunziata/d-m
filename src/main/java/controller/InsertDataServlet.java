@@ -16,10 +16,6 @@ public class InsertDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tabella = req.getParameter("tabella");
-        Helper helper = new Helper();
-        Map<String,String> colonne = helper.doRetrieveColumnType(tabella);
-        for(Map.Entry<String, String> entry : colonne.entrySet()){
-
-        }
+        Map<String,String> colonne = Helper.doRetrieveColumnDataType(tabella);
     }
 }

@@ -16,9 +16,8 @@ import java.util.Map;
 public class InsertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Helper helper = new Helper();
         String tabella = req.getParameter("tabella");
-        Map<String,String> colonneTipi = helper.doRetrieveColumnType(tabella);
+        Map<String,String> colonneTipi = Helper.doRetrieveColumnDataType(tabella);
 
         req.setAttribute("colonneTipi",colonneTipi);
         req.setAttribute("tabella",tabella);

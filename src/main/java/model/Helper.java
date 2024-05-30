@@ -1,22 +1,27 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Helper {
-    public Map<String,String> doRetrieveColumnType(String tabella){
-        Map<String,String> columnTypes = new HashMap<>();
+    public static Map<String,String> doRetrieveColumnDataType(String tabella){
+        Map<String,String> columnTypes = new LinkedHashMap<>();
+
         try (Connection con = ConPool.getConnection()) {
-            DatabaseMetaData databaseMetaData = con.getMetaData();
-            ResultSet resultSet = databaseMetaData.getColumns(con.getCatalog(), con.getSchema(), tabella, null);
+            PreparedStatement ps = con.prepareStatement("describe " + tabella);
+            ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                String columnName = resultSet.getString("COLUMN_NAME");
-                String columnType = resultSet.getString("TYPE_NAME");
+                String columnName = resultSet.getString("Field");
+                String columnType = resultSet.getString("Type");
+
+                if (resultSet.getString("Key").equalsIgnoreCase("pri"))
+                    columnName += " - pk";
+                if (resultSet.getString("Key").equalsIgnoreCase("mul"))
+                    columnName += " - fk";
+
                 columnTypes.put(columnName, columnType);
             }
 
