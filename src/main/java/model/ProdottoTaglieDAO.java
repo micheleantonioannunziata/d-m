@@ -33,7 +33,7 @@ public class ProdottoTaglieDAO{
     public void doDelete(int idProdotto,String taglia){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("DELETE FROM squadre WHERE prodotto = ? and taglia = ?");
+                    con.prepareStatement("delete from prodottitaglie where prodotto = ? and taglia = ?");
             ps.setInt(1,idProdotto);
             ps.setString(2,taglia);
             ps.executeUpdate();

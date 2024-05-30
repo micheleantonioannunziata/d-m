@@ -112,7 +112,8 @@ public class OrdineDAO{
         public void doDelete(int idOrdine, int idProdotto, int idUtente, String taglia){
             try (Connection con = ConPool.getConnection()) {
                 PreparedStatement ps =
-                        con.prepareStatement("DELETE FROM ordini WHERE ID_Ordine = ? and prodotto = ? and utente = ? and taglia = ?");
+                        con.prepareStatement("delete from ordini where ID_Ordine = ? " +
+                                "and prodotto = ? and utente = ? and taglia = ?");
                 ps.setInt(1,idOrdine);
                 ps.setInt(2,idProdotto);
                 ps.setInt(3,idUtente);
