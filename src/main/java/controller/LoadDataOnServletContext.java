@@ -18,6 +18,5 @@ public class LoadDataOnServletContext extends HttpServlet {
         SquadraDAO squadraDAO = new SquadraDAO();
         List<Squadra> squadre = squadraDAO.doRetrieveAll();
         getServletContext().setAttribute("squadre", squadre);
-
     }
 }

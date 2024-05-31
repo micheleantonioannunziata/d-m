@@ -13,6 +13,12 @@ import java.util.List;
 
 @WebServlet(name = "AdminServlet", value = "/admin-servlet")
 public class AdminServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utente u = (Utente) request.getSession().getAttribute("utente");
+
+        if (u.isAdmin()) doPost(request, response);
+        else response.sendRedirect("index.jsp");
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProdottoDAO prodottoDAO = new ProdottoDAO();

@@ -160,6 +160,21 @@ public class ProdottoDAO {
         }
     }
 
+    public List<Prodotto> doRetrieveAllBean() {
+        try (Connection con = ConPool.getConnection()){
+            List<Prodotto> list = new ArrayList<>();
+            PreparedStatement ps = con.prepareStatement("select distinct prodotti.* from prodotti join " +
+                    "prodottitaglie on id_prodotto = prodotto;\n");
+            ResultSet rs = ps.executeQuery();
+
+            copyResultIntoList(rs, list);
+
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Map<String, Integer> doRetrieveTaglieQuantitaById(int idProdotto) {
         try (Connection con = ConPool.getConnection()){
             Map<String, Integer> result = new HashMap<>();

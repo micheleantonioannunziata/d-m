@@ -31,11 +31,12 @@ public class UtenteDAO{
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "insert into utenti (username, email, passwordhash) values (?, ?, ?)",
+                    "insert into utenti (username, email, passwordhash, isadmin) values (?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, utente.getUsername());
             ps.setString(2, utente.getEmail());
             ps.setString(3, utente.getPasswordHash());
+            ps.setBoolean(4, utente.isAdmin());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");

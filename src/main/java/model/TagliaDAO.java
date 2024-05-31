@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +46,23 @@ public class TagliaDAO{
             }
 
             return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doSave(Taglia taglia) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "insert into taglie (taglia, tipologia, descrizione) values (?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, taglia.getTaglia());
+            ps.setString(2, taglia.getTipologia());
+            ps.setString(3, taglia.getDescrizione());
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
