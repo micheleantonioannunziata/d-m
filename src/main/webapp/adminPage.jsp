@@ -253,7 +253,7 @@
                 <input type="hidden" name="idUtente" value="<%=o.getIdUtente()%>">
                 <input type="hidden" name="taglia" value="<%=o.getTaglia()%>">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/trash.svg" alt="">
                 </button>
             </form>
         </td>

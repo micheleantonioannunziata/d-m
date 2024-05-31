@@ -17,10 +17,10 @@ public class InsertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tabella = req.getParameter("tabella");
-        Map<String,String> colonneTipi = Helper.doRetrieveColumnDataType(tabella);
+        Map<String,String> columnDataType = Helper.doRetrieveColumnDataType(tabella);
 
-        req.setAttribute("colonneTipi",colonneTipi);
-        req.setAttribute("tabella",tabella);
+        req.setAttribute("colonneTipi", columnDataType);
+        req.setAttribute("tabella", tabella);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("insertPage.jsp");
         dispatcher.forward(req,resp);

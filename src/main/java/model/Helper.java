@@ -21,6 +21,8 @@ public class Helper {
                     columnName += " - pk";
                 if (resultSet.getString("Key").equalsIgnoreCase("mul"))
                     columnName += " - fk";
+                if (resultSet.getString("Extra").equalsIgnoreCase("auto_increment"))
+                    columnName += " auto";
 
                 columnTypes.put(columnName, columnType);
             }

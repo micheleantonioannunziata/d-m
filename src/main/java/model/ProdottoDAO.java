@@ -149,8 +149,7 @@ public class ProdottoDAO {
     public List<Prodotto> doRetrieveAll() {
         try (Connection con = ConPool.getConnection()){
             List<Prodotto> list = new ArrayList<>();
-            PreparedStatement ps = con.prepareStatement("select distinct prodotti.* from prodotti join prodottitaglie " +
-                    "on id_prodotto = prodotto");
+            PreparedStatement ps = con.prepareStatement("select * from prodotti");
             ResultSet rs = ps.executeQuery();
 
             copyResultIntoList(rs, list);
@@ -181,13 +180,16 @@ public class ProdottoDAO {
     public void doSave(Prodotto prodotto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "insert into utenti (nome, prezzo, tipologia, squadra) " +
-                            "values (?, ?, ?, ?)",
+                    "insert into prodotti (nome, prezzo, tipologia, squadra, produttore, collezione, urlImmagine) " +
+                            "values (?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, prodotto.getNome());
             ps.setDouble(2, prodotto.getPrezzo());
             ps.setString(3, prodotto.getTipologia());
             ps.setString(4, prodotto.getSquadra());
+            ps.setString(5, prodotto.getProduttore());
+            ps.setString(6, prodotto.getCollezione());
+            ps.setString(7, prodotto.getUrlImmagine());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");

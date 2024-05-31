@@ -36,33 +36,40 @@
             padding: 0 20px; /* Padding laterale per estetica */
         }
     </style>
-    <% Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi");
+    <%
+        Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi");
         String nameTable = (String) request.getAttribute("tabella"); %>
 
         <h2>Inserimento nella tabella <%= nameTable%></h2>
 
-        <% for (Map.Entry<String, String> entry : colonneTipi.entrySet()) { %>
-
         <form action="insert-data" method="post">
-            <label>Inserisci <%=entry.getKey() %> </label>
-        <% switch(entry.getValue())
-        {
-            case "VARCHAR" : { %>
-                <input type="text" name="<%= entry.getKey()%>">
-               <% break; }
-                   case "DECIMAL" : { %>
-                <input type="number" step="0.01" name= "<%=entry.getKey()%>"> <!-- step = precisione decim -->
-            <% break; }
-                case "BIT" : { %>
-                <input type="checkbox" name="<%= entry.getKey()%>" />
-            <% break; }
-                case "INT" : { %>
-                <input type="number" step="1" name= "<%=entry.getKey()%>">
-            <% break; }
-         }
-         } %>
             <input type="hidden" name="tabella" value="<%= nameTable%>">
-            <input type="submit" value="invia">
+            <% for (Map.Entry<String, String> entry : colonneTipi.entrySet()) {
+                if (entry.getKey().contains("auto"))   continue;
+
+                String choose = entry.getValue().toLowerCase();
+
+                if (choose.contains("("))
+                    choose = choose.substring(0, entry.getValue().indexOf('('));%>
+
+                    <label>Inserisci <%=entry.getKey() %> </label>
+                    <%
+                        switch(choose) {
+                            case "varchar" : { %>
+                                <input type="text" name="<%= entry.getKey() %>">
+                               <% break; }
+                                   case "decimal" : { %>
+                                <input type="number" step="0.01" name= "<%=entry.getKey()%>"> <!-- step = precisione decim -->
+                            <% break; }
+                                case "tinyint" : { %>
+                                <input type="checkbox" name="<%= entry.getKey()%>" />
+                            <% break; }
+                                case "int" : { %>
+                                <input type="number" step="1" name= "<%=entry.getKey()%>">
+                            <% break; }
+                        }
+            } %>
+                <input type="submit" value="invia">
         </form>
 </body>
 </html>
