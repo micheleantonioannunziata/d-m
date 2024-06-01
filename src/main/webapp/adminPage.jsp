@@ -48,6 +48,8 @@
 
     button{border: none;background: none;}
     button img{cursor: pointer;}
+    .scale-in-center{animation:scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both}
+    @keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
 </style>
 
 <%
@@ -59,7 +61,7 @@
     List<ProdottoTaglie> prodottiTaglie = (List<ProdottoTaglie>) request.getAttribute("prodottitaglie");
 %>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="2">Squadre</th>
         <th>
@@ -96,7 +98,7 @@
     <%} %>
 </table>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="3">Taglie</th>
         <th>
@@ -134,7 +136,7 @@
     <%} %>
 </table>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="8">Prodotti</th>
         <th>
@@ -178,7 +180,7 @@
     <%} %>
 </table>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="5">Utenti</th>
         <th>
@@ -219,7 +221,7 @@
     <%} %>
 </table>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="6">Ordini</th>
         <th>
@@ -264,7 +266,7 @@
     <%} %>
 </table>
 
-<table>
+<table class="scale-in-center">
     <tr>
         <th colspan="3">ProdottiTaglie</th>
         <th>

@@ -35,9 +35,23 @@ public class InsertDataServlet extends HttpServlet {
                 p.setProduttore(req.getParameter(paramNames.get(5)));
                 p.setCollezione(req.getParameter(paramNames.get(6)));
 
-                p.setUrlImmagine("img/prod/");
+                int id = prodottoDAO.doSave(p);
+                p.setId(id);
 
-                prodottoDAO.doSave(p);
+                Part filePart = req.getPart("urlImmagine");
+                String fileName = filePart.getSubmittedFileName(); // prendi nome del file caricato (serve solo per catturare l'estennsione)
+                String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // prendi estansione del file caricato
+                String directory = "img/prod/";
+
+                String filePath =
+                        getServletContext().getRealPath("/" + directory)
+                                + p.getId() + "." + fileExtension;
+
+                filePart.write(filePath); // salva file
+
+                p.setUrlImmagine(directory + p.getId() + "." + fileExtension); // setta url
+
+                prodottoDAO.setUrlImmagineByid(p.getId(), p.getUrlImmagine()); // setta url nel db
             }
             case "squadre" -> {
                 SquadraDAO squadraDAO = new SquadraDAO();

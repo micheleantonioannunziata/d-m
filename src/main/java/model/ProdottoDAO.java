@@ -27,6 +27,7 @@ public class ProdottoDAO {
             list.add(p);
         }
     }
+
     public Prodotto doRetrieveById(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -147,7 +148,7 @@ public class ProdottoDAO {
     }
 
     public List<Prodotto> doRetrieveAll() {
-        try (Connection con = ConPool.getConnection()){
+        try (Connection con = ConPool.getConnection()) {
             List<Prodotto> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement("select * from prodotti");
             ResultSet rs = ps.executeQuery();
@@ -161,7 +162,7 @@ public class ProdottoDAO {
     }
 
     public List<Prodotto> doRetrieveAllBean() {
-        try (Connection con = ConPool.getConnection()){
+        try (Connection con = ConPool.getConnection()) {
             List<Prodotto> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement("select distinct prodotti.* from prodotti join " +
                     "prodottitaglie on id_prodotto = prodotto;\n");
@@ -176,7 +177,7 @@ public class ProdottoDAO {
     }
 
     public Map<String, Integer> doRetrieveTaglieQuantitaById(int idProdotto) {
-        try (Connection con = ConPool.getConnection()){
+        try (Connection con = ConPool.getConnection()) {
             Map<String, Integer> result = new HashMap<>();
             PreparedStatement ps = con.prepareStatement("select taglia, quantita from prodotti join prodottitaglie " +
                     "on id_prodotto = prodotto where id_prodotto = ?");
@@ -192,11 +193,11 @@ public class ProdottoDAO {
         }
     }
 
-    public void doSave(Prodotto prodotto) {
+    public int doSave(Prodotto prodotto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "insert into prodotti (nome, prezzo, tipologia, squadra, produttore, collezione, urlImmagine) " +
-                            "values (?, ?, ?, ?, ?, ?, ?)",
+                    "insert into prodotti (nome, prezzo, tipologia, squadra, produttore, collezione) " +
+                            "values (?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, prodotto.getNome());
             ps.setDouble(2, prodotto.getPrezzo());
@@ -204,31 +205,40 @@ public class ProdottoDAO {
             ps.setString(4, prodotto.getSquadra());
             ps.setString(5, prodotto.getProduttore());
             ps.setString(6, prodotto.getCollezione());
-            ps.setString(7, prodotto.getUrlImmagine());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
-            int id = rs.getInt(1);
-            prodotto.setId(id);
-
+            return rs.getInt(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public int doDelete(int id){
+    public int doDelete(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("delete from prodotti where id_prodotto = ?");
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.executeUpdate();
 
             return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        catch (SQLException e) {
+    }
+
+    public void setUrlImmagineByid(int id, String url) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("update prodotti set urlImmagine = ? where id_prodotto = ?");
+            ps.setString(1, url);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

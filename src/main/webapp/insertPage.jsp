@@ -76,20 +76,20 @@
                                     else if (columnName.equalsIgnoreCase("password"))
                                         type = "password";
                         %>
-                        <input type="<%= type %>" name=" <%= columnName %>" placeholder="<%= columnName %>">
-                        <% break; }
+                                    <input type="<%= type %>" name=" <%= columnName %>" placeholder="<%= columnName %>" required>
+                            <% break; }
                                case "decimal" : { %>
-                            <input type="number" step="0.01" name= "<%= columnName %>" placeholder="<%= columnName %>"> <!-- step = precisione decim -->
-                        <% break; }
+                                    <input type="number" step="0.01" name= "<%= columnName %>" placeholder="<%= columnName %>" required> <!-- step = precisione decim -->
+                            <% break; }
                             case "tinyint" : { %>
-                            <input type="checkbox" name="<%= columnName %>" placeholder="<%= columnName %>" />
-                        <% break; }
+                                    <input type="checkbox" name="<%= columnName %>" placeholder="<%= columnName %>" />
+                            <% break; }
                             case "int" : { %>
-                            <input type="number" step="1" name= "<%= columnName %>" placeholder="<%= columnName %>">
-                        <% break; }
-                    } %>
-            <% } %>
-                <input type="submit" value="Invia">
+                                    <input type="number" step="1" name= "<%= columnName %>" placeholder="<%= columnName %>" required>
+                            <% break; }
+                            } %>
+                    <% } %>
+            <input type="submit" value="Invia">
         </form>
 </body>
 </html>
