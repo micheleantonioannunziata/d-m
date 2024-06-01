@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -20,9 +21,6 @@ public class InsertDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tabella = req.getParameter("tabella");
         List<String> paramNames = Collections.list(req.getParameterNames());
-
-        for (String s: paramNames)
-            System.out.println(req.getParameter(s));
 
         switch (tabella.toLowerCase()) {
             case "prodotti" -> {
@@ -47,7 +45,19 @@ public class InsertDataServlet extends HttpServlet {
 
                 // parto da 1 perché il primo è tabella
                 s.setNome(req.getParameter(paramNames.get(1)));
-                s.setUrlImmagine("img/squadre");
+
+                Part filePart = req.getPart("urlImmagine");
+                String fileName = filePart.getSubmittedFileName(); // prendi nome del file caricato (serve solo per catturare l'estennsione)
+                String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // prendi estansione del file caricato
+                String directory = "img/squadre/";
+
+                String filePath =
+                        getServletContext().getRealPath("/" + directory)
+                        + s.getNome() + "." + fileExtension;
+
+                filePart.write(filePath); // salva file
+
+                s.setUrlImmagine(directory + s.getNome() + "." + fileExtension); // setta url
 
                 squadraDAO.doSave(s);
 
@@ -107,7 +117,6 @@ public class InsertDataServlet extends HttpServlet {
                 o.setIdProdotto(Integer.parseInt(req.getParameter(paramNames.get(3))));
                 o.setTaglia(req.getParameter(paramNames.get(4)));
                 o.setQuantita(Integer.parseInt(req.getParameter(paramNames.get(5))));
-                //o.setPrezzo(Double.parseDouble(req.getParameter(paramNames.get(6))));
 
                 ordineDAO.doSave(o);
             }

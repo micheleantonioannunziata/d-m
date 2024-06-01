@@ -17,7 +17,7 @@ public class Helper {
                 String columnName = resultSet.getString("Field");
                 String columnType = resultSet.getString("Type");
 
-                //String defaultType = resultSet.getString("Default");
+                String defaultValue = resultSet.getString("Default");
 
                 if (resultSet.getString("Key").equalsIgnoreCase("pri"))
                     columnName += " - pk";
@@ -25,8 +25,8 @@ public class Helper {
                     columnName += " - fk";
                 if (resultSet.getString("Extra").equalsIgnoreCase("auto_increment"))
                     columnName += " auto";
-                /*if (defaultType != null && defaultType.equalsIgnoreCase("default"))
-                    columnName += " default";*/
+                if (defaultValue != null)
+                    columnName += " default " + defaultValue;
 
                 columnTypes.put(columnName, columnType);
             }

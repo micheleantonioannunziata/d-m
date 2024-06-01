@@ -8,7 +8,7 @@ create table if not exists Utenti (
                                       Username varchar(50) not null unique, -- forse bisogna mettere unique
     Email varchar(100) not null unique,
     PasswordHash varchar(255) not null,
-    isAdmin bool default false
+    isAdmin bool
     );
 
 create table if not exists Squadre (
@@ -53,7 +53,7 @@ create table if not exists ProdottiTaglie (
 create table if not exists Ordini (
                                       ID_Ordine int, Utente int,
                                       Prodotto int, Taglia varchar(5), Quantita int,
-    Prezzo decimal(10, 2) default null, -- ridondante, calcolato da un trigger
+    Prezzo decimal(10, 2) default 0, -- ridondante, calcolato da un trigger
     primary key(ID_Ordine, Utente, Prodotto, Taglia),
     foreign key (Utente) references Utenti(ID_Utente),
     foreign key (Prodotto, Taglia) references ProdottiTaglie(Prodotto, Taglia)

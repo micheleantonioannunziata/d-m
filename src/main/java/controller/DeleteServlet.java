@@ -37,7 +37,7 @@ public class DeleteServlet extends HttpServlet {
                 String taglia = request.getParameter("taglia");
 
                 OrdineDAO ordineDAO = new OrdineDAO();
-                ordineDAO.doDelete(idOrdine,idProdotto,idUtente,taglia);
+                ordineDAO.doDelete(idOrdine, idProdotto, idUtente, taglia);
             }
             case "prodotti" -> {
                 int id = Integer.parseInt(request.getParameter("idProdotto"));

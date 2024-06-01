@@ -41,8 +41,7 @@
         background-color: #f2f2f2;
     }
 
-    table tr th:last-child, table tbody tr td:last-child,
-    table tbody tr td:nth-last-child(2), table tbody tr th:nth-last-child(2) {
+    table tr th:last-child, table tbody tr td:last-child {
         background: white;
         border: none;
     }
@@ -62,14 +61,21 @@
 
 <table>
     <tr>
-        <th colspan="3">Squadre</th>
+        <th colspan="2">Squadre</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="squadre" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% Map<String, String> columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeSquadre");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
 
@@ -86,14 +92,6 @@
                 </button>
             </form>
         </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="squadre" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
-                </button>
-            </form>
-        </td>
     </tr>
     <%} %>
 </table>
@@ -101,13 +99,20 @@
 <table>
     <tr>
         <th colspan="3">Taglie</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="taglie" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeTaglie");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
 
@@ -125,28 +130,27 @@
                 </button>
             </form>
         </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="taglie" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
-                </button>
-            </form>
-        </td>
     </tr>
     <%} %>
 </table>
 
 <table>
     <tr>
-        <th colspan="9">Prodotti</th>
+        <th colspan="8">Prodotti</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="prodotti" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeProdotti");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
 
@@ -169,14 +173,6 @@
                 </button>
             </form>
         </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="prodotti" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
-                </button>
-            </form>
-        </td>
     </tr>
 
     <%} %>
@@ -184,14 +180,21 @@
 
 <table>
     <tr>
-        <th colspan="6">Utenti</th>
+        <th colspan="5">Utenti</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="utenti" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeUtenti");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
 
@@ -211,14 +214,6 @@
                 </button>
             </form>
         </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="utenti" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
-                </button>
-            </form>
-        </td>
     </tr>
 
     <%} %>
@@ -226,14 +221,21 @@
 
 <table>
     <tr>
-        <th colspan="7">Ordini</th>
+        <th colspan="6">Ordini</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="ordini" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeOrdini");;
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
 
@@ -257,14 +259,6 @@
                 </button>
             </form>
         </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="ordini" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
-                </button>
-            </form>
-        </td>
     </tr>
 
     <%} %>
@@ -272,14 +266,21 @@
 
 <table>
     <tr>
-        <th colspan="4">ProdottiTaglie</th>
+        <th colspan="3">ProdottiTaglie</th>
+        <th>
+            <form action="insert-servlet" method="post">
+                <input type="hidden" value="prodottitaglie" name="tabella">
+                <button type="submit">
+                    <img src="img/plus-circle.svg" alt="">
+                </button>
+            </form>
+        </th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeProdottiTaglie");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
-        <th></th>
         <th></th>
     </tr>
     <% for(ProdottoTaglie p  : prodottiTaglie){ %>
@@ -294,14 +295,6 @@
                 <input type="hidden" name="taglia" value="<%=p.getTaglia()%>">
                 <button type="submit">
                     <img src="img/trash.svg" alt="">
-                </button>
-            </form>
-        </td>
-        <td>
-            <form action="insert-servlet" method="post">
-                <input type="hidden" value="prodottitaglie" name="tabella">
-                <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
                 </button>
             </form>
         </td>
