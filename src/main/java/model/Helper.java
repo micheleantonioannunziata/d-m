@@ -17,12 +17,16 @@ public class Helper {
                 String columnName = resultSet.getString("Field");
                 String columnType = resultSet.getString("Type");
 
+                //String defaultType = resultSet.getString("Default");
+
                 if (resultSet.getString("Key").equalsIgnoreCase("pri"))
                     columnName += " - pk";
                 if (resultSet.getString("Key").equalsIgnoreCase("mul"))
                     columnName += " - fk";
                 if (resultSet.getString("Extra").equalsIgnoreCase("auto_increment"))
                     columnName += " auto";
+                /*if (defaultType != null && defaultType.equalsIgnoreCase("default"))
+                    columnName += " default";*/
 
                 columnTypes.put(columnName, columnType);
             }

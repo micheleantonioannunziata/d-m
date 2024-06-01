@@ -16,7 +16,9 @@
         <form action="insert-data" method="post" enctype="multipart/form-data">
             <input type="hidden" name="tabella" value="<%= nameTable%>">
             <% for (Map.Entry<String, String> entry : colonneTipi.entrySet()) {
-                if (entry.getKey().contains("auto"))   continue;
+                System.out.println("\n"+entry.getKey()+","+entry.getValue());
+                if (entry.getKey().contains("auto") || entry.getKey().contains("default"))
+                    continue;
 
                 String dataType = entry.getValue().toLowerCase();
 

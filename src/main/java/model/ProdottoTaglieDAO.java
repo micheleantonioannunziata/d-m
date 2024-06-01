@@ -42,4 +42,23 @@ public class ProdottoTaglieDAO{
             throw new RuntimeException(e);
         }
     }
+
+    public void doSave(ProdottoTaglie prodottoTaglie) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "insert into prodottitaglie (prodotto, taglia, quantita) " +
+                            "values (?, ?, ?)");
+            ps.setInt(1, prodottoTaglie.getIdProdotto());
+            ps.setString(2, prodottoTaglie.getTaglia());
+            ps.setInt(3, prodottoTaglie.getQuantita());
+
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("INSERT error.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

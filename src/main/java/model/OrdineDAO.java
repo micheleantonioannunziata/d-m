@@ -65,7 +65,7 @@ public class OrdineDAO{
     public void doSave(Ordine ordine) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "insert into ordini (id_ordine, utente, prodotto, taglia, quantità, prezzo) " +
+                    "insert into ordini (id_ordine, utente, prodotto, taglia, quantita, prezzo) " +
                             "values (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, ordine.getIdOrdine());
             ps.setInt(2, ordine.getIdUtente());

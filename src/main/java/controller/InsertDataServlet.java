@@ -50,6 +50,11 @@ public class InsertDataServlet extends HttpServlet {
                 s.setUrlImmagine("img/squadre");
 
                 squadraDAO.doSave(s);
+
+                // aggiorna servletContext
+                List<Squadra> squadre = (List<Squadra>) getServletContext().getAttribute("squadre");
+                squadre.add(s);
+                getServletContext().setAttribute("squadre", squadre);
             }
             case "taglie" -> {
                 TagliaDAO tagliaDAO = new TagliaDAO();
@@ -81,6 +86,30 @@ public class InsertDataServlet extends HttpServlet {
                 u.setAdmin(req.getParameter(paramNames.get(4)).equalsIgnoreCase("on"));
 
                 utenteDAO.doSave(u);
+            }
+            case "prodottitaglie" -> {
+                ProdottoTaglie prodottoTaglie = new ProdottoTaglie();
+                ProdottoTaglieDAO prodottoTaglieDAO = new ProdottoTaglieDAO();
+
+                prodottoTaglie.setIdProdotto(Integer.parseInt(req.getParameter(paramNames.get(1))));
+                prodottoTaglie.setTaglia(req.getParameter(paramNames.get(2)));
+                prodottoTaglie.setQuantita(Integer.parseInt(req.getParameter(paramNames.get(3))));
+
+                prodottoTaglieDAO.doSave(prodottoTaglie);
+            }
+            case "ordini" -> {
+                Ordine o = new Ordine();
+                OrdineDAO ordineDAO = new OrdineDAO();
+
+                // parto da 1 perché il primo è tabella
+                o.setIdOrdine(Integer.parseInt(req.getParameter(paramNames.get(1))));
+                o.setIdUtente(Integer.parseInt(req.getParameter(paramNames.get(2))));
+                o.setIdProdotto(Integer.parseInt(req.getParameter(paramNames.get(3))));
+                o.setTaglia(req.getParameter(paramNames.get(4)));
+                o.setQuantita(Integer.parseInt(req.getParameter(paramNames.get(5))));
+                //o.setPrezzo(Double.parseDouble(req.getParameter(paramNames.get(6))));
+
+                ordineDAO.doSave(o);
             }
 
         }
