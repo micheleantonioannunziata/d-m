@@ -12,10 +12,13 @@
     %>
 
     <ul>
-        <% for (Prodotto prodotto: carrello) {
-            prezzoTotale += prodotto.getPrezzo(); %>
-            <li> <%= prodotto.getNome() %>, <%= prodotto.getPrezzo() %> </li>
-        <% } %>
+        <% if (carrello != null) {
+            for (Prodotto prodotto: carrello) {
+                prezzoTotale += prodotto.getPrezzo(); %>
+                <li> <%= prodotto.getNome() %>, <%= prodotto.getPrezzo() %> </li>
+            <% }
+        } %>
+
     </ul>
 
     Prezzo Totale: <%= prezzoTotale %>

@@ -35,7 +35,10 @@
                 <% }
             }%>
             </ul>
-            <button class="small-text">Add to card</button>
+            <form action="addToCart-servlet" method="post">
+                <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
+                <button class="small-text" type="submit">Add to cart</button>
+            </form>
         </div>
     </div>
 <script type="text/javascript" src="js/imageZoomEffect.js">

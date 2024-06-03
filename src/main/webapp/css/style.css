@@ -280,7 +280,7 @@ body{overflow-x: hidden; transition: 0.8s}
     justify-content: space-around;
 }
 
-.filters select.hidden { display: none;}
+.filters select.hidden, .filters .select { display: none;}
 
 .card {
     text-align: center;

@@ -75,7 +75,7 @@ public class ProdottoDAO {
                                           String produttore, String collezione) {
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> result = new ArrayList<>();
-            String baseQuery = "select distinct prodotti.* from prodotti join prodottitaglie on id_prodotto = prodotto where 1=1";
+            String baseQuery = "select distinct prodotti.* from prodotti left join prodottitaglie on id_prodotto = prodotto where 1=1";
             List<String> criteria = new ArrayList<>();
 
             if (!tipologia.isEmpty()) {

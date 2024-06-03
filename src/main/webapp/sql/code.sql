@@ -28,7 +28,7 @@ create table if not exists Prodotti (
     Collezione varchar(50) default null,
     urlImmagine varchar(50) null,
 
-    foreign key (Squadra) references Squadre(Nome),
+    foreign key (Squadra) references Squadre(Nome) on delete cascade,
 
     constraint checkProdotti
     check (Tipologia = "Maglia" or Squadra is null)
@@ -45,8 +45,8 @@ create table if not exists ProdottiTaglie (
                                               Prodotto int, Taglia varchar(5),
     Quantita int,
     primary key (Prodotto, Taglia),
-    foreign key (Prodotto) references Prodotti(ID_Prodotto),
-    foreign key (Taglia) references Taglie(Taglia)
+    foreign key (Prodotto) references Prodotti(ID_Prodotto) on delete cascade,
+    foreign key (Taglia) references Taglie(Taglia) on delete cascade
     );
 
 -- poi vediamo come generare il codice dell'ordine
@@ -55,8 +55,8 @@ create table if not exists Ordini (
                                       Prodotto int, Taglia varchar(5), Quantita int,
     Prezzo decimal(10, 2) default 0, -- ridondante, calcolato da un trigger
     primary key(ID_Ordine, Utente, Prodotto, Taglia),
-    foreign key (Utente) references Utenti(ID_Utente),
-    foreign key (Prodotto, Taglia) references ProdottiTaglie(Prodotto, Taglia)
+    foreign key (Utente) references Utenti(ID_Utente) on delete cascade,
+    foreign key (Prodotto, Taglia) references ProdottiTaglie(Prodotto, Taglia) on delete cascade
     );
 
 -- prima di inserire una tupla in prodottiTaglie,
