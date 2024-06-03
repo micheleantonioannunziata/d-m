@@ -26,7 +26,7 @@ create table if not exists Prodotti (
     Squadra varchar(50) default null,
     Produttore varchar(50) default null,
     Collezione varchar(50) default null,
-    urlImmagine varchar(50) not null,
+    urlImmagine varchar(50) null,
 
     foreign key (Squadra) references Squadre(Nome),
 

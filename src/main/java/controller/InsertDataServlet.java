@@ -21,6 +21,7 @@ public class InsertDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tabella = req.getParameter("tabella");
         List<String> paramNames = Collections.list(req.getParameterNames());
+        Helper helper = new Helper();
 
         switch (tabella.toLowerCase()) {
             case "prodotti" -> {
@@ -107,7 +108,8 @@ public class InsertDataServlet extends HttpServlet {
                 u.setEmail(req.getParameter(paramNames.get(2)));
                 u.setPassword(req.getParameter(paramNames.get(3)));
 
-                u.setAdmin(req.getParameter(paramNames.get(4)).equalsIgnoreCase("on"));
+                if(req.getParameter("isAdmin") != null) //se admin è stato selezionato
+                    u.setAdmin(req.getParameter("isAdmin").equalsIgnoreCase("on"));
 
                 utenteDAO.doSave(u);
             }

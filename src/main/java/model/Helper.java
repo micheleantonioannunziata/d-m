@@ -3,6 +3,7 @@ package model;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Helper {
@@ -37,5 +38,11 @@ public class Helper {
         }
 
         return columnTypes;
+    }
+
+    public int lengthColumn(String tabella){
+        Map<String,String> columnTypes = new LinkedHashMap<>();
+        columnTypes = doRetrieveColumnDataType(tabella);
+        return columnTypes.size()-1;
     }
 }
