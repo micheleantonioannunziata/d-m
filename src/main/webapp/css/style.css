@@ -246,6 +246,7 @@ body{overflow-x: hidden; transition: 0.8s}
     margin: 10px auto;
     font-weight: 600;
     color: #d02e2e;
+    /* display: none; con ajax */
 }
 
 #loginSection.poster .poster__content form .input img#eyePassword,

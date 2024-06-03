@@ -82,7 +82,7 @@
                                     <input type="number" step="0.01" name= "<%= columnName %>" placeholder="<%= columnName %>" required> <!-- step = precisione decim -->
                             <% break; }
                             case "tinyint" : { %>
-                                    <input type="checkbox" name="<%= columnName %>" placeholder="<%= columnName %>" />
+                                <input id = "checkbox" type="checkbox" name="<%= columnName %>" placeholder="<%= columnName %>" />
                             <% break; }
                             case "int" : { %>
                                     <input type="number" step="1" name= "<%= columnName %>" placeholder="<%= columnName %>" required>

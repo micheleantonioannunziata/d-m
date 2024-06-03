@@ -28,6 +28,22 @@ public class UtenteDAO{
         }
     }
 
+    // funzione che restituisce true o false in base all'esistenza dell'username
+    public boolean existsByUsername(String username) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("select * from utenti where username = ?");
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            // restituisce true se il risultato della query dà almeno una riga
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(

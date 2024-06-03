@@ -11,9 +11,39 @@ import model.Ordine;
 import model.OrdineDAO;
 import model.Utente;
 import model.UtenteDAO;
+import org.json.simple.JSONObject;
 
 @WebServlet(name = "loginServlet", value = "/login-servlet")
 public class LoginServlet extends HttpServlet {
+
+    /*  doGet non ajax
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        UtenteDAO service = new UtenteDAO();
+        String errorMessage = "";
+        JSONObject object = new JSONObject();
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        boolean exists = service.existsByUsername(username);
+
+
+        if (!exists)    errorMessage = "no user";
+        else {
+            Utente utente = service.doRetrieveByUsernamePassword(username, password);
+
+            if (utente == null) errorMessage = "wrong password";
+            else    request.getSession().setAttribute("utente", utente);
+        }
+
+
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        object.put("errorMessage", errorMessage);
+
+        out.println(object);
+        out.flush();
+    } */
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UtenteDAO service = new UtenteDAO();
@@ -21,25 +51,29 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Utente utente = service.doRetrieveByUsernamePassword(username, password);
+        boolean exists = service.existsByUsername(username);
 
-        if (utente == null) {
-            request.setAttribute("error", "credenziali sbagliate");
+        if (!exists) {
+            request.setAttribute("error", "no user");
             address = "login.jsp";
         }
         else {
-            OrdineDAO ordineService = new OrdineDAO();
-            List<Ordine> ordiniUtente = ordineService.doRetrieveByUser(utente.getId());
-
-            // aggiungi bean
-            request.getSession().setAttribute("utente", utente);
-            request.getSession().setAttribute("ordiniUtente", ordiniUtente);
-            address = "userArea.jsp";
+            Utente utente = service.doRetrieveByUsernamePassword(username, password);
+            if (utente == null) {
+                request.setAttribute("error", "password wrong");
+                address = "login.jsp";
+            }
+            else {
+                // aggiungi bean
+                request.getSession().setAttribute("utente", utente);
+                address = "userArea.jsp";
+            }
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
+
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
