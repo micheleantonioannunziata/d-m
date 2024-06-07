@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <style>
+        .active {background: #70F495;}
+        button[disabled] { cursor: not-allowed}
+    </style>
     <% Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");
         List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");%>
 
@@ -22,26 +27,45 @@
             <h3 class="normal-text"> <%= prodotto.getNome() %></h3>
 
             <h2 class="mid-text"> € <%= prodotto.getPrezzo()%></h2>
-            <ul>
             <% for (Taglia taglia: taglie) {
                 if (taglia.getTipologia().equalsIgnoreCase(prodotto.getTipologia())) {
                     %>
-                    <li>
+                    <button style="padding: 10px 15px" type="button" <% if (!prodotto.getTaglieQuantita().containsKey(taglia.getTaglia())) { %>
+                                disabled
+                            <% } else { %>
+                                onclick="activeButton(this, <%= prodotto.getTaglieQuantita().get(taglia.getTaglia())%>)"
+                            <% } %>
+                    >
                         <%= taglia.getTaglia() %>
-                        <% if (prodotto.getTaglieQuantita().containsKey(taglia.getTaglia())) {%>
-                            disponibile, quantità: <%= prodotto.getTaglieQuantita().get(taglia.getTaglia())%>
-                        <% }%>
-                    </li>
+                    </button>
                 <% }
             }%>
-            </ul>
             <form action="addToCart-servlet" method="post">
                 <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
+                <input id="tagliaInput" type="hidden" name="taglia" value="">
+                <input id="quantitaInput" type="hidden" name="quantita">
                 <button class="small-text" type="submit">Add to cart</button>
             </form>
         </div>
     </div>
-<script type="text/javascript" src="js/imageZoomEffect.js">
-</script>
+    <script type="text/javascript" src="js/imageZoomEffect.js"></script>
+
+    <script type="text/javascript">
+        function activeButton(arg, quantitaMax) {
+            let buttons = document.querySelectorAll(".poster__content > button");
+
+            buttons.forEach(button => button.classList.remove("active"));
+
+            arg.classList.toggle("active");
+            const tagliaInput = document.getElementById('tagliaInput');
+            tagliaInput.value = arg.innerHTML;
+
+            const quantitaInput = document.getElementById('quantitaInput');
+            quantitaInput.type = "number";
+
+            quantitaInput.min = 0;
+            quantitaInput.max = quantitaMax
+        }
+    </script>
 </body>
 </html>

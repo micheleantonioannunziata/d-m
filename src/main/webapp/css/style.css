@@ -123,7 +123,7 @@ body{overflow-x: hidden; transition: 0.8s}
     font-size: 15px;
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     #fanZoneSection.poster, #loginSection.poster{flex-wrap: wrap;}
     #fanZoneSection .poster__img, #fanZoneSection .poster__content,
     #loginSection .poster__img, #loginSection .poster__content {width: 100%;}
@@ -146,7 +146,7 @@ body{overflow-x: hidden; transition: 0.8s}
 /* hamburger menu */
 .hamburger{display: none;}
 
-@media (max-width: 768px) { /* su schermi tra 0 e 768px */
+@media only screen and (max-width: 768px) { /* su schermi tra 0 e 768px */
 
     .menuBar{
         position: absolute;
@@ -256,12 +256,12 @@ body{overflow-x: hidden; transition: 0.8s}
     width: 30px;
 }
 
-@media (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     #loginSection.poster .poster__img{position: relative;}
     #loginSection.poster .poster__img img{position: absolute; bottom: 0;}
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     #loginSection.poster{flex-wrap: wrap;}
     #loginSection.poster .poster__content {width: 100%; padding-top: 0;}
     #loginSection.poster .poster__img{width: 0;}
@@ -317,7 +317,7 @@ body{overflow-x: hidden; transition: 0.8s}
 
 .card form button img{height: 20px}
 
-@media (max-width: 500px) {
+@media only screen and (max-width: 500px) {
     .card{
         width: 100%;
         margin-bottom: 20px;
@@ -328,7 +328,7 @@ body{overflow-x: hidden; transition: 0.8s}
 #overviewSection.poster{overflow: hidden;}
 #overviewSection.poster .poster__content{position: relative; margin-right: 3%; height: 70vh;padding-left: 0;}
 #overviewSection.poster .poster__content h2{position: absolute; bottom: 0;}
-#overviewSection.poster .poster__content button{width: 60%;
+#overviewSection.poster .poster__content form button{width: 60%;
     position: absolute;
     right: 0;
     bottom: 0;

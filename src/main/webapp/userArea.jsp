@@ -42,6 +42,8 @@
 
         <% }
     }%>
-
+    <form action = "logOut-servlet" method="post">
+        <input type="submit" value="Log out">
+    </form>
 </body>
 </html>
