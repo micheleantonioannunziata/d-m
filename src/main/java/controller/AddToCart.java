@@ -19,17 +19,13 @@ import java.util.Map;
 public class AddToCart extends HttpServlet {
 
     // bisogna rivedere sta cosa che non funzione, adesso però è tardi non ce la faccio più
-    boolean isProductAlreadyInCart(List<Prodotto> carrello, Prodotto p){
-        if (carrello.isEmpty()) return false;
-        for (Prodotto prodotto: carrello) {
-            Map<String, Integer> taglieQuantitaCarrProd = prodotto.getTaglieQuantita();
-            Map<String, Integer> taglieQuantitaP = p.getTaglieQuantita();
-            Map.Entry<String, Integer> firstEntryCarrProd = taglieQuantitaCarrProd.entrySet().iterator().next();
-            Map.Entry<String, Integer> firstEntryP = taglieQuantitaP.entrySet().iterator().next();
-            if (prodotto.getId() == p.getId() && firstEntryP.equals(firstEntryCarrProd))
-                return true;
-        }
-        return false;
+    Prodotto isProductAlreadyInCart(List<Prodotto> carrello, int id){
+        if (carrello.isEmpty())     return null;
+
+        for (Prodotto prodotto: carrello)
+            if (prodotto.getId() == id)      return prodotto;
+
+        return null;
     }
 
     @Override
@@ -41,20 +37,28 @@ public class AddToCart extends HttpServlet {
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         int id = Integer.parseInt(req.getParameter("idProdotto"));
-        Prodotto p = prodottoDAO.doRetrieveById(id);
+        Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(id);
 
         String taglia = req.getParameter("taglia");
         int quantita = Integer.parseInt(req.getParameter("quantita"));
 
         // se viene passato una taglia non valida dobbiamo capire come gestire gli errori
-        Map<String, Integer> tagliaQuantita = new HashMap<>();
-        tagliaQuantita.put(taglia, quantita);
-        p.setTaglieQuantita(tagliaQuantita);
 
-        if (!isProductAlreadyInCart(carrello, p)) {
-            System.out.println(!isProductAlreadyInCart(carrello, p));
-            carrello.add(p);
+        Map<String, Integer> tagliaQuantita = new HashMap<>();
+        Prodotto prod = isProductAlreadyInCart(carrello, id);
+
+        // se già sta nel carrello, considera la sua map
+        if (prod != null) {
+            carrello.remove(prod);
+            tagliaQuantita = prod.getTaglieQuantita();
         }
+
+        // aggiungi entry - se già esiste quella taglia la modifica da solo
+        tagliaQuantita.put(taglia, quantita);
+
+        // aggiungi al carrello
+        p.setTaglieQuantita(tagliaQuantita);
+        carrello.add(p);
 
         req.getSession().setAttribute("carrello", carrello);
 

@@ -33,7 +33,7 @@
                     <button style="padding: 10px 15px" type="button" <% if (!prodotto.getTaglieQuantita().containsKey(taglia.getTaglia())) { %>
                                 disabled
                             <% } else { %>
-                                onclick="activeButton(this, <%= prodotto.getTaglieQuantita().get(taglia.getTaglia())%>)"
+                                onclick="activeButton(this, <%= prodotto.getTaglieQuantita().get(taglia.getTaglia())%>)" required
                             <% } %>
                     >
                         <%= taglia.getTaglia() %>
@@ -63,8 +63,9 @@
             const quantitaInput = document.getElementById('quantitaInput');
             quantitaInput.type = "number";
 
-            quantitaInput.min = 0;
+            quantitaInput.min = 1;
             quantitaInput.max = quantitaMax
+            quantitaInput.required = true
         }
     </script>
 </body>

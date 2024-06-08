@@ -221,4 +221,3 @@ insert into Carrello values (1, 2, "L", 19);
 
 
 
-

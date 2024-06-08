@@ -15,16 +15,14 @@
 
     <ul>
         <% if (carrello != null) {
-            for (Prodotto prodotto: carrello) {
-                Map<String, Integer> tagliaQuantita = prodotto.getTaglieQuantita();
-                Map.Entry<String, Integer> firstEntry = tagliaQuantita.entrySet().iterator().next();
-                int quantita = firstEntry.getValue();
-                String taglia = firstEntry.getKey();
-
-                prezzoTotale += prodotto.getPrezzo() * quantita; %>
-                <li> <%= prodotto.getNome() %>, <%= prodotto.getPrezzo() %>,
-                    <%= taglia %>, <%= quantita %>
-                      </li>
+            for (Prodotto prodotto: carrello) { %>
+                <li>
+                    <%= prodotto.getNome() %>, <%= prodotto.getPrezzo() %>
+                    <% for (Map.Entry<String, Integer> entry : prodotto.getTaglieQuantita().entrySet()) {
+                        prezzoTotale += prodotto.getPrezzo() * entry.getValue(); %>
+                        - <%= entry.getKey() %>, <%= entry.getValue() %>
+                    <% } %>
+                </li>
             <% }
         } %>
 

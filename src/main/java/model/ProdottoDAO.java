@@ -29,6 +29,12 @@ public class ProdottoDAO {
     }
 
     public Prodotto doRetrieveById(int id) {
+        Prodotto p = doRetrieveByIdWithoutMap(id);
+        p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
+        return p;
+    }
+
+    public Prodotto doRetrieveByIdWithoutMap(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
                     con.prepareStatement("select * from\n" +
@@ -45,7 +51,6 @@ public class ProdottoDAO {
                 p.setProduttore(rs.getString(6));
                 p.setCollezione(rs.getString(7));
                 p.setUrlImmagine(rs.getString(8));
-                p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
                 return p;
             }
             return null;
