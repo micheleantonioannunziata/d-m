@@ -11,16 +11,21 @@ import model.ProdottoDAO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "AddToCart", value = "/addToCart-servlet")
 public class AddToCart extends HttpServlet {
 
-    boolean productAlreadyInCart(List<Prodotto> carrello, Prodotto p){
+    // bisogna rivedere sta cosa che non funzione, adesso però è tardi non ce la faccio più
+    Prodotto isProductAlreadyInCart(List<Prodotto> carrello, int id){
+        if (carrello.isEmpty())     return null;
+
         for (Prodotto prodotto: carrello)
-            if (prodotto.getId() == p.getId())
-                return true;
-        return false;
+            if (prodotto.getId() == id)      return prodotto;
+
+        return null;
     }
 
     @Override
@@ -32,10 +37,28 @@ public class AddToCart extends HttpServlet {
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         int id = Integer.parseInt(req.getParameter("idProdotto"));
-        Prodotto p = prodottoDAO.doRetrieveById(id);
+        Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(id);
 
-        if (!productAlreadyInCart(carrello, p))
-            carrello.add(p);
+        String taglia = req.getParameter("taglia");
+        int quantita = Integer.parseInt(req.getParameter("quantita"));
+
+        // se viene passato una taglia non valida dobbiamo capire come gestire gli errori
+
+        Map<String, Integer> tagliaQuantita = new HashMap<>();
+        Prodotto prod = isProductAlreadyInCart(carrello, id);
+
+        // se già sta nel carrello, considera la sua map
+        if (prod != null) {
+            carrello.remove(prod);
+            tagliaQuantita = prod.getTaglieQuantita();
+        }
+
+        // aggiungi entry - se già esiste quella taglia la modifica da solo
+        tagliaQuantita.put(taglia, quantita);
+
+        // aggiungi al carrello
+        p.setTaglieQuantita(tagliaQuantita);
+        carrello.add(p);
 
         req.getSession().setAttribute("carrello", carrello);
 

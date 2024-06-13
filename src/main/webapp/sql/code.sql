@@ -59,6 +59,13 @@ create table if not exists Ordini (
     foreign key (Prodotto, Taglia) references ProdottiTaglie(Prodotto, Taglia) on delete cascade
     );
 
+create table if not exists Carrello(
+                                       Utente int, Prodotto int, Taglia varchar(5), Quantita int,
+    primary key(Utente, Prodotto, Taglia),
+    foreign key(Utente) references Utenti(ID_Utente) on delete cascade,
+    foreign key (Prodotto, Taglia) references ProdottiTaglie(Prodotto, Taglia) on delete cascade
+    );
+
 -- prima di inserire una tupla in prodottiTaglie,
 -- controlla che la tipologia di prodotto sia uguale
 -- a quella della taglia
@@ -125,7 +132,7 @@ end;
 -- prima di inserire una tupla in ordini
 -- controlla che la quantità ordinata sia minore o uguale
 -- alla quantità disponibile del prodotto con quella taglia
-create trigger checkQuantita before insert on Ordini
+create trigger checkQuantitaOrdini before insert on Ordini
     for each row
 begin
     declare disponibile int;
@@ -138,6 +145,22 @@ begin
     if new.Quantita > disponibile then
        	signal sqlstate '45000'
         set message_text = 'La quantità ordinata è maggiore della quantità disponibile';
+end if;
+end;
+
+create trigger checkQuantitaCarrello before insert on Carrello
+    for each row
+begin
+    declare disponibile int;
+
+    -- cattura quantità
+    select Quantita into disponibile from ProdottiTaglie
+    where Prodotto = new.Prodotto and Taglia = new.Taglia;
+
+    -- verifica
+    if new.Quantita > disponibile then
+       	signal sqlstate '45000'
+        set message_text = 'La quantità inserita nel carrello è maggiore della quantità disponibile';
 end if;
 end;
 
@@ -184,10 +207,17 @@ insert into Prodotti values
                          (2, "Maglia Napoli Home 23/24", 89.99, "Maglia", "Napoli", "Emporio Armani", "Serie A 23/24", "img/prod/2.png");
 
 insert into Taglie(Taglia, Tipologia) values
-                                          ("L", "Maglia"), ("5", "Pallone");
+                                          ("L", "Maglia"), ("5", "Pallone"), ("M", "Maglia"), ("XL", "Maglia");
 
 insert into ProdottiTaglie values
-                               (1, "L", 100), (2, "L", 20);
+                               (1, "L", 100), (1, "M", 30), (2, "L", 20);
 
 insert into Ordini(ID_Ordine, Utente, Prodotto, Taglia, Quantita) values
                                                                       (1, 1, 1, "L", 2), (1, 1, 2, "L", 1);
+
+
+insert into Carrello values (1, 2, "L", 19);
+
+
+
+
