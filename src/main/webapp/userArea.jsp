@@ -38,7 +38,6 @@ Order History: <br>
     for (Ordine ordine: ordiniUtente) {
         Prodotto p = prodottoDAO.doRetrieveById(ordine.getIdProdotto());%>
 
-<<<<<<< HEAD
 <li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
 
 <% }
@@ -46,14 +45,5 @@ Order History: <br>
 <form action = "logOut-servlet" method="post">
     <input type="submit" value="Log out">
 </form>
-=======
-                <li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
-
-        <% }
-    }%>
-    <form action = "logOut-servlet" method="post">
-        <input type="submit" value="Log out">
-    </form>
->>>>>>> 63e3fcba39bec8913bc2a848f84930f0b10e9870
 </body>
 </html>

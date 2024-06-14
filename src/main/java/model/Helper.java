@@ -39,10 +39,4 @@ public class Helper {
 
         return columnTypes;
     }
-
-    public int lengthColumn(String tabella){
-        Map<String,String> columnTypes = new LinkedHashMap<>();
-        columnTypes = doRetrieveColumnDataType(tabella);
-        return columnTypes.size()-1;
-    }
 }
