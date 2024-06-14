@@ -21,11 +21,14 @@ public class LogOutServlet extends HttpServlet {
 
         Utente u = (Utente) request.getSession().getAttribute("utente");
 
+        //utente si disconnette
         request.getSession().removeAttribute("utente");
+        request.getSession().removeAttribute("carrello");
 
         List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
 
-        if (!carrello.isEmpty()) {
+        //se ha aggiunto qualcosa nel carrello
+        if (carrello != null && !carrello.isEmpty()) {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
             // elimina ciò che stava prima di questo utente
