@@ -37,20 +37,20 @@ public class CarrelloDAO {
         }
     }
 
-    public List<Carrello> doRetrieveById(int id){
+    public List<Carrello> doRetrieveByUtente(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("select * from carrello\n " +
-                            "where prodotto = ?");
+                    con.prepareStatement("select prodotto, taglia, quantita from carrello\n " +
+                            "where utente = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             List<Carrello> carrelloList = new ArrayList<>();
             while (rs.next()) {
                 Carrello c = new Carrello();
-                c.setIdUtente(rs.getInt(1));
-                c.setIdProdotto(rs.getInt(2));
-                c.setTaglia(rs.getString(3));
-                c.setQuantita(rs.getInt(4));
+                c.setIdUtente(id);
+                c.setIdProdotto(rs.getInt(1));
+                c.setTaglia(rs.getString(2));
+                c.setQuantita(rs.getInt(3));
                 carrelloList.add(c);
             }
             return carrelloList;

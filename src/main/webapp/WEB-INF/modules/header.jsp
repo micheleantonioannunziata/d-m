@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.Prodotto" %>
+<%@ page import="java.util.Map" %>
 <script src="js/hamburger.js"></script>
 <div class="header">
     <div class="logo mid-text">
@@ -24,7 +27,19 @@
         %>
 
         <a href="<%= ref %>"><img src="img/user.svg" alt="" class="mr-20"></a>
-        <a href="myCart.jsp"><img src="img/shopping-cart.svg" alt=""></a>
+        <a href="myCart.jsp" style="position: relative">
+            <img src="img/shopping-cart.svg" alt="">
+            <% List<Prodotto> cart = (List<Prodotto>) request.getSession().getAttribute("carrello");
+                if (cart != null && !cart.isEmpty()) {
+                    int count = 0;
+
+                    // conta numero di prodotti
+                    for (Prodotto p: cart)
+                            count += p.getTaglieQuantita().size();
+            %>
+                    <span><%=count%></span>
+            <% } %>
+        </a>
     </div>
 
     <div class="hamburger">

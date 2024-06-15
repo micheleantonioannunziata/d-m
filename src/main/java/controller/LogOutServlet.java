@@ -21,13 +21,13 @@ public class LogOutServlet extends HttpServlet {
 
         Utente u = (Utente) request.getSession().getAttribute("utente");
 
-        //utente si disconnette
+        // utente si disconnette
         request.getSession().removeAttribute("utente");
-        request.getSession().removeAttribute("carrello");
 
         List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
+        request.getSession().removeAttribute("carrello");
 
-        //se ha aggiunto qualcosa nel carrello
+        // se ha aggiunto qualcosa nel carrello
         if (carrello != null && !carrello.isEmpty()) {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
@@ -43,8 +43,6 @@ public class LogOutServlet extends HttpServlet {
                     c.setIdProdotto(p.getId());
                     c.setTaglia(entry.getKey()); // taglia - chiave
                     c.setQuantita(entry.getValue()); // quantità - valore
-
-                    System.out.println("taglia: " + entry.getKey() + "quantità: " + entry.getValue());
 
                     carrelloDAO.doSave(c);
                 }

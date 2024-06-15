@@ -21,6 +21,8 @@ body{overflow-x: hidden; transition: 0.8s}
 
 /* header */
 .header {
+    top: 0;
+    left: 0;
     background-color: var(--color-secondary);
     width: 100%;
     height: 15vh;
@@ -38,8 +40,8 @@ body{overflow-x: hidden; transition: 0.8s}
 .header ul.menuBar {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    min-width: 50%;
+    justify-content: space-between;
+    min-width: 40%;
     list-style: none;
     transition: all 1s cubic-bezier(.215, .61, .355, 1)
 }
@@ -52,6 +54,19 @@ body{overflow-x: hidden; transition: 0.8s}
 .header .icons {
     display: flex;
     justify-content: space-between;
+}
+
+.header .icons a span {
+    position: absolute;
+    font-size: 18px;
+    font-weight: 300;
+    top: -15px;
+    left: 20px;
+    background: #70f495;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    border-radius: 50%;
 }
 
 .header .icons img { width: 25px; }
@@ -76,7 +91,8 @@ body{overflow-x: hidden; transition: 0.8s}
 /* hero */
 #hero {
     position: relative;
-    height: 100vh;
+    margin-top: 15vh;
+    height: 85vh;
     background-color: var(--color-secondary);
     display: flex;
     align-items: center;
@@ -87,10 +103,10 @@ body{overflow-x: hidden; transition: 0.8s}
 
 /* centra immagine */
 #hero img {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 85%;
+    max-height: 85%;
     position: absolute;
-    top: 55%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -270,7 +286,7 @@ body{overflow-x: hidden; transition: 0.8s}
 
 /* gridItemByFilter */
 
-.filters{padding-top: 15vh}
+.filters{margin-top: 15vh}
 
 .grid-container {
     width: 100%;

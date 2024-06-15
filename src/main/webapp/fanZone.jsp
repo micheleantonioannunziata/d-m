@@ -14,7 +14,7 @@
 
     <% List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre"); %>
 
-    <div class="grid-container" style="padding-top: 15vh" id="fanZone">
+    <div class="grid-container" style="margin-top: 15vh" id="fanZone">
         <% for (Squadra squadra: squadre) {
          %>
             <div class="card scale-in-center" data-squadra = "<%= squadra.getNome() %>" onclick = "redirectFilter(this)">

@@ -4,7 +4,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cart</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <%
@@ -12,7 +15,9 @@
     double prezzoTotale = 0.;
 %>
 
-<ul>
+<%@ include file="WEB-INF/modules/header.jsp" %>
+
+<ul style="margin-top: 15vh">
     <% if (carrello != null) {
         for (Prodotto prodotto: carrello) { %>
     <li>

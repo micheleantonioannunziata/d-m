@@ -13,7 +13,7 @@ import jakarta.servlet.annotation.*;
 import model.*;
 import org.json.simple.JSONObject;
 
-@WebServlet(name = "loginServlet", value = "/login-servlet")
+@WebServlet("/login-servlet")
 public class LoginServlet extends HttpServlet {
 
     /*  doGet non ajax
@@ -45,15 +45,9 @@ public class LoginServlet extends HttpServlet {
         out.flush();
     } */
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UtenteDAO service = new UtenteDAO();
         String address = "";
-
-        CarrelloDAO carrelloDAO = new CarrelloDAO();
-        ProdottoDAO prodottoDAO = new ProdottoDAO();
-
-        List<Prodotto> prodottiCarrello = new ArrayList<>();
-        List<Carrello> carrelloList = new ArrayList<>();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -71,44 +65,39 @@ public class LoginServlet extends HttpServlet {
             }
             else {
                 // aggiungi bean
-
-                //prendo tutti i possibili prodotti che l'utente da non loggato ha inserito nel carrello
-                List<Prodotto> prodottiNonLoggato = (List<Prodotto>) request.getSession().getAttribute("carrello");
                 request.getSession().setAttribute("utente", utente);
                 address = "userArea.jsp";
 
-                //prendo tutto il carrello dal database dell'utente loggato
-                carrelloList = carrelloDAO.doRetrieveById(utente.getId());
+                CarrelloDAO carrelloDAO = new CarrelloDAO();
 
-                //prendo tutte le info dei prodotti che ci sono nel carrello e li inserisco in una lista di prodotti
-                for(int i=0; i < carrelloList.size(); i++){
-                    Carrello carrello = carrelloList.get(i);
-                    Map<String, Integer> tagliaQuantita = new HashMap<>();
-                    tagliaQuantita.put(carrello.getTaglia(),carrello.getQuantita());
-                    prodottiCarrello.add(prodottoDAO.doRetrieveByIdWithoutMap(carrello.getIdProdotto()));
-                    Prodotto prodotto = prodottiCarrello.get(i);
-                    prodotto.setTaglieQuantita(tagliaQuantita);
+                // considera carrello attuale
+                List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
+
+                // considera carrello nel db
+                List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId());
+
+                if (carrello == null)   carrello = new ArrayList<>();
+
+                // se il carrello attuale è vuoto, carica ciò che sta nel db (se esiste)
+                if (carrello.isEmpty() && !carrelloDB.isEmpty()) {
+
+                    // richiama funziona di CartHandler
+                    CartHandlerServlet.loadOldCart(carrelloDB, carrello);
+
+                    request.getSession().setAttribute("carrello", carrello);
                 }
 
-                //se l'utente da non loggato ha inserito qualcosa nel carrello allora questi prodotti vanno inseriti
-                if(prodottiNonLoggato != null && !prodottiNonLoggato.isEmpty()){
-                    prodottiCarrello.addAll(prodottiNonLoggato);
-                }
+                // se entrambi sono non vuoti
+                else if (!carrello.isEmpty() && !carrelloDB.isEmpty()){
 
-                //se il carrello di quest'utente non è vuoto allora inserisco il carrello nella sessione
-                if(prodottiCarrello != null && !prodottiCarrello.isEmpty()){
-                    request.getSession().setAttribute("carrello",prodottiCarrello);
+                    // fai scegliere all'utente quale carrello considerare
+                    request.setAttribute("loadCart", "choose");
                 }
             }
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
-    }
-
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doGet(request, response);
     }
 
     public void destroy() {
