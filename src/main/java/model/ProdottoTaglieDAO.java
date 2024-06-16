@@ -30,6 +30,29 @@ public class ProdottoTaglieDAO{
         }
     }
 
+    public ProdottoTaglie doRetrieveByPrimaryKey(int idProdotto, String taglia) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("select * from\n" +
+                            "prodottitaglie where prodotto = ? and taglia = ?");
+            ps.setInt(1, idProdotto);
+            ps.setString(2, taglia);
+
+            ResultSet rs = ps.executeQuery();
+            ProdottoTaglie p = null;
+
+            if (rs.next()) {
+                p = new ProdottoTaglie();
+                p.setIdProdotto(rs.getInt(1));
+                p.setTaglia(rs.getString(2));
+                p.setQuantita(rs.getInt(3));
+            }
+            return p;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void doDelete(int idProdotto,String taglia){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -43,12 +66,33 @@ public class ProdottoTaglieDAO{
         }
     }
 
+    public void doUpdate(ProdottoTaglie prodottoTaglie, int prodotto, String taglia) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE prodottitaglie SET prodotto=?, taglia=?, quantita=?" +
+                            "WHERE prodotto=? and taglia=?");
+
+            ps.setInt(1, prodottoTaglie.getProdotto());
+            ps.setString(2, prodottoTaglie.getTaglia());
+            ps.setInt(3, prodottoTaglie.getQuantita());
+            ps.setInt(4, prodotto);
+            ps.setString(5, taglia);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void doSave(ProdottoTaglie prodottoTaglie) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "insert into prodottitaglie (prodotto, taglia, quantita) " +
                             "values (?, ?, ?)");
-            ps.setInt(1, prodottoTaglie.getIdProdotto());
+            ps.setInt(1, prodottoTaglie.getProdotto());
             ps.setString(2, prodottoTaglie.getTaglia());
             ps.setInt(3, prodottoTaglie.getQuantita());
 

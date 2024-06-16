@@ -22,7 +22,7 @@ public class ProdottoDAO {
             p.setUrlImmagine(rs.getString(8));
 
             // prendi tutte le taglie (e le quantità associate) del prodotto
-            p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
+            p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId_Prodotto()));
 
             list.add(p);
         }
@@ -30,7 +30,7 @@ public class ProdottoDAO {
 
     public Prodotto doRetrieveById(int id) {
         Prodotto p = doRetrieveByIdWithoutMap(id);
-        p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId()));
+        p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId_Prodotto()));
         return p;
     }
 
@@ -221,6 +221,28 @@ public class ProdottoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public void doUpdate(Prodotto prodotto, int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE prodotti SET nome=?, prezzo=?, tipologia=?, squadra=?, produttore=?, collezione=? WHERE id_prodotto=?");
+
+            ps.setString(1, prodotto.getNome());
+            ps.setDouble(2, prodotto.getPrezzo());
+            ps.setString(3, prodotto.getTipologia());
+            ps.setString(4, prodotto.getSquadra());
+            ps.setString(5, prodotto.getProduttore());
+            ps.setString(6, prodotto.getCollezione());
+            ps.setInt(7, id); // id da passare come parametro
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public int doDelete(int id) {
         try (Connection con = ConPool.getConnection()) {

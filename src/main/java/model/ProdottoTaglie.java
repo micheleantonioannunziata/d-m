@@ -4,7 +4,7 @@ public class ProdottoTaglie{
     int idProdotto, quantita;
     String taglia;
 
-    public int getIdProdotto() {
+    public int getProdotto() {
         return idProdotto;
     }
 

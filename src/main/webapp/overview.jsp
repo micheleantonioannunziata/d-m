@@ -39,7 +39,7 @@
         <% }
         }%>
         <form action="addToCart-servlet" method="post">
-            <input type="hidden" name="idProdotto" value="<%= prodotto.getId() %>">
+            <input type="hidden" name="idProdotto" value="<%= prodotto.getId_Prodotto() %>">
             <input id="tagliaInput" type="hidden" name="taglia" value="">
             <input id="quantitaInput" type="hidden" name="quantita">
             <button class="small-text" type="submit">Add to cart</button>

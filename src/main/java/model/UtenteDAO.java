@@ -28,6 +28,28 @@ public class UtenteDAO{
         }
     }
 
+    public Utente doRetrieveById(int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("select id_utente, username, email, passwordhash, isAdmin from\n" +
+                            "utenti where id_utente = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Utente u = new Utente();
+                u.setId(rs.getInt(1));
+                u.setUsername(rs.getString(2));
+                u.setEmail(rs.getString(3));
+                u.setPassword(rs.getString(4));
+                u.setAdmin(rs.getBoolean(5));
+                return u;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // funzione che restituisce true o false in base all'esistenza dell'username
     public boolean existsByUsername(String username) {
         try (Connection con = ConPool.getConnection()) {
@@ -51,7 +73,7 @@ public class UtenteDAO{
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, utente.getUsername());
             ps.setString(2, utente.getEmail());
-            ps.setString(3, utente.getPasswordHash());
+            ps.setString(3, utente.getPassword());
             ps.setBoolean(4, utente.isAdmin());
 
             if (ps.executeUpdate() != 1) {
@@ -62,6 +84,26 @@ public class UtenteDAO{
             int id = rs.getInt(1);
             utente.setId(id);
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdate(Utente utente, int id) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE taglie SET id_utente=?, username=?, email=?, passwordhash=?, isAdmin=? WHERE id_utente=?");
+
+            ps.setInt(1, utente.getId_Utente());
+            ps.setString(2, utente.getUsername());
+            ps.setString(3, utente.getEmail());
+            ps.setString(4, utente.getPassword());
+            ps.setBoolean(5, utente.isAdmin());
+            ps.setInt(6, id);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

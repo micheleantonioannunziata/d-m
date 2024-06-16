@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Admin Page</title>
 </head>
 <body>
 
@@ -23,6 +23,7 @@
         width: 60%;
         border-collapse: collapse;
         margin: 50px auto;
+        overflow-x: auto;
     }
 
     th, td {
@@ -41,7 +42,8 @@
         background-color: #f2f2f2;
     }
 
-    table tr th:last-child, table tbody tr td:last-child {
+    table tr th:last-child, table tbody tr td:last-child,
+    table tbody tr th:nth-last-child(2), table tr td:nth-last-child(2){
         background: white;
         border: none;
     }
@@ -72,6 +74,7 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% Map<String, String> columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeSquadre");
@@ -79,12 +82,22 @@
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
         <th></th>
+        <th></th>
     </tr>
 
     <% for(Squadra s : squadre){ %>
     <tr>
         <td><%= s.getNome() %></td>
         <td><%= s.getUrlImmagine()%></td>
+        <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="squadre" name="tabella">
+                <input type="hidden" value="<%=s.getNome()%>" name="idSquadra">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
         <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" value="squadre" name="tabella">
@@ -109,12 +122,14 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeTaglie");
             for (Map.Entry<String, String> entry : columnDataType.entrySet()) {%>
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
+        <th></th>
         <th></th>
     </tr>
 
@@ -123,6 +138,15 @@
         <td><%= t.getTaglia() %></td>
         <td><%= t.getTipologia() %></td>
         <td><%= t.getDescrizione() %></td>
+        <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="taglie" name="tabella">
+                <input type="hidden" value="<%=t.getTaglia()%>" name="idTaglia">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
         <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" value="taglie" name="tabella">
@@ -147,6 +171,7 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeProdotti");
@@ -154,11 +179,12 @@
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
         <th></th>
+        <th></th>
     </tr>
 
     <% for(Prodotto p : prodotti){ %>
     <tr>
-        <td><%= p.getId() %></td>
+        <td><%= p.getId_Prodotto() %></td>
         <td><%= p.getNome() %></td>
         <td><%= p.getPrezzo() %></td>
         <td><%= p.getTipologia() %></td>
@@ -167,9 +193,18 @@
         <td><%= p.getCollezione() %></td>
         <td><%= p.getUrlImmagine() %></td>
         <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="prodotti" name="tabella">
+                <input type="hidden" value="<%=p.getId_Prodotto()%>" name="idProdotto">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
+        <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" value="prodotti" name="tabella">
-                <input type="hidden" value="<%=p.getId()%>" name="idProdotto">
+                <input type="hidden" value="<%=p.getId_Prodotto()%>" name="idProdotto">
                 <button type="submit">
                     <img src="img/trash.svg" alt="">
                 </button>
@@ -191,6 +226,7 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeUtenti");
@@ -198,19 +234,29 @@
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
         <th></th>
+        <th></th>
     </tr>
 
     <% for(Utente u : utenti){ %>
     <tr>
-        <td><%= u.getId() %></td>
+        <td><%= u.getId_Utente() %></td>
         <td><%= u.getUsername() %></td>
         <td><%= u.getEmail() %></td>
-        <td><%= u.getPasswordHash() %></td>
+        <td><%= u.getPassword() %></td>
         <td><%= u.isAdmin() %></td>
+        <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="utenti" name="tabella">
+                <input type="hidden" value="<%=u.getId_Utente()%>" name="idUtente">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
         <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" name="tabella" value="utenti">
-                <input type="hidden" name="idUtente" value="<%=u.getId()%>">
+                <input type="hidden" name="idUtente" value="<%=u.getId_Utente()%>">
                 <button type="submit">
                     <img src="img/trash.svg" alt="">
                 </button>
@@ -232,6 +278,7 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeOrdini");;
@@ -239,22 +286,35 @@
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
         <th></th>
+        <th></th>
     </tr>
 
     <% for(Ordine o : ordini){ %>
     <tr>
-        <td><%= o.getIdOrdine() %></td>
-        <td><%= o.getIdUtente() %></td>
-        <td><%= o.getIdProdotto() %></td>
+        <td><%= o.getID_Ordine() %></td>
+        <td><%= o.getUtente() %></td>
+        <td><%= o.getProdotto() %></td>
         <td><%= o.getTaglia() %></td>
         <td><%= o.getQuantita() %></td>
         <td><%= o.getPrezzo() %></td>
         <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="ordini" name="tabella">
+                <input type="hidden" name="idOrdine" value="<%=o.getID_Ordine()%>">
+                <input type="hidden" name="idProdotto" value="<%=o.getProdotto()%>">
+                <input type="hidden" name="idUtente" value="<%=o.getUtente()%>">
+                <input type="hidden" name="taglia" value="<%=o.getTaglia()%>">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
+        <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" name="tabella" value="ordini">
-                <input type="hidden" name="idOrdine" value="<%=o.getIdOrdine()%>">
-                <input type="hidden" name="idProdotto" value="<%=o.getIdProdotto()%>">
-                <input type="hidden" name="idUtente" value="<%=o.getIdUtente()%>">
+                <input type="hidden" name="idOrdine" value="<%=o.getID_Ordine()%>">
+                <input type="hidden" name="idProdotto" value="<%=o.getProdotto()%>">
+                <input type="hidden" name="idUtente" value="<%=o.getUtente()%>">
                 <input type="hidden" name="taglia" value="<%=o.getTaglia()%>">
                 <button type="submit">
                     <img src="img/trash.svg" alt="">
@@ -277,6 +337,7 @@
                 </button>
             </form>
         </th>
+        <th></th>
     </tr>
     <tr>
         <% columnDataType = (Map<String, String>) request.getAttribute("columnDataTypeProdottiTaglie");
@@ -284,16 +345,27 @@
                 <th><%= entry.getKey() %> (<%= entry.getValue() %>)</th>
             <% } %>
         <th></th>
+        <th></th>
     </tr>
     <% for(ProdottoTaglie p  : prodottiTaglie){ %>
     <tr>
-        <td><%= p.getIdProdotto() %></td>
+        <td><%= p.getProdotto() %></td>
         <td><%= p.getTaglia() %></td>
         <td><%= p.getQuantita() %></td>
         <td>
+            <form action="update-servlet" method="post">
+                <input type="hidden" value="prodottitaglie" name="tabella">
+                <input type="hidden" name="idProdotto" value="<%=p.getProdotto()%>">
+                <input type="hidden" name="taglia" value="<%=p.getTaglia()%>">
+                <button type="submit">
+                    <img src="img/refresh-cw.svg" alt="">
+                </button>
+            </form>
+        </td>
+        <td>
             <form action="delete-servlet" method="post">
                 <input type="hidden" name="tabella" value="prodottitaglie">
-                <input type="hidden" name="idProdotto" value="<%=p.getIdProdotto()%>">
+                <input type="hidden" name="idProdotto" value="<%=p.getProdotto()%>">
                 <input type="hidden" name="taglia" value="<%=p.getTaglia()%>">
                 <button type="submit">
                     <img src="img/trash.svg" alt="">

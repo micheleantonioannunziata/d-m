@@ -67,9 +67,9 @@ public class OrdineDAO{
             PreparedStatement ps = con.prepareStatement(
                     "insert into ordini (id_ordine, utente, prodotto, taglia, quantita, prezzo) " +
                             "values (?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, ordine.getIdOrdine());
-            ps.setInt(2, ordine.getIdUtente());
-            ps.setInt(3, ordine.getIdProdotto());
+            ps.setInt(1, ordine.getID_Ordine());
+            ps.setInt(2, ordine.getUtente());
+            ps.setInt(3, ordine.getProdotto());
             ps.setString(4, ordine.getTaglia());
             ps.setInt(5, ordine.getQuantita());
             ps.setDouble(6, ordine.getPrezzo());
@@ -78,6 +78,31 @@ public class OrdineDAO{
                 throw new RuntimeException("INSERT error.");
             }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdate(Ordine ordine, int idOrdine, int utente, int prodotto, String taglia) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE ordini SET id_ordine=?, utente=?, prodotto=?, taglia=?, quantita=?," +
+                            "prezzo=? WHERE id_ordine=? and utente=? and prodotto=? and taglia=?");
+
+            ps.setInt(1, ordine.getID_Ordine());
+            ps.setInt(2, ordine.getUtente());
+            ps.setInt(3, ordine.getProdotto());
+            ps.setString(4, ordine.getTaglia());
+            ps.setInt(5, ordine.getQuantita());
+            ps.setDouble(6, ordine.getPrezzo());
+            ps.setInt(7, idOrdine);
+            ps.setInt(8, utente);
+            ps.setInt(9, prodotto);
+            ps.setString(10, taglia);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

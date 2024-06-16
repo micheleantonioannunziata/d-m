@@ -23,7 +23,7 @@ public class AddToCart extends HttpServlet {
         if (carrello.isEmpty())     return null;
 
         for (Prodotto prodotto: carrello)
-            if (prodotto.getId() == id)      return prodotto;
+            if (prodotto.getId_Prodotto() == id)      return prodotto;
 
         return null;
     }

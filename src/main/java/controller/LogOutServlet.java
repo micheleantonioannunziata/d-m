@@ -32,15 +32,15 @@ public class LogOutServlet extends HttpServlet {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
             // elimina ciò che stava prima di questo utente
-            carrelloDAO.doDeleteByUtente(u.getId());
+            carrelloDAO.doDeleteByUtente(u.getId_Utente());
 
             // aggiungi il nuovo carrello
             for (Prodotto p: carrello)
                 for (Map.Entry<String, Integer> entry: p.getTaglieQuantita().entrySet()) {
                     Carrello c = new Carrello();
 
-                    c.setIdUtente(u.getId());
-                    c.setIdProdotto(p.getId());
+                    c.setIdUtente(u.getId_Utente());
+                    c.setIdProdotto(p.getId_Prodotto());
                     c.setTaglia(entry.getKey()); // taglia - chiave
                     c.setQuantita(entry.getValue()); // quantità - valore
 

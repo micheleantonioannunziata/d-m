@@ -30,7 +30,7 @@
         background-color: white;
         border: 1px solid #ccc;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        z-index: 1000;
+        z-index: 10000;
         border-radius: 10px;
     }
     #popup-overlay {
@@ -41,7 +41,7 @@
         width: 100%;
         height: 100%;
         background: rgba(0,0,0,0.5);
-        z-index: 999;
+        z-index: 1001;
     }
 
     #popup > form {
@@ -97,7 +97,7 @@ utente amministratore
 Order History: <br>
 <%
     for (Ordine ordine: ordiniUtente) {
-        Prodotto p = prodottoDAO.doRetrieveById(ordine.getIdProdotto());%>
+        Prodotto p = prodottoDAO.doRetrieveById(ordine.getProdotto());%>
 
 <li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
 

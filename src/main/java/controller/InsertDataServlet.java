@@ -45,13 +45,13 @@ public class InsertDataServlet extends HttpServlet {
 
                 String filePath =
                         getServletContext().getRealPath("/" + directory)
-                                + p.getId() + "." + fileExtension;
+                                + p.getId_Prodotto() + "." + fileExtension;
 
                 filePart.write(filePath); // salva file
 
-                p.setUrlImmagine(directory + p.getId() + "." + fileExtension); // setta url
+                p.setUrlImmagine(directory + p.getId_Prodotto() + "." + fileExtension); // setta url
 
-                prodottoDAO.setUrlImmagineByid(p.getId(), p.getUrlImmagine()); // setta url nel db
+                prodottoDAO.setUrlImmagineByid(p.getId_Prodotto(), p.getUrlImmagine()); // setta url nel db
             }
             case "squadre" -> {
                 SquadraDAO squadraDAO = new SquadraDAO();

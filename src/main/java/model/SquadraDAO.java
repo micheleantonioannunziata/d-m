@@ -61,6 +61,23 @@ public class SquadraDAO {
         }
     }
 
+    public void doUpdate(Squadra squadra, String nome) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE squadre SET nome=?, urlImmagine=? WHERE nome=?");
+
+            ps.setString(1, squadra.getNome());
+            ps.setString(2, squadra.getUrlImmagine());
+            ps.setString(3, nome);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String doDelete(String nome){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =

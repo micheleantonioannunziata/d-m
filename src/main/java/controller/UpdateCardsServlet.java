@@ -33,7 +33,7 @@ public class UpdateCardsServlet extends HttpServlet {
 
         for (Prodotto prodotto : prodottiFiltrati) {
             JSONObject object = new JSONObject();
-            object.put("id", prodotto.getId());
+            object.put("id", prodotto.getId_Prodotto());
             object.put("nome", prodotto.getNome());
             object.put("prezzo", prodotto.getPrezzo());
             object.put("urlImmagine", prodotto.getUrlImmagine());

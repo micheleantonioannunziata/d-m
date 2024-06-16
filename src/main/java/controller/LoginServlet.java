@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                 List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
 
                 // considera carrello nel db
-                List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId());
+                List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId_Utente());
 
                 if (carrello == null)   carrello = new ArrayList<>();
 

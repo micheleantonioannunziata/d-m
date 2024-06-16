@@ -27,7 +27,7 @@ public class Utente {
         this.email = email;
     }
 
-    public String getPasswordHash() {
+    public String getPassword() {
         return passwordhash;
     }
 
@@ -45,7 +45,7 @@ public class Utente {
         }
     }
 
-    public int getId() {
+    public int getId_Utente() {
         return id;
     }
 

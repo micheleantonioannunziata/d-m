@@ -16,7 +16,7 @@ public class Ordine{
         this.taglia = taglia;
     }
 
-    public int getIdOrdine() {
+    public int getID_Ordine() {
         return idOrdine;
     }
 
@@ -24,7 +24,7 @@ public class Ordine{
         this.idOrdine = idOrdine;
     }
 
-    public int getIdUtente() {
+    public int getUtente() {
         return idUtente;
     }
 
@@ -32,7 +32,7 @@ public class Ordine{
         this.idUtente = idUtente;
     }
 
-    public int getIdProdotto() {
+    public int getProdotto() {
         return idProdotto;
     }
 

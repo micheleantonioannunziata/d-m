@@ -12,7 +12,7 @@ public class Prodotto {
     // sono associate delle quantità (Integer)
     Map<String, Integer> taglieQuantita = new HashMap<>();
 
-    public int getId() {
+    public int getId_Prodotto() {
         return id;
     }
 

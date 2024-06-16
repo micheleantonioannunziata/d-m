@@ -144,6 +144,7 @@ body{overflow-x: hidden; transition: 0.8s}
     #fanZoneSection .poster__img, #fanZoneSection .poster__content,
     #loginSection .poster__img, #loginSection .poster__content {width: 100%;}
     #fanZoneSection .poster__img img{height: 100%;}
+    #fanZoneSection.poster {margin-top: 15vh;}
 }
 
 
@@ -173,6 +174,8 @@ body{overflow-x: hidden; transition: 0.8s}
         flex-direction: column;
         width: 100%;
     }
+
+    .header ul.menuBar {justify-content: space-around;}
 
     .menuBar li{display: block;}
     .menuBar li a{padding: 15px 30px; font-size: 20px;}

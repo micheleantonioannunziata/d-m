@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>insertPage</title>
+    <title>Insert Page</title>
 </head>
 <body>
     <style>

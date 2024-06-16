@@ -25,7 +25,7 @@ public class CartHandlerServlet extends HttpServlet {
             Prodotto prodotto = carrello.get(i);
 
             // se il prodott da aggiungere è già presente
-            if (prodotto.getId() == p.getId()) {
+            if (prodotto.getId_Prodotto() == p.getId_Prodotto()) {
                 carrello.remove(i); // rimuovilo
 
                 // aggiorna map
@@ -72,7 +72,7 @@ public class CartHandlerServlet extends HttpServlet {
             List<Prodotto> carrello = new ArrayList<>();
 
             // considera carrello nel db
-            List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId());
+            List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId_Utente());
 
             // richiama funziona per caricare il vecchio carrello
             loadOldCart(carrelloDB, carrello);

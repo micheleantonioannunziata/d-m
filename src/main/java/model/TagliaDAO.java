@@ -26,6 +26,29 @@ public class TagliaDAO{
         }
     }
 
+    public Taglia doRetrieveTaglia(String taglia) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "select * from taglie " +
+                            " where taglia = ?");
+            ps.setString(1, taglia);
+
+            ResultSet rs = ps.executeQuery();
+            Taglia t = null;
+
+            if (rs.next()) {
+                t = new Taglia();
+                t.setTaglia(rs.getString(1));
+                t.setTipologia(rs.getString(2));
+                t.setDescrizione(rs.getString(3));
+            }
+
+            return t;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Taglia> doRetrieveByTipologia(String tipologia) {
         try (Connection con = ConPool.getConnection()) {
             List<Taglia> list = new ArrayList<>();
@@ -63,6 +86,24 @@ public class TagliaDAO{
                 throw new RuntimeException("INSERT error.");
             }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void doUpdate(Taglia taglia, String t) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE taglie SET taglia=?, tipologia=?, descrizione=? WHERE taglia=?");
+
+            ps.setString(1, taglia.getTaglia());
+            ps.setString(2, taglia.getTipologia());
+            ps.setString(3, taglia.getDescrizione());
+            ps.setString(4, t);
+
+            if (ps.executeUpdate() != 1) {
+                throw new RuntimeException("UPDATE error.");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
