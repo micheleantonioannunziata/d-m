@@ -25,7 +25,7 @@ public class UpdateDataServlet extends HttpServlet {
         List<String> newValues = new ArrayList<>(), oldValues = new ArrayList<>();
 
         for (String param: paramNames)
-            if (param.startsWith("old"))    oldValues.add(param);
+            if (param.startsWith("old"))    oldValues.add(param); //in old ci saranno le chiavi
             else newValues.add(param);
 
         switch (tabella.toLowerCase()) {

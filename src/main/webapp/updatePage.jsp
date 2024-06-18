@@ -50,13 +50,14 @@
     // restituisce solamente i getters
     Method[] getters(Method[] methods) {
         List<Method> gettersList = new ArrayList<>();
-        for (Method method : methods)
+        for (Method method : methods) //scorre tutti i metodi di quella classe
             if (isGetter(method))
                 gettersList.add(method);
 
-        return gettersList.toArray(new Method[0]);
+        return gettersList.toArray(new Method[0]); //restituisce array di oggetti di tipo Method
     }
 
+    //restituisce il metodo get corrispondente a quel name (valore)
     Method getterByName(Method[] methods, String name) {
         for (Method m: methods) {
             String getName = "get" + name;
@@ -81,10 +82,11 @@
 
 
 <%
-    Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi");
+    Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi"); //nome colonne + tipo colonna
     String nameTable = (String) request.getAttribute("tabella");
-    Object bean = request.getAttribute("bean");
-    Method[] getterMethods = getters(bean.getClass().getMethods());
+    Object bean = request.getAttribute("bean"); //tupla che si vuole aggiornare
+    Method[] getterMethods = getters(bean.getClass().getMethods()); //passa tutti i metodi della classe della tupla che si vuole aggiornare
+    //riceverà solamente i metodi getters
 
 %>
 
@@ -92,27 +94,27 @@
 
 <form action="update-data" method="post">
     <input type="hidden" name="tabella" value="<%= nameTable%>">
-
+    <!-- i metodi getters serviranno per ricevere i valori dei vari campi che possono essere modificati -->
     <%
-        for (Map.Entry<String, String> entry : colonneTipi.entrySet()) {
+        for (Map.Entry<String, String> entry : colonneTipi.entrySet()) { //per ogni colonna + tipo della tupla che si vuole aggiornare
     %>
     <%
-        String dataType = entry.getValue().toLowerCase();
+        String dataType = entry.getValue().toLowerCase(); //il tipo della colonna
 
-        String columnName = entry.getKey();
+        String columnName = entry.getKey(); //il nome della colonna
 
-        if (columnName.contains("Hash"))    columnName = "password";
+        if (columnName.contains("Hash"))    columnName = "password"; //trovo una colonna di nome password
 
-        if (dataType.contains("("))
-            dataType = dataType.substring(0, entry.getValue().indexOf('('));
+        if (dataType.contains("(")) //prendo la sottostringa che va da 0 fino all' (, prima delle parentesi tonde
+            dataType = dataType.substring(0, entry.getValue().indexOf('(')); //prendo il tipo del dato
 
         Object defaultValue;
-        String[] parts = columnName.split(" - ");
+        String[] parts = columnName.split(" - "); //separo il contenuto di columnName aggiungendo tutto in un array
         try {
             if (parts[0].contains("default"))
-                parts[0] = parts[0].substring(0, parts[0].indexOf("default") - 1);
+                parts[0] = parts[0].substring(0, parts[0].indexOf("default") - 1); //prendo ciò che ci sta prima di default
 
-            defaultValue = getterByName(getterMethods, parts[0]).invoke(bean);
+            defaultValue = getterByName(getterMethods, parts[0]).invoke(bean); //prendo il metodo Getter corrispondente a quel valore (in part[0])
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -120,7 +122,7 @@
         if (parts.length > 1) {
             if (parts[1].equalsIgnoreCase("pk") || parts[1].contains("auto")) {
     %>
-            <input type="hidden" name="old<%=parts[0]%>" value="<%=defaultValue%>">
+            <input type="hidden" name="old<%=parts[0]%>" value="<%=defaultValue%>"> <!-- stampo il valore nell'input tramite il metodo getter, stiamo considerando CHIAVE PRIMARIA (OLD) -->
     <%
             if (entry.getKey().contains("auto"))    continue;
             }
@@ -147,7 +149,7 @@
                System.out.println(entry.getKey());%>
                required
             <% } %>
-    >
+    > <!-- defaultValue = valore che c'era prima, onfocus = quando utente clicca su quell'input -->
 
     <% break; }
         case "decimal" : { %>
@@ -186,7 +188,7 @@
 </form>
 
 <script>
-    function setDefaultValue(input) {
+    function setDefaultValue(input) { //quando utente clicca sull'input inserisci il valore di defualt
         if (input.dataset.hasFocused === "false") {
             if (input.dataset.defaultValue !== "null")
                 input.value = input.dataset.defaultValue;

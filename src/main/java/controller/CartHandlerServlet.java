@@ -18,7 +18,7 @@ import java.util.Map;
 public class CartHandlerServlet extends HttpServlet {
 
     public static void addProductToCart(List<Prodotto> carrello, Prodotto p, String taglia, Integer quantita) {
-        int pos = -1;
+        int pos = -1; //per tenere traccia del dove è stato rimosso un prodotto
         Map<String, Integer> taglieQuantita = new HashMap<>();
 
         for (int i = 0; i < carrello.size(); i++) {
@@ -35,10 +35,10 @@ public class CartHandlerServlet extends HttpServlet {
             }
         }
 
-        taglieQuantita.put(taglia, quantita);
+        taglieQuantita.put(taglia, quantita); //inserisco la taglia e la quantità del prodotto che l'utente vuole "sovraaggiungere"
         p.setTaglieQuantita(taglieQuantita);
 
-        // se lo trovi aggiungilo nella posizione in cui lo hai rimosso
+        // se lo trovi aggiungilo nella posizione in cui lo hai rimosso con taglie e quantità dell'ultima selezione
         if (pos >= 0) carrello.add(pos, p);
 
         // altrimenti mettilo e basta
@@ -60,7 +60,7 @@ public class CartHandlerServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String loadOld = (String) request.getParameter("loadOld");
+        String loadOld = (String) request.getParameter("loadOld"); //per capire qual'è stata la scelta dell'utente
         Utente utente = (Utente) request.getSession().getAttribute("utente");
 
         // fatti i tuoi controlli
@@ -68,7 +68,7 @@ public class CartHandlerServlet extends HttpServlet {
 
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
-            // "svuota" carrello attuale
+            // "svuota" carrello attuale (ha scelto quello vecchio)
             List<Prodotto> carrello = new ArrayList<>();
 
             // considera carrello nel db
@@ -77,7 +77,7 @@ public class CartHandlerServlet extends HttpServlet {
             // richiama funziona per caricare il vecchio carrello
             loadOldCart(carrelloDB, carrello);
 
-            // mettilo in sessione
+            // mettilo in sessione in modo che il carrello sarà visibile fino a quando non chiuderà la sessione l'utente
             request.getSession().setAttribute("carrello", carrello);
         }
 

@@ -57,6 +57,26 @@
         cursor: pointer;
         width: 100%;
     }
+
+    .center-content {
+        text-align: center;
+        margin-top: 20vh;
+    }
+
+    .bold-text {
+        font-weight: bold;
+    }
+
+    .center-buttons {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+        align-content : space-around;
+    }
 </style>
 
 <!-- popup overlay -->
@@ -80,16 +100,12 @@
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
-    if (u.isAdmin()) {
 %>
-<form action = "admin-servlet" method="post" style="margin-top: 15vh">
-    <input type="submit" value="Admin Area">
-</form>
-utente amministratore
-<% } %>
-
-<%=u.getEmail() %>
-<%=u.getUsername()%>
+<div class="center-content">
+    utente <% if(u.isAdmin()) { %> amministratore <% } %>
+    <span class="bold-text"><%=u.getEmail() %>
+        <%=u.getUsername()%></span>
+</div>
 
 <%
     if (ordiniUtente != null) {
@@ -104,9 +120,17 @@ Order History: <br>
 <% }
 }%>
 
-<form action = "logOut-servlet" method="post">
-    <input type="submit" value="Log out">
+<div class="center-buttons">
+<% if(u.isAdmin()) { %>
+<form action = "admin-servlet" method="post">
+    <input class="popup-button" type="submit" value="Admin Area">
 </form>
+<% } %>
+
+<form action = "logOut-servlet" method="post">
+    <input class="popup-button" type="submit" value="Log out">
+</form>
+</div>
 
 
 <script>

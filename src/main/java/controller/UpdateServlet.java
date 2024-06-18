@@ -16,7 +16,7 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tabella = request.getParameter("tabella");
-        Map<String,String> columnDataType = Helper.doRetrieveColumnDataType(tabella);
+        Map<String,String> columnDataType = Helper.doRetrieveColumnDataType(tabella); //prendo i nomi delle colonne
 
         request.setAttribute("colonneTipi", columnDataType);
         request.setAttribute("tabella", tabella);

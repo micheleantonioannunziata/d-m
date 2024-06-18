@@ -90,7 +90,7 @@ public class LoginServlet extends HttpServlet {
                 // se entrambi sono non vuoti
                 else if (!carrello.isEmpty() && !carrelloDB.isEmpty()){
 
-                    // fai scegliere all'utente quale carrello considerare
+                    // fai scegliere all'utente quale carrello considerare (inserisco l'attributo che sarà riempito in overview.jsp)
                     request.setAttribute("loadCart", "choose");
                 }
             }
