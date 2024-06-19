@@ -34,6 +34,8 @@ h3.stroke{margin-top: 20vh; text-transform: uppercase; padding-left: 3%}
 
 .checkOut span.mid-text{position: absolute; top: 0; right: 0}
 
+p span{font-weight: bold}
+
 @media only screen and (max-width: 768px) {
     .box{flex-direction: column}
     .grid-container, .checkOut{width: 100%}
