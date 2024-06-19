@@ -153,10 +153,31 @@ body{overflow-x: hidden; transition: 0.8s}
 .z2{z-index: 2;}
 .mt-50{margin-top: 50px;}
 .mr-20 {margin-right: 20px;}
-.mid-text {font-size: 48px;font-weight: 600;}
-.big-text {font-size: 100px;font-weight: 900;}
-.normal-text {font-size: 32px;font-weight: 500;}
-.small-text {font-size: 16px;font-weight: 300;}
+.mid-text { font-size: 45px; font-weight: 600; }
+.big-text { font-size: 100px; font-weight: 900; }
+.normal-text { font-size: 30px; font-weight: 500; }
+.small-text { font-size: 18px; font-weight: 400; }
+
+@media (max-width: 1024px) {
+    .mid-text { font-size: 40px; }
+    .big-text { font-size: 80px; }
+    .normal-text { font-size: 28px; }
+    .small-text { font-size: 14px; }
+}
+
+@media (max-width: 768px) {
+    .mid-text { font-size: 36px; }
+    .big-text { font-size: 60px; }
+    .normal-text { font-size: 24px; }
+    .small-text { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+    .mid-text { font-size: 32px; }
+    .big-text { font-size: 50px;}
+    .normal-text {font-size: 20px;}
+    .small-text {font-size: 10px;}
+}
 .upp {text-transform: uppercase;}
 .white {color: white;}
 
@@ -314,7 +335,7 @@ body{overflow-x: hidden; transition: 0.8s}
     transition: 0.8s;
 }
 
-.card:hover img {
+.card:hover > img {
     transform: scale(1.1);
     transition: cubic-bezier(0.19, 1, 0.22, 1) 0.8s;
 }

@@ -42,7 +42,7 @@
             <input type="hidden" name="idProdotto" value="<%= prodotto.getId_Prodotto() %>">
             <input id="tagliaInput" type="hidden" name="taglia" value="">
             <input id="quantitaInput" type="hidden" name="quantita">
-            <button class="small-text" type="submit">Add to cart</button>
+            <button class="small-text" type="submit" disabled>Add to cart</button>
         </form>
     </div>
 </div>
@@ -51,6 +51,8 @@
 <script type="text/javascript">
     function activeButton(arg, quantitaMax) {
         let buttons = document.querySelectorAll(".poster__content > button");
+
+        let submit = document.querySelector("form button[type=submit]");
 
         buttons.forEach(button => button.classList.remove("active"));
 
@@ -64,6 +66,9 @@
         quantitaInput.min = 1;
         quantitaInput.max = quantitaMax
         quantitaInput.required = true
+        quantitaInput.value = quantitaInput.min
+
+        submit.disabled = false;
     }
 </script>
 </body>

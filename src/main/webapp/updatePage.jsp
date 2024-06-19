@@ -86,7 +86,7 @@
     String nameTable = (String) request.getAttribute("tabella");
     Object bean = request.getAttribute("bean"); //tupla che si vuole aggiornare
     Method[] getterMethods = getters(bean.getClass().getMethods()); //passa tutti i metodi della classe della tupla che si vuole aggiornare
-    //riceverà solamente i metodi getters
+    // riceverà solamente i metodi getters
 
 %>
 
@@ -145,8 +145,7 @@
            data-has-focused="false"
            onfocus="setDefaultValue(this)"
 
-           <% if (!entry.getKey().contains("default")) {
-               System.out.println(entry.getKey());%>
+           <% if (!entry.getKey().contains("default")) { %>
                required
             <% } %>
     > <!-- defaultValue = valore che c'era prima, onfocus = quando utente clicca su quell'input -->
