@@ -58,7 +58,13 @@ public class UpdateDataServlet extends HttpServlet {
 
                 // aggiorna servletContext
                 List<Squadra> squadre = (List<Squadra>) getServletContext().getAttribute("squadre");
-                squadre.add(s);
+                for(Squadra squadra : squadre){
+                    if(squadra.getNome().equalsIgnoreCase(req.getParameter(oldValues.get(0))))
+                    {
+                        squadra.setNome(req.getParameter(newValues.get(1)));
+                        squadra.setUrlImmagine(req.getParameter(newValues.get(2)));
+                    }
+                }
                 getServletContext().setAttribute("squadre", squadre);
             }
             case "taglie" -> {
@@ -66,6 +72,8 @@ public class UpdateDataServlet extends HttpServlet {
                 Taglia t = new Taglia();
 
                 // parto da 1 perché il primo è tabella
+
+
                 t.setTaglia(req.getParameter(newValues.get(1)));
                 t.setTipologia(req.getParameter(newValues.get(2)));
                 if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null"))
@@ -75,7 +83,15 @@ public class UpdateDataServlet extends HttpServlet {
 
                 // aggiorna servletContext
                 List<Taglia> taglie = (List<Taglia>) getServletContext().getAttribute("taglie");
-                taglie.add(t);
+                for(Taglia taglia : taglie){
+                    if(taglia.getTaglia().equalsIgnoreCase(req.getParameter(oldValues.get(0))))
+                    {
+                        taglia.setTaglia(req.getParameter(newValues.get(1)));
+                        taglia.setTipologia(req.getParameter(newValues.get(2)));
+                        if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null"))
+                            t.setDescrizione(req.getParameter(newValues.get(3)));
+                    }
+                }
                 getServletContext().setAttribute("taglie", taglie);
             }
 

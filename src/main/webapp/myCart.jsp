@@ -9,6 +9,7 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/myCart.css">
+    <!-- <script src="js/removeByCart.js"></script> -->
 </head>
 <body>
 <%
@@ -34,6 +35,11 @@
                             prezzoTotale += prodotto.getPrezzo() * entry.getValue(); %>
                             <div class="sizes">
                                 <p><span>Size</span>: <%=entry.getKey()%>, <span>Amount</span>: <%=entry.getValue()%></p>
+
+                                <%--<button onclick='loadData(<%= prodotto.getId_Prodotto() %>, "<%= entry.getKey() %>")'>
+
+                                <img src="img/trash.svg" alt="arrow">
+                                    </button> --%>
                                 <form action="removeByCart-servlet" method="post">
                                     <input name="idProdotto" value="<%=prodotto.getId_Prodotto()%>" type="hidden">
                                     <input name="taglia" value="<%=entry.getKey()%>" type="hidden">
@@ -57,5 +63,7 @@
                 </div>
             <% } %>
         </div>
+
+
 </body>
 </html>
