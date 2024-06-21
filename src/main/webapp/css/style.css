@@ -86,6 +86,7 @@ body{overflow-x: hidden; transition: 0.8s}
     color: var(--color-primary);
 }
 
+.header .searchBar button{background: none; border: none}
 .header .searchBar img { margin-left: 12px; }
 
 /* hero */

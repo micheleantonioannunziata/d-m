@@ -11,6 +11,28 @@
 </head>
 <body>
     <script type="text/javascript" src="js/manageFilters.js"></script>
+
+    <%@ include file="WEB-INF/modules/header.jsp" %>
+
+    <% List <Prodotto> prodottiCercati = (List<Prodotto>) request.getAttribute("prodottiCercati");
+        if (!prodottiCercati.isEmpty()) { %>
+           <div class="grid-container" style="margin-top: 20vh">
+
+            <% for (Prodotto p: prodottiCercati) { %>
+                <div class="card scale-in-center">
+                    <img src="<%=p.getUrlImmagine()%>" alt="">
+                    <h4 class="small-text"><%=p.getNome()%></h4>
+                    <h2 class="normal-text">€ <%=p.getPrezzo()%></h2>
+                    <form action="overview-servlet" method="post">
+                        <input name="idProdotto" value="<%=p.getId_Prodotto()%>" type="hidden">
+                        <button>
+                            <img src="img/arrow-right-circle.svg" alt="arrow">
+                        </button>
+                    </form>
+                </div>
+                    <% }
+    } else {%>
+
     <%
         List<String> tipologie =  Arrays.asList("Maglia", "Pallone", "Scarpetta");
 
@@ -20,8 +42,6 @@
         String lastTipologia = request.getParameter("tipologia");
         String lastSquadra = request.getParameter("squadra");
     %>
-
-    <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <form action="filter-servlet" method="post" class="filters">
 
@@ -70,10 +90,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
-            if (tipologia) {
-                manageFilters(tipologia);
-            }
+            if (tipologia)  manageFilters(tipologia);
         });
     </script>
+
+                    <% } %>
 </body>
 </html>

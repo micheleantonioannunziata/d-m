@@ -170,10 +170,37 @@ public class ProdottoDAO {
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> list = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement("select distinct prodotti.* from prodotti join " +
-                    "prodottitaglie on id_prodotto = prodotto;\n");
+                    "prodottitaglie on id_prodotto = prodotto");
             ResultSet rs = ps.executeQuery();
 
             copyResultIntoList(rs, list);
+
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Prodotto> doRetrieveBySearch(String string) {
+        try (Connection con = ConPool.getConnection()) {
+            List<Prodotto> list = new ArrayList<>();
+
+            String[] words = string.split(" ");
+
+            StringBuilder searchPattern = new StringBuilder("%");
+
+            if (!string.isEmpty())
+                for (String word: words)
+                    searchPattern.append(word).append("%");
+
+            String query = "select distinct prodotti.* from prodotti left join prodottitaglie on id_prodotto = prodotto " +
+                    "where nome like ";
+
+            query += "'" + searchPattern + "'";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            copyResultIntoList(ps.executeQuery(), list);
 
             return list;
         } catch (SQLException e) {

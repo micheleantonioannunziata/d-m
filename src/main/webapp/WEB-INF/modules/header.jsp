@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Prodotto" %>
-<%@ page import="java.util.Map" %>
 <script src="js/hamburger.js"></script>
 <div class="header">
     <div class="logo mid-text">
@@ -14,9 +13,11 @@
     </ul>
 
     <div class="icons">
-        <form action="" class="searchBar mr-20">
-            <input type="text" name="searchBar" placeholder="Search ...">
-            <a href=""><img src="img/search.svg" alt=""></a>
+        <form action="searchBar-servlet" class="searchBar mr-20">
+            <% String lastQuery = (String) request.getParameter("queryString"); %>
+            <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                    value="<%=lastQuery != null ? lastQuery : ""%>">
+            <button type="submit"><img src="img/search.svg" alt=""></button>
         </form>
 
         <%
