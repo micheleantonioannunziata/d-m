@@ -1,7 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Ordine" %>
 <%@ page import="model.Prodotto" %>
-<%@ page import="model.ProdottoDAO" %>
 <%@ page import="model.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,8 +12,8 @@
 </head>
 <body>
 <%
-    List<Ordine> ordiniUtente = (List<Ordine>) request.getSession().getAttribute("ordiniUtente");
-    ProdottoDAO prodottoDAO = new ProdottoDAO();
+    Map<Integer, List<Prodotto>> ordiniProdottiMap = (Map<Integer, List<Prodotto>>) request.getAttribute("ordiniProdottiMap");
+    double prezzoTotale;
 %>
 
 <style>
@@ -58,24 +57,41 @@
         width: 100%;
     }
 
-    .center-content {
-        text-align: center;
-        margin-top: 20vh;
+    h3{text-transform: uppercase; padding-left: 3%; margin: 20px 0}
+    h3.stroke{margin: 0; margin-top: 20vh;}
+    h3.normal-text{font-style: italic}
+    h3.small-text{text-transform: none;}
+
+    .user-info{
+        width: 100%;
+        padding: 20px 3%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .bold-text {
+    .user-info div p span{color: #8C8C8C}
+
+    .user-info .buttons{display: flex;align-items: center;}
+
+    .user-info .buttons form button {
+        border: none;
+        background: var(--color-primary);
+        border-radius: 7px;
+        padding: 8px 20px;
         font-weight: bold;
     }
 
-    .center-buttons {
+    .user-info .buttons form button img{
+        height: 15px;
+    }
+
+    .grid-container p span{font-weight: bold}
+
+    .grid-container .sizes{
         display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin-top: 20px;
-        align-content : space-around;
+        justify-content: space-between;
+        margin: 8px 0;
     }
 </style>
 
@@ -101,36 +117,64 @@
 <%
     Utente u = (Utente) session.getAttribute("utente");
 %>
-<div class="center-content">
-    utente <% if(u.isAdmin()) { %> amministratore <% } %>
-    <span class="bold-text"><%=u.getEmail() %>
-        <%=u.getUsername()%></span>
+
+<h3 class="big-text stroke">My Account</h3>
+
+<div class="user-info">
+    <div>
+        <p class="small-text"><span>Username:</span> <%=u.getUsername()%></p>
+        <p class="small-text"><span>Email:</span> <%=u.getEmail()%></p>
+    </div>
+    <div class="buttons">
+        <% if(u.isAdmin()) { %>
+            <form action = "admin-servlet" method="post" style="padding: 0 20px">
+                <button type="submit">Admin Area</button>
+            </form>
+        <% } %>
+        <form action = "logOut-servlet" method="post">
+            <button type="submit">
+                <img src="img/log-out.svg">
+            </button>
+        </form>
+    </div>
 </div>
 
 <%
-    if (ordiniUtente != null) {
+    if (!ordiniProdottiMap.isEmpty()) {
 %>
-Order History: <br>
-<%
-    for (Ordine ordine: ordiniUtente) {
-        Prodotto p = prodottoDAO.doRetrieveById(ordine.getProdotto());%>
+    <h3 class="mid-text" style="margin-top: 20px">Order History</h3>
+    <% // per ogni ordine
+        for (Map.Entry<Integer, List<Prodotto>> entry: ordiniProdottiMap.entrySet()) {
+        prezzoTotale = 0.;
 
-<li> <%= p.getNome() %>, <%= ordine.getQuantita() %></li>
+        // prendi prodotti
+        List<Prodotto> prodotti = entry.getValue();%>
 
+        <h3 class="normal-text">Order n. <%=entry.getKey()%></h3>
+    <div class="grid-container">
+        <% for (Prodotto p: prodotti) { %>
+        <div class="card scale-in-center">
+            <img src="<%=p.getUrlImmagine()%>" alt="">
+            <h4 class="small-text"><%=p.getNome()%></h4>
+            <% for (Map.Entry<String, Integer> tQ: p.getTaglieQuantita().entrySet()) {
+                prezzoTotale += p.getPrezzo() * tQ.getValue(); %>
+                <div class="sizes small-text">
+                    <div>
+                        <p><span>Size</span>: <%=tQ.getKey()%></p>
+                    </div>
+                    <div>
+                        <p><span>Amount</span>: <%=tQ.getValue()%></p>
+                    </div>
+                </div>
+
+            <% } %>
+
+        </div>
+        <% } %>
+    </div>
+    <h3 class="small-text">Total: € <%=Math.ceil(prezzoTotale)%></h3>
 <% }
 }%>
-
-<div class="center-buttons">
-<% if(u.isAdmin()) { %>
-<form action = "admin-servlet" method="post">
-    <input class="popup-button" type="submit" value="Admin Area">
-</form>
-<% } %>
-
-<form action = "logOut-servlet" method="post">
-    <input class="popup-button" type="submit" value="Log out">
-</form>
-</div>
 
 
 <script>

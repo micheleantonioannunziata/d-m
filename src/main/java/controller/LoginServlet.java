@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
             else {
                 // aggiungi bean
                 request.getSession().setAttribute("utente", utente);
-                address = "userArea.jsp";
+                address = "redirectToUserArea";
 
                 CarrelloDAO carrelloDAO = new CarrelloDAO();
 

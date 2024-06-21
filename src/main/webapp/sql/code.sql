@@ -1,159 +1,159 @@
-DROP DATABASE IF EXISTS projectus;
-CREATE DATABASE IF NOT EXISTS projectus;
+drop database if exists projectus;
+create database if not exists projectus;
 
-USE projectus;
+use projectus;
 
-CREATE TABLE IF NOT EXISTS Utenti (
-    ID_Utente INT PRIMARY KEY AUTO_INCREMENT,
-    Username VARCHAR(50) NOT NULL UNIQUE,
-    Email VARCHAR(100) NOT NULL UNIQUE,
-    PasswordHash VARCHAR(255) NOT NULL,
-    isAdmin BOOL
-);
+create table if not exists utenti (
+                                      id_utente int primary key auto_increment,
+                                      username varchar(50) not null unique,
+    email varchar(100) not null unique,
+    passwordhash varchar(255) not null,
+    isadmin bool
+    );
 
-CREATE TABLE IF NOT EXISTS Squadre (
-    Nome VARCHAR(50) PRIMARY KEY,
-    urlImmagine VARCHAR(255) NOT NULL
-);
+create table if not exists squadre (
+    nome varchar(50) primary key,
+    urlimmagine varchar(255) not null
+    );
 
-CREATE TABLE IF NOT EXISTS Prodotti (
-    Id_Prodotto INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100) NOT NULL,
-    Prezzo DECIMAL(10, 2) NOT NULL,
-    Tipologia VARCHAR(50) NOT NULL CHECK (Tipologia IN ('Maglia', 'Scarpa', 'Pallone')),
-    Squadra VARCHAR(50) DEFAULT NULL,
-    Produttore VARCHAR(50) DEFAULT NULL,
-    Collezione VARCHAR(50) DEFAULT NULL,
-    urlImmagine VARCHAR(50) NULL,
-    FOREIGN KEY (Squadra) REFERENCES Squadre(Nome) ON DELETE CASCADE,
-    CONSTRAINT checkProdotti CHECK (Tipologia = 'Maglia' OR Squadra IS NULL)
-);
+create table if not exists prodotti (
+                                        id_prodotto int primary key auto_increment,
+                                        nome varchar(100) not null,
+    prezzo decimal(10, 2) not null,
+    tipologia varchar(50) not null check (tipologia in ('Maglia', 'Scarpa', 'Pallone')),
+    squadra varchar(50) default null,
+    produttore varchar(50) default null,
+    collezione varchar(50) default null,
+    urlimmagine varchar(50) null,
+    foreign key (squadra) references squadre(nome) on delete cascade,
+    constraint checkprodotti check (tipologia = 'Maglia' or squadra is null)
+    );
 
-CREATE TABLE IF NOT EXISTS Taglie (
-    Taglia VARCHAR(5) PRIMARY KEY,
-    Tipologia VARCHAR(50) NOT NULL CHECK (Tipologia IN ('Maglia', 'Scarpa', 'Pallone')),
-    Descrizione VARCHAR(100) DEFAULT NULL
-);
+create table if not exists taglie (
+    taglia varchar(5) primary key,
+    tipologia varchar(50) not null check (tipologia in ('Maglia', 'Scarpa', 'Pallone')),
+    descrizione varchar(100) default null
+    );
 
-CREATE TABLE IF NOT EXISTS ProdottiTaglie (
-    Prodotto INT,
-    Taglia VARCHAR(5),
-    Quantita INT,
-    PRIMARY KEY (Prodotto, Taglia),
-    FOREIGN KEY (Prodotto) REFERENCES Prodotti(Id_Prodotto) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Taglia) REFERENCES Taglie(Taglia) ON DELETE CASCADE ON UPDATE CASCADE
-);
+create table if not exists prodottitaglie (
+                                              prodotto int,
+                                              taglia varchar(5),
+    quantita int,
+    primary key (prodotto, taglia),
+    foreign key (prodotto) references prodotti(id_prodotto) on delete cascade on update cascade,
+    foreign key (taglia) references taglie(taglia) on delete cascade on update cascade
+    );
 
-CREATE TABLE IF NOT EXISTS Ordini (
-    ID_Ordine INT,
-    Utente INT,
-    Prodotto INT,
-    Taglia VARCHAR(5),
-    Quantita INT,
-    Prezzo DECIMAL(10, 2) DEFAULT 0,
-    PRIMARY KEY(ID_Ordine, Utente, Prodotto, Taglia),
-    FOREIGN KEY (Utente) REFERENCES Utenti(ID_Utente) on delete cascade ON UPDATE CASCADE,
-    FOREIGN KEY (Prodotto, Taglia) REFERENCES ProdottiTaglie(Prodotto, Taglia) ON DELETE cascade ON UPDATE CASCADE
-);
+create table if not exists ordini (
+                                      id_ordine int,
+                                      utente int,
+                                      prodotto int,
+                                      taglia varchar(5),
+    quantita int,
+    prezzo decimal(10, 2) default 0,
+    primary key(id_ordine, utente, prodotto, taglia),
+    foreign key (utente) references utenti(id_utente) on delete cascade on update cascade,
+    foreign key (prodotto, taglia) references prodottitaglie(prodotto, taglia) on delete cascade on update cascade
+    );
 
-CREATE TABLE IF NOT EXISTS Carrello (
-    Utente INT,
-    Prodotto INT,
-    Taglia VARCHAR(5),
-    Quantita INT,
-    PRIMARY KEY(Utente, Prodotto, Taglia),
-    FOREIGN KEY(Utente) REFERENCES Utenti(ID_Utente) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Prodotto, Taglia) REFERENCES ProdottiTaglie(Prodotto, Taglia) ON DELETE CASCADE ON UPDATE CASCADE
-);
+create table if not exists carrello (
+                                        utente int,
+                                        prodotto int,
+                                        taglia varchar(5),
+    quantita int,
+    primary key(utente, prodotto, taglia),
+    foreign key(utente) references utenti(id_utente) on delete cascade on update cascade,
+    foreign key (prodotto, taglia) references prodottitaglie(prodotto, taglia) on delete cascade on update cascade
+    );
 
-CREATE TRIGGER checkProdottiTaglie BEFORE INSERT ON ProdottiTaglie
-FOR EACH ROW
-BEGIN
-    DECLARE prodTipo VARCHAR(50);
-    DECLARE tagliaTipo VARCHAR(50);
+create trigger checkprodottitaglie before insert on prodottitaglie
+    for each row
+begin
+    declare prodtipo varchar(50);
+    declare tagliatipo varchar(50);
 
     -- cattura tipologia prodotto
-    SELECT tipologia INTO prodTipo FROM Prodotti WHERE ID_Prodotto = NEW.Prodotto;
+    select tipologia into prodtipo from prodotti where id_prodotto = new.prodotto;
 
     -- cattura tipologia taglia
-    SELECT tipologia INTO tagliaTipo FROM Taglie WHERE Taglia = NEW.Taglia;
+    select tipologia into tagliatipo from taglie where taglia = new.taglia;
 
     -- verifica uguaglianza
-    IF prodTipo != tagliaTipo THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Tipologie prodotto e taglia non corrispondono';
-    END IF;
-END;
+    if prodtipo != tagliatipo then
+        signal sqlstate '45000' set message_text = 'Tipologie prodotto e taglia non corrispondono';
+end if;
+end;
 
-CREATE TRIGGER checkQuantitaOrdini BEFORE INSERT ON Ordini
-FOR EACH ROW
-BEGIN
-    DECLARE disponibile INT;
-
-    -- cattura quantità
-    SELECT Quantita INTO disponibile FROM ProdottiTaglie WHERE Prodotto = NEW.Prodotto AND Taglia = NEW.Taglia;
-
-    -- verifica
-    IF NEW.Quantita > disponibile THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La quantità ordinata è maggiore della quantità disponibile';
-    END IF;
-END;
-
-CREATE TRIGGER checkQuantitaCarrello BEFORE INSERT ON Carrello
-FOR EACH ROW
-BEGIN
-    DECLARE disponibile INT;
+create trigger checkquantitaordini before insert on ordini
+    for each row
+begin
+    declare disponibile int;
 
     -- cattura quantità
-    SELECT Quantita INTO disponibile FROM ProdottiTaglie WHERE Prodotto = NEW.Prodotto AND Taglia = NEW.Taglia;
+    select quantita into disponibile from prodottitaglie where prodotto = new.prodotto and taglia = new.taglia;
 
     -- verifica
-    IF NEW.Quantita > disponibile THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La quantità inserita nel carrello è maggiore della quantità disponibile';
-    END IF;
-END;
+    if new.quantita > disponibile then
+        signal sqlstate '45000' set message_text = 'La quantità ordinata è maggiore della quantità disponibile';
+end if;
+end;
 
-CREATE TRIGGER setPrezzo BEFORE INSERT ON Ordini
-FOR EACH ROW
-BEGIN
-    DECLARE prezzoProdotto DECIMAL(10, 2);
+create trigger checkquantitacarrello before insert on carrello
+    for each row
+begin
+    declare disponibile int;
+
+    -- cattura quantità
+    select quantita into disponibile from prodottitaglie where prodotto = new.prodotto and taglia = new.taglia;
+
+    -- verifica
+    if new.quantita > disponibile then
+        signal sqlstate '45000' set message_text = 'La quantità inserita nel carrello è maggiore della quantità disponibile';
+end if;
+end;
+
+create trigger setprezzo before insert on ordini
+    for each row
+begin
+    declare prezzoprodotto decimal(10, 2);
 
     -- cattura prezzo prodotto
-    SELECT Prezzo INTO prezzoProdotto FROM Prodotti WHERE ID_Prodotto = NEW.Prodotto;
+    select prezzo into prezzoprodotto from prodotti where id_prodotto = new.prodotto;
 
     -- imposta
-    SET NEW.Prezzo = prezzoProdotto * NEW.Quantita;
-END;
+    set new.prezzo = prezzoprodotto * new.quantita;
+end;
 
-CREATE TRIGGER updateQuantita AFTER INSERT ON Ordini
-FOR EACH ROW
-BEGIN
+create trigger updatequantita after insert on ordini
+    for each row
+begin
     -- aggiorna quantità disponibile
-    UPDATE ProdottiTaglie SET Quantita = Quantita - NEW.Quantita WHERE Prodotto = NEW.Prodotto AND Taglia = NEW.Taglia;
-END;
+    update prodottitaglie set quantita = quantita - new.quantita where prodotto = new.prodotto and taglia = new.taglia;
+end;
 
--- insersco cose a caso
-INSERT INTO Utenti VALUES
-    (1, 'domeCiri', 'domenicoCirillo@gmail.com', 'e42e43478ac14e5045d138fc992f2577d3643782', TRUE), -- password: dom25!
-    (2, 'micheAnn', 'micheleAnnunziata@gmail.com', 'd70ba364c4c6374d020b95ac74521079760a7274', TRUE); -- password: micAnn_20
+-- inserisco cose a caso
+insert into utenti values
+                       (1, 'domeCiri', 'domenicocirillo@gmail.com', 'e42e43478ac14e5045d138fc992f2577d3643782', true), -- password: dom25!
+                       (2, 'micheAnn', 'micheleannunziata@gmail.com', 'd70ba364c4c6374d020b95ac74521079760a7274', true); -- password: micAnn_20
 
-INSERT INTO Squadre VALUES
-    ('Milan', 'img/squadre/Milan.png'),
-    ('Napoli', 'img/squadre/Napoli.png'),
-    ('Barcelona', 'img/squadre/Barcelona.png'),
-    ('Liverpool', 'img/squadre/Liverpool.png'),
-    ('Juventus', 'img/squadre/Juventus.png');
+insert into squadre values
+                        ('Milan', 'img/squadre/Milan.png'),
+                        ('Napoli', 'img/squadre/Napoli.png'),
+                        ('Barcelona', 'img/squadre/Barcelona.png'),
+                        ('Liverpool', 'img/squadre/Liverpool.png'),
+                        ('Juventus', 'img/squadre/Juventus.png');
 
-INSERT INTO Prodotti VALUES
-    (1, 'Maglia Milan Home 23/24', 99.99, 'Maglia', 'Milan', 'Puma', 'Serie A 23/24', 'img/prod/1.png'),
-    (2, 'Maglia Napoli Home 23/24', 89.99, 'Maglia', 'Napoli', 'Emporio Armani', 'Serie A 23/24', 'img/prod/2.png');
+insert into prodotti values
+                         (1, 'Maglia Milan Home 23/24', 99.99, 'Maglia', 'Milan', 'Puma', 'Serie A 23/24', 'img/prod/1.png'),
+                         (2, 'Maglia Napoli Home 23/24', 89.99, 'Maglia', 'Napoli', 'Emporio Armani', 'Serie A 23/24', 'img/prod/2.png');
 
-INSERT INTO Taglie(Taglia, Tipologia) VALUES
-    ('L', 'Maglia'), ('5', 'Pallone'), ('M', 'Maglia'), ('XL', 'Maglia');
+insert into taglie(taglia, tipologia) values
+                                          ('L', 'Maglia'), ('5', 'Pallone'), ('M', 'Maglia'), ('XL', 'Maglia');
 
-INSERT INTO ProdottiTaglie VALUES
-    (1, 'L', 100), (1, 'M', 30), (2, 'L', 20);
+insert into prodottitaglie values
+                               (1, 'L', 100), (1, 'M', 30), (2, 'L', 20);
 
-INSERT INTO Ordini(ID_Ordine, Utente, Prodotto, Taglia, Quantita) VALUES
-    (1, 1, 1, 'L', 2), (1, 1, 2, 'L', 1);
+insert into ordini(id_ordine, utente, prodotto, taglia, quantita) values
+                                                                      (1, 1, 1, 'L', 2), (1, 1, 2, 'L', 1);
 
-INSERT INTO Carrello VALUES (1, 2, 'L', 19);
+insert into carrello values (1, 2, 'L', 19);

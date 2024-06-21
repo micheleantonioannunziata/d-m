@@ -82,7 +82,7 @@ public class CartHandlerServlet extends HttpServlet {
         }
 
         // ridirotta
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userArea.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("redirectToUserArea");
         dispatcher.forward(request, response);
 
     }

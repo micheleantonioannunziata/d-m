@@ -23,7 +23,7 @@
             String ref;
             if(session.getAttribute("utente") == null)
                 ref = "login.jsp";
-            else ref = "userArea.jsp";
+            else ref = "redirectToUserArea";
         %>
 
         <a href="<%= ref %>"><img src="img/user.svg" alt="" class="mr-20"></a>

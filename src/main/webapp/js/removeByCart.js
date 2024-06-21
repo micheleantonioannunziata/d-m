@@ -1,4 +1,4 @@
-
+// script per gestione carrello con ajax
     function loadData(id,taglia){
         var xml = new XMLHttpRequest();
         xml.onreadystatechange = function(){

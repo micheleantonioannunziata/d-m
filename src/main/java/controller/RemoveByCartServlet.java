@@ -46,7 +46,8 @@ public class RemoveByCartServlet extends HttpServlet {
 
         req.getSession().setAttribute("carrello", carrello);
 
-        /*JSONArray prodotti = new JSONArray();
+        /* invio dati con ajax
+        JSONArray prodotti = new JSONArray();
 
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
