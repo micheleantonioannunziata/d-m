@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Prodotto" %>
 <script src="js/hamburger.js"></script>
+<script src="js/manageFilters.js"></script>
 <div class="header">
     <div class="logo mid-text">
         <a href="index.jsp">D<span class="normal-text">&</span>M</a>
@@ -13,14 +14,34 @@
     </ul>
 
     <div class="icons">
-        <form action="searchBar-servlet" class="searchBar mr-20">
-            <% String lastQuery = (String) request.getParameter("queryString"); %>
-            <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
-                    value="<%=lastQuery != null ? lastQuery : ""%>">
-            <button type="submit"><img src="img/search.svg" alt=""></button>
-        </form>
-
         <%
+            // Ottieni la query string dalla richiesta
+            String lastQuery = (String) request.getParameter("queryString");
+
+            // Controlla l'URI della richiesta per determinare il flag
+            boolean flag = request.getRequestURI().contains("gridItemByFilter") || request.getRequestURI().contains("searchBar-servlet");
+
+           if(!flag){ %>
+                <form action="searchBar-servlet" class="searchBar">
+                    <input type="hidden" name="redirect" value="true">
+
+                    <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                           value="<%=lastQuery != null ? lastQuery : ""%>" >
+
+                    <button><img src="img/search.svg" alt=""></button>
+
+                </form>
+        <% }
+            else { %>
+            <div class="searchBar">
+                <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                       value="<%=lastQuery != null ? lastQuery : ""%>"
+                       onkeyup = "searchCards(this.value)">
+
+                    <button><img src="img/search.svg" alt=""></button>
+            </div>
+            <% } %>
+                <%
             String ref;
             if(session.getAttribute("utente") == null)
                 ref = "login.jsp";

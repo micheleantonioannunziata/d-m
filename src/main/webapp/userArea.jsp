@@ -2,6 +2,7 @@
 <%@ page import="model.Ordine" %>
 <%@ page import="model.Prodotto" %>
 <%@ page import="model.Utente" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

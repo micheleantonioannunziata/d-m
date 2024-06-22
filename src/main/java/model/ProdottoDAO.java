@@ -198,6 +198,8 @@ public class ProdottoDAO {
 
             query += "'" + searchPattern + "'";
 
+            System.out.println(query);
+
             PreparedStatement ps = con.prepareStatement(query);
 
             copyResultIntoList(ps.executeQuery(), list);

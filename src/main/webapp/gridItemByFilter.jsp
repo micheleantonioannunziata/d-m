@@ -15,7 +15,7 @@
     <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <% List <Prodotto> prodottiCercati = (List<Prodotto>) request.getAttribute("prodottiCercati");
-        if (!prodottiCercati.isEmpty()) { %>
+        if (prodottiCercati != null && !prodottiCercati.isEmpty()) { %>
            <div class="grid-container" style="margin-top: 20vh">
 
             <% for (Prodotto p: prodottiCercati) { %>
