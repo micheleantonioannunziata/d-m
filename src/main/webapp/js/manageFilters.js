@@ -114,3 +114,21 @@ function generateCard(prodotto) {
         </div>
     `;
 }
+
+function searchCards(queryString){
+    var xhttp = new XMLHttpRequest();
+    const container = document.querySelector(".grid-container"); //prende solo il primo
+    container.innerHTML = "";
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState === 4 && xhttp.status === 200){
+            const prodotti = JSON.parse(this.responseText);
+
+            // crea card per ogni prodotto
+            prodotti.forEach(prodotto => {
+                container.innerHTML += generateCard(prodotto);
+            });
+        }
+    }
+    xhttp.open("GET","searchBar-servlet?queryString="+queryString, true)
+    xhttp.send();
+}

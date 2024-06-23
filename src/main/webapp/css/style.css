@@ -72,6 +72,7 @@ body{overflow-x: hidden; transition: 0.8s}
 .header .icons img { width: 25px; }
 
 .header .searchBar {
+    margin-right: 20px;
     display: flex;
     align-items: center;
     border-bottom: 1.7px solid var(--color-primary);
