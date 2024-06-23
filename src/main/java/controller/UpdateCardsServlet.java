@@ -18,6 +18,8 @@ import java.util.List;
 public class UpdateCardsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // ottieni tutte le info
         String taglia = request.getParameter("taglia");
         String squadra = request.getParameter("squadra");
         String tipologia = request.getParameter("tipologia");
@@ -25,9 +27,13 @@ public class UpdateCardsServlet extends HttpServlet {
         String collezione = request.getParameter("collezione");
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
+
+        // prendi dati dal db
         List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione);
+
         JSONArray prodotti = new JSONArray();
 
+        // formatta in json
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
@@ -40,6 +46,7 @@ public class UpdateCardsServlet extends HttpServlet {
             prodotti.add(object);
         }
 
+        // scrivi nella risposta
         out.print(prodotti);
         out.flush();
     }

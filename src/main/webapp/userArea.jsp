@@ -99,6 +99,7 @@
 <!-- popup overlay -->
 <div id="popup-overlay"></div>
 
+<!-- popup -->
 <div id="popup">
     <p>Quale carrello desideri caricare?</p>
 
@@ -121,44 +122,58 @@
 
 <h3 class="big-text stroke">My Account</h3>
 
+<!-- visualizza info dell'utente -->
 <div class="user-info">
     <div>
         <p class="small-text"><span>Username:</span> <%=u.getUsername()%></p>
         <p class="small-text"><span>Email:</span> <%=u.getEmail()%></p>
     </div>
     <div class="buttons">
+
         <% if(u.isAdmin()) { %>
             <form action = "admin-servlet" method="post" style="padding: 0 20px">
                 <button type="submit">Admin Area</button>
             </form>
         <% } %>
+
         <form action = "logOut-servlet" method="post">
             <button type="submit">
                 <img src="img/log-out.svg">
             </button>
         </form>
+
     </div>
 </div>
 
 <%
+    // carica gli ordini se ci sono
     if (!ordiniProdottiMap.isEmpty()) {
 %>
     <h3 class="mid-text" style="margin-top: 20px">Order History</h3>
     <% // per ogni ordine
         for (Map.Entry<Integer, List<Prodotto>> entry: ordiniProdottiMap.entrySet()) {
-        prezzoTotale = 0.;
 
-        // prendi prodotti
-        List<Prodotto> prodotti = entry.getValue();%>
+            // ristabilisci prezzo
+            prezzoTotale = 0.;
+
+            // prendi prodotti
+            List<Prodotto> prodotti = entry.getValue();%>
 
         <h3 class="normal-text">Order n. <%=entry.getKey()%></h3>
     <div class="grid-container">
-        <% for (Prodotto p: prodotti) { %>
+        <%
+            // per ogni prodotto nell'ordine
+            for (Prodotto p: prodotti) {
+        %>
+
+        <!-- crea card -->
         <div class="card scale-in-center">
             <img src="<%=p.getUrlImmagine()%>" alt="">
             <h4 class="small-text"><%=p.getNome()%></h4>
-            <% for (Map.Entry<String, Integer> tQ: p.getTaglieQuantita().entrySet()) {
-                prezzoTotale += p.getPrezzo() * tQ.getValue(); %>
+            <%
+                // aggiungi info taglia quantità
+                for (Map.Entry<String, Integer> tQ: p.getTaglieQuantita().entrySet()) {
+                    prezzoTotale += p.getPrezzo() * tQ.getValue(); // ricalcola prezzo %>
                 <div class="sizes small-text">
                     <div>
                         <p><span>Size</span>: <%=tQ.getKey()%></p>
@@ -191,7 +206,7 @@
         document.getElementById('popup').style.display = 'none';
     }
 
-    // prendi attributo dalla richiesta ed eventualmente mostra
+    // prendi attributo dalla richiesta (arriva da loginServlet) ed eventualmente mostra popup
     <% String choose = (String) request.getAttribute("loadCart");
     if (choose != null && choose.equalsIgnoreCase("choose")) { %>
         showPopup();

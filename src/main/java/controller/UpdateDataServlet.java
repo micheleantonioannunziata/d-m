@@ -1,40 +1,50 @@
 package controller;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
 import model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "UpdateDataServlet",value = "/update-data")
 public class UpdateDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // ottieni tabella
         String tabella = req.getParameter("tabella");
+
+        // ottieni lista parametri
         List<String> paramNames = Collections.list(req.getParameterNames());
 
+        // comprendi quali sono i nuovi valori e i vecchi valori
         List<String> newValues = new ArrayList<>(), oldValues = new ArrayList<>();
 
-        for (String param: paramNames)
-            if (param.startsWith("old"))    oldValues.add(param); //in old ci saranno le chiavi
+        for (String param: paramNames) {
+            // in old ci saranno le chiavi primarie della tabella
+            if (param.startsWith("old")) oldValues.add(param);
             else newValues.add(param);
+        }
 
+        // gestisci casi
         switch (tabella.toLowerCase()) {
+
+            // ogni caso setta un bean in base ai parametri passati
+            // ed effettua la query di aggiornamento
+
             case "prodotti" -> {
                 ProdottoDAO prodottoDAO = new ProdottoDAO();
                 Prodotto p = new Prodotto();
 
-                // parto da 1 perché il primo è tabella
                 p.setId(Integer.parseInt(req.getParameter(oldValues.get(0))));
+
+                // parto da 1 perché il primo è tabella
                 p.setNome(req.getParameter(newValues.get(1)));
                 p.setPrezzo(Double.parseDouble(req.getParameter(newValues.get(2))));
                 p.setTipologia(req.getParameter(newValues.get(3)));
@@ -58,13 +68,13 @@ public class UpdateDataServlet extends HttpServlet {
 
                 // aggiorna servletContext
                 List<Squadra> squadre = (List<Squadra>) getServletContext().getAttribute("squadre");
-                for(Squadra squadra : squadre){
-                    if(squadra.getNome().equalsIgnoreCase(req.getParameter(oldValues.get(0))))
-                    {
+
+                for(Squadra squadra : squadre)
+                    if(squadra.getNome().equalsIgnoreCase(req.getParameter(oldValues.get(0)))) {
                         squadra.setNome(req.getParameter(newValues.get(1)));
                         squadra.setUrlImmagine(req.getParameter(newValues.get(2)));
                     }
-                }
+
                 getServletContext().setAttribute("squadre", squadre);
             }
             case "taglie" -> {
@@ -72,8 +82,6 @@ public class UpdateDataServlet extends HttpServlet {
                 Taglia t = new Taglia();
 
                 // parto da 1 perché il primo è tabella
-
-
                 t.setTaglia(req.getParameter(newValues.get(1)));
                 t.setTipologia(req.getParameter(newValues.get(2)));
                 if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null"))
@@ -83,15 +91,16 @@ public class UpdateDataServlet extends HttpServlet {
 
                 // aggiorna servletContext
                 List<Taglia> taglie = (List<Taglia>) getServletContext().getAttribute("taglie");
-                for(Taglia taglia : taglie){
-                    if(taglia.getTaglia().equalsIgnoreCase(req.getParameter(oldValues.get(0))))
-                    {
+
+                for(Taglia taglia : taglie) {
+                    if(taglia.getTaglia().equalsIgnoreCase(req.getParameter(oldValues.get(0)))) {
                         taglia.setTaglia(req.getParameter(newValues.get(1)));
                         taglia.setTipologia(req.getParameter(newValues.get(2)));
                         if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null"))
                             t.setDescrizione(req.getParameter(newValues.get(3)));
                     }
                 }
+
                 getServletContext().setAttribute("taglie", taglie);
             }
 
@@ -145,6 +154,7 @@ public class UpdateDataServlet extends HttpServlet {
 
         }
 
+        // reindirizza alla servlet admin che riandrà poi nella adminPage
         resp.sendRedirect("admin-servlet");
     }
 

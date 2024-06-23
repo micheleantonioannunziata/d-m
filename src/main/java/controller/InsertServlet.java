@@ -16,12 +16,17 @@ import java.util.Map;
 public class InsertServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // ottieni tabella
         String tabella = req.getParameter("tabella");
+
+        // ottieni colonne (con tipi dati associati) della tabella
         Map<String,String> columnDataType = Helper.doRetrieveColumnDataType(tabella);
 
+        // setta attributi nella request
         req.setAttribute("colonneTipi", columnDataType);
         req.setAttribute("tabella", tabella);
 
+        // ridirotta
         RequestDispatcher dispatcher = req.getRequestDispatcher("insertPage.jsp");
         dispatcher.forward(req,resp);
     }

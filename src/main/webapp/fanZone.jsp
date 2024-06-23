@@ -12,19 +12,21 @@
 <body>
     <%@ include file="WEB-INF/modules/header.jsp"%>
 
-    <% List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre"); %>
+    <%
+        // ottieni squadre
+        List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre"); %>
 
     <div class="grid-container" style="margin-top: 15vh" id="fanZone">
-        <% for (Squadra squadra: squadre) {
+        <%
+            // crea card per ogni squadra
+            for (Squadra squadra: squadre) {
          %>
             <div class="card scale-in-center" data-squadra = "<%= squadra.getNome() %>" onclick = "redirectFilter(this)">
                 <img src="<%=squadra.getUrlImmagine()%>" alt="">
                 <h2 class="small-text"> <%= squadra.getNome() %></h2>
-                <span></span>
+                <span></span> <!-- rettangolino verde -->
             </div>
-        <%
-        }
-        %>
+        <% }%>
     </div>
 </body>
 </html>

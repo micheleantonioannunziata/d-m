@@ -10,7 +10,9 @@
 </head>
 
 <body>
+
 <%@include file="WEB-INF/modules/header.jsp" %>
+
 
 <div id="hero">
     <div class="white z2">
@@ -39,5 +41,4 @@
 </div>
 
 </body>
-
 </html>

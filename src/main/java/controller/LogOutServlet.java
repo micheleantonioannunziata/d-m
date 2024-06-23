@@ -25,29 +25,35 @@ public class LogOutServlet extends HttpServlet {
         request.getSession().removeAttribute("utente");
 
         List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
+
+        // rimuovi carrello dalla sessione
         request.getSession().removeAttribute("carrello");
 
-        // se ha aggiunto qualcosa nel carrello
+        // se c'era qualcosa nel carrello
         if (carrello != null && !carrello.isEmpty()) {
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
-            // elimina ciò che stava prima di questo utente
+            // elimina nel db le righe dell'utente attuale
             carrelloDAO.doDeleteByUtente(u.getId_Utente());
 
-            // aggiungi il nuovo carrello
+            // aggiungi nuove righe
             for (Prodotto p: carrello)
+                // per ogni entry
                 for (Map.Entry<String, Integer> entry: p.getTaglieQuantita().entrySet()) {
                     Carrello c = new Carrello();
 
+                    // setta dati del bean
                     c.setIdUtente(u.getId_Utente());
                     c.setIdProdotto(p.getId_Prodotto());
                     c.setTaglia(entry.getKey()); // taglia - chiave
                     c.setQuantita(entry.getValue()); // quantità - valore
 
+                    // aggiungi nel db
                     carrelloDAO.doSave(c);
                 }
         }
 
+        // ridirotta
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

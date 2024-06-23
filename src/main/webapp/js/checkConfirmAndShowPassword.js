@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // se non sono vuote e se sono uguali
         if (password && confirmPassword && password === confirmPassword)
-            submitBtn.disabled = false;
+            submitBtn.disabled = false; // abilita
         else    submitBtn.disabled = true;
     }
 

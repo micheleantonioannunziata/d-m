@@ -21,6 +21,7 @@ public class RemoveByCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Prodotto> carrello = (List<Prodotto>) req.getSession().getAttribute("carrello");
 
+        // ottieni info dalla richiesta
         int id = Integer.parseInt(req.getParameter("idProdotto"));
         String taglia = req.getParameter("taglia");
 
@@ -28,22 +29,27 @@ public class RemoveByCartServlet extends HttpServlet {
         if (carrello != null && !carrello.isEmpty()) {
             boolean flag = false;
 
-            // rimuovilo
             for (Prodotto p : carrello) {
-                for (Map.Entry<String, Integer> entry : p.getTaglieQuantita().entrySet()) //rimuovo la taglia del prodotto selezionato
+
+                // rimuovi taglia del prodotto indicato
+                for (Map.Entry<String, Integer> entry : p.getTaglieQuantita().entrySet()) {
                     if (p.getId_Prodotto() == id && taglia.equalsIgnoreCase(entry.getKey())) {
                         p.getTaglieQuantita().remove(entry.getKey());
                         flag = true;
                         break;
                     }
-                if (flag) { //se non ci sono più taglie di quel prodotto -> rimuovo prodotto dal carrello
-                    if (p.getTaglieQuantita().isEmpty())
+
+                    // se non ci sono più taglie per quel prodotto
+                    if (flag && p.getTaglieQuantita().isEmpty()) {
+                        // rimuovilo dal carrello
                         carrello.remove(p);
-                    break;
+                        break;
+                    }
                 }
             }
         }
 
+        // aggiorna carrello in sessione
         req.getSession().setAttribute("carrello", carrello);
 
         /* invio dati con ajax
@@ -74,6 +80,7 @@ public class RemoveByCartServlet extends HttpServlet {
         out.print(prodotti);
         out.flush();*/
 
+        // ridirotta
         RequestDispatcher dispatcher = req.getRequestDispatcher("myCart.jsp");
         dispatcher.forward(req, resp);
     }

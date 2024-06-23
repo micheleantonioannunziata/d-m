@@ -14,13 +14,21 @@ import java.util.List;
 @WebServlet(name = "AdminServlet", value = "/admin-servlet")
 public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // ottieni bean
         Utente u = (Utente) request.getSession().getAttribute("utente");
 
+        // se è un utente amministratore ok
         if (u.isAdmin()) doPost(request, response);
+
+        // altrimenti non è ok
         else response.sendRedirect("index.jsp");
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // ottieni tutti i dati del db per ciascuna tabella
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         List<Prodotto> prodotti = prodottoDAO.doRetrieveAll();
 
@@ -33,11 +41,13 @@ public class AdminServlet extends HttpServlet {
         ProdottoTaglieDAO prodottoTaglieDAO = new ProdottoTaglieDAO();
         List<ProdottoTaglie> prodottiTaglie = prodottoTaglieDAO.doRetrieveAll();
 
+        // setta nella richiesta
         request.setAttribute("prodotti", prodotti);
         request.setAttribute("utenti", utenti);
         request.setAttribute("ordini", ordini);
         request.setAttribute("prodottitaglie", prodottiTaglie);
 
+        // setta nella richiesta tutte le colonne (con i tipi associati) di ciascuna tabella
         request.setAttribute("columnDataTypeSquadre", Helper.doRetrieveColumnDataType("squadre"));
         request.setAttribute("columnDataTypeProdotti", Helper.doRetrieveColumnDataType("prodotti"));
         request.setAttribute("columnDataTypeProdottiTaglie", Helper.doRetrieveColumnDataType("prodottitaglie"));
@@ -45,7 +55,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("columnDataTypeUtenti", Helper.doRetrieveColumnDataType("utenti"));
         request.setAttribute("columnDataTypeTaglie", Helper.doRetrieveColumnDataType("taglie"));
 
-
+        // ridirotta
         RequestDispatcher dispatcher = request.getRequestDispatcher("adminPage.jsp");
         dispatcher.forward(request, response);
     }

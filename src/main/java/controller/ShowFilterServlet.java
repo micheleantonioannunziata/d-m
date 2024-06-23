@@ -20,7 +20,10 @@ import java.util.List;
 @WebServlet(name = "showFilterServlet", value = "/showFilter-servlet")
 public class ShowFilterServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // ottieni tipologia dalla richiesta
         String tipologia = request.getParameter("tipologia");
+
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         TagliaDAO tagliaDAO = new TagliaDAO();
 
@@ -29,7 +32,7 @@ public class ShowFilterServlet extends HttpServlet {
         List<String> produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
         List<String> collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
 
-
+        // prepara per scrivere nella response
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
@@ -37,29 +40,33 @@ public class ShowFilterServlet extends HttpServlet {
         JSONArray taglie = new JSONArray(),
                 collezioni = new JSONArray(), produttori = new JSONArray();
 
+        // formatta le taglie in array json
         for (Taglia t : taglieFiltrate) {
             JSONObject object = new JSONObject();
             object.put("taglia", t.getTaglia());
             taglie.add(object);
         }
 
+        // formatta collezioni in array json
         for (String c: collezioniFiltrate) {
             JSONObject object = new JSONObject();
             object.put("nome", c);
             collezioni.add(object);
         }
 
+        // formatta prodttori in array json
         for (String p: produttoriFiltrati) {
             JSONObject object = new JSONObject();
             object.put("nome", p);
             produttori.add(object);
         }
 
-        // oggetto json con tre array
+        // poni tutto in un oggetto
         result.put("taglie", taglie);
         result.put("collezioni", collezioni);
         result.put("produttori", produttori);
 
+        // scrivi nella risposta l'oggettone json
         out.print(result);
         out.flush();
     }

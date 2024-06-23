@@ -14,14 +14,23 @@ import java.io.IOException;
 public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // ottieni tabella
         String tabella = request.getParameter("tabella");
 
+        // in base alla tabella fai le operazioni
         switch (tabella.toLowerCase()) {
+
+            // in ogni caso si catturano le pk della tabella
+            // e si esegue la query di eliminazione
+
             case "squadre" -> {
                 String id = request.getParameter("idSquadra");
 
                 SquadraDAO squadraDAO = new SquadraDAO();
                 squadraDAO.doDelete(id);
+
+                // aggiorna servlet context
                 getServletContext().setAttribute("squadre", squadraDAO.doRetrieveAll());
             }
             case "utenti" -> {
@@ -50,6 +59,8 @@ public class DeleteServlet extends HttpServlet {
 
                 TagliaDAO tagliaDAO = new TagliaDAO();
                 tagliaDAO.doDelete(id);
+
+                // aggiorna servlet context
                 getServletContext().setAttribute("taglie", tagliaDAO.doRetrieveAll());
             }
             case "prodottitaglie" -> {

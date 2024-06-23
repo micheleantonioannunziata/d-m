@@ -41,6 +41,7 @@ function manageFilters(tipologia) {
                 option.text = produttore.nome;
                 selectProduttore.appendChild(option);
             });
+
             // aggiorna collezioni
             const selectCollezione = document.getElementById("selectCollezione");
             selectCollezione.innerHTML = '<option value="" disabled selected>Collezione</option>'
@@ -117,18 +118,25 @@ function generateCard(prodotto) {
 
 function searchCards(queryString){
     var xhttp = new XMLHttpRequest();
+
+    // svuota container
     const container = document.querySelector(".grid-container"); //prende solo il primo
     container.innerHTML = "";
+
     xhttp.onreadystatechange = function () {
         if(xhttp.readyState === 4 && xhttp.status === 200){
+
+            // ottieni ciò che è stato scritto dalla servlet nella risposta
             const prodotti = JSON.parse(this.responseText);
 
-            // crea card per ogni prodotto
+            // per ogni prodotto crea una card e mettila nel containe
             prodotti.forEach(prodotto => {
                 container.innerHTML += generateCard(prodotto);
             });
         }
     }
+
+    // prepara chiamata asincrona alla servlet
     xhttp.open("GET","searchBar-servlet?queryString="+queryString, true)
     xhttp.send();
 }

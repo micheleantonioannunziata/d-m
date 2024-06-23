@@ -2,6 +2,7 @@
 <%@ page import="model.Prodotto" %>
 <script src="js/hamburger.js"></script>
 <script src="js/manageFilters.js"></script>
+
 <div class="header">
     <div class="logo mid-text">
         <a href="index.jsp">D<span class="normal-text">&</span>M</a>
@@ -15,14 +16,15 @@
 
     <div class="icons">
         <%
-            // Ottieni la query string dalla richiesta
+            // ottieni la query string dalla richiesta
             String lastQuery = (String) request.getParameter("queryString");
 
-            // Controlla l'URI della richiesta per determinare il flag
+            // controlla uri richiesta
             boolean flag = request.getRequestURI().contains("gridItemByFilter") || request.getRequestURI().contains("searchBar-servlet");
 
+            // se non stai nella pagina dei filtri
            if(!flag){ %>
-                <form action="searchBar-servlet" class="searchBar">
+                <form action="searchBar-servlet" class="searchBar"> <!-- form con flag redirect -->
                     <input type="hidden" name="redirect" value="true">
 
                     <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
@@ -32,8 +34,10 @@
 
                 </form>
         <% }
+           // altrimenti
             else { %>
             <div class="searchBar">
+                <!-- input con funziona ajax su evento onkeyup -->
                 <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
                        value="<%=lastQuery != null ? lastQuery : ""%>"
                        onkeyup = "searchCards(this.value)">
@@ -51,7 +55,10 @@
         <a href="<%= ref %>"><img src="img/user.svg" alt="" class="mr-20"></a>
         <a href="myCart.jsp" style="position: relative">
             <img src="img/shopping-cart.svg" alt="">
-            <% List<Prodotto> cart = (List<Prodotto>) request.getSession().getAttribute("carrello");
+            <% // prendi carrello dalla sessione
+                List<Prodotto> cart = (List<Prodotto>) request.getSession().getAttribute("carrello");
+
+                // se c'è qualcosa
                 if (cart != null && !cart.isEmpty()) {
                     int count = 0;
 
@@ -59,6 +66,7 @@
                     for (Prodotto p: cart)
                             count += p.getTaglieQuantita().size();
             %>
+                    <!-- mostra dimensione carrello -->
                     <span><%=count%></span>
             <% } %>
         </a>

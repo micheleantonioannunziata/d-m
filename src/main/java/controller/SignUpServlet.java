@@ -17,10 +17,10 @@ public class SignUpServlet extends HttpServlet {
     public boolean containsSpecialCharactersOrNumbers(String str) {
         for (char c : str.toCharArray()) {
             if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
-                return true; // Trovato un carattere non lettera e non spazio bianco
+                return true; // trovato un carattere non lettera e non spazio bianco
             }
         }
-        return false; // Nessun carattere speciale o numero trovato
+        return false; // nessun carattere speciale o numero trovato
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,15 +34,17 @@ public class SignUpServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         // effettua controlli
-        if (!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword))
             request.setAttribute("error", "le password non coincidono");
-        }
+
         else if (password.length() < 6 || password.length() > 20 ||
                 !containsSpecialCharactersOrNumbers(password) || !email.contains("@")
                 || username.length() < 5 || username.length() > 20) {
             request.setAttribute("error", "password o username non validi");
             address = "signup.jsp";
         }
+
+        // se tutto va bene
         else {
             utente.setUsername(username);
             utente.setEmail(email);
@@ -53,6 +55,7 @@ public class SignUpServlet extends HttpServlet {
             address = "userArea.jsp";
         }
 
+        // ridirotta
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }

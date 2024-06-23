@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Helper {
+
+    // metodo che restuisce un map che rappresenta le colonne della tabella passata
+    // chiave: colonna, valore: tipo
     public static Map<String,String> doRetrieveColumnDataType(String tabella){
         Map<String,String> columnTypes = new LinkedHashMap<>();
 
         try (Connection con = ConPool.getConnection()) {
+
+            // effettua query describe
             PreparedStatement ps = con.prepareStatement("describe " + tabella);
             ResultSet resultSet = ps.executeQuery();
 
@@ -20,6 +25,7 @@ public class Helper {
 
                 String defaultValue = resultSet.getString("Default");
 
+                // formatta
                 if (resultSet.getString("Key").equalsIgnoreCase("pri"))
                     columnName += " - pk";
                 if (resultSet.getString("Key").equalsIgnoreCase("mul"))
@@ -29,9 +35,9 @@ public class Helper {
                 if (defaultValue != null)
                     columnName += " default " + defaultValue;
 
+                // inserisci
                 columnTypes.put(columnName, columnType);
             }
-
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

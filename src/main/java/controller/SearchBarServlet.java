@@ -20,28 +20,37 @@ import java.util.List;
 @WebServlet(name = "searchBarServlet", value = "/searchBar-servlet")
 public class SearchBarServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // ottieni query string
         String queryString = request.getParameter("queryString");
+
         ProdottoDAO prodottoDAO = new ProdottoDAO();
+
+        // ottieni flag
         String redirect = request.getParameter("redirect");
 
+        // effettua query
         List<Prodotto> prodottiCercati = prodottoDAO.doRetrieveBySearch(queryString);
 
-
+        // se si arriva ttramite il form
         if(redirect != null && redirect.equalsIgnoreCase("true")) {
+
+            // metti nella richiesta
             request.setAttribute("prodottiCercati", prodottiCercati);
 
-
+            // ridirotta
             RequestDispatcher dispatcher = request.getRequestDispatcher("gridItemByFilter.jsp");
             dispatcher.forward(request, response);
         }
 
+        // se si arriva tramite input con chiamata ajax
         else {
 
+            // bisogna scrivere l'oggett json nella risposta
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
 
+            // formatta in un array json
             JSONArray result = new JSONArray();
-
 
             for (Prodotto prodotto : prodottiCercati) {
                 JSONObject object = new JSONObject();

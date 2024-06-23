@@ -18,11 +18,12 @@ import java.util.Map;
 @WebServlet(name = "AddToCart", value = "/addToCart-servlet")
 public class AddToCart extends HttpServlet {
 
-    // bisogna rivedere sta cosa che non funzione, adesso però è tardi non ce la faccio più
+    // metodo che verifica che quel prodotto già c'è nel carrello
     Prodotto isProductAlreadyInCart(List<Prodotto> carrello, int id){
         if (carrello.isEmpty())     return null;
 
         for (Prodotto prodotto: carrello)
+            // se c'è lo restituisci
             if (prodotto.getId_Prodotto() == id)      return prodotto;
 
         return null;
@@ -30,21 +31,29 @@ public class AddToCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // ottieni carrello
         List<Prodotto> carrello = (List<Prodotto>) req.getSession().getAttribute("carrello");
 
         if (carrello == null)
             carrello = new ArrayList<>();
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
+
+        // otteini id del prodotto
         int id = Integer.parseInt(req.getParameter("idProdotto"));
+
+        // effettua query
         Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(id);
 
+        // ottieni taglia e quantità
         String taglia = req.getParameter("taglia");
         int quantita = Integer.parseInt(req.getParameter("quantita"));
 
         // se viene passato una taglia non valida dobbiamo capire come gestire gli errori
 
         Map<String, Integer> tagliaQuantita = new HashMap<>();
+
+        // verifica se già sta nel carrello
         Prodotto prod = isProductAlreadyInCart(carrello, id);
 
         // se già sta nel carrello, considera la sua map
@@ -56,12 +65,14 @@ public class AddToCart extends HttpServlet {
         // aggiungi entry - se già esiste quella taglia la modifica da solo
         tagliaQuantita.put(taglia, quantita);
 
-        // aggiungi al carrello
+        // aggiungi al carrello con map modificata
         p.setTaglieQuantita(tagliaQuantita);
         carrello.add(p);
 
+        // aggiorna carrello
         req.getSession().setAttribute("carrello", carrello);
 
+        // ridirotta
         RequestDispatcher dispatcher = req.getRequestDispatcher("myCart.jsp");
         dispatcher.forward(req, resp);
     }

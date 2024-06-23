@@ -60,24 +60,28 @@ public class CartHandlerServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String loadOld = (String) request.getParameter("loadOld"); //per capire qual'è stata la scelta dell'utente
+
+        // ottieni parametro dalla richiesta
+        String loadOld = (String) request.getParameter("loadOld");
+
+        // ottieni bean dalla sessione
         Utente utente = (Utente) request.getSession().getAttribute("utente");
 
-        // fatti i tuoi controlli
-        if (utente != null && loadOld.equalsIgnoreCase("true")) {
+        // se è stato scelto il carrello vecchio
+        if (utente != null && loadOld!= null && loadOld.equalsIgnoreCase("true")) {
 
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
             // "svuota" carrello attuale (ha scelto quello vecchio)
             List<Prodotto> carrello = new ArrayList<>();
 
-            // considera carrello nel db
+            // ottieni carrello db
             List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId_Utente());
 
             // richiama funziona per caricare il vecchio carrello
             loadOldCart(carrelloDB, carrello);
 
-            // mettilo in sessione in modo che il carrello sarà visibile fino a quando non chiuderà la sessione l'utente
+            // aggiorna carrello in sessione
             request.getSession().setAttribute("carrello", carrello);
         }
 

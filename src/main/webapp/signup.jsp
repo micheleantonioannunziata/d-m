@@ -25,7 +25,7 @@
             </div>
             <div class="input">
                 <img src="img/unlock.svg">
-                <input type="password" id="password" name="password" required  placeholder="Password">
+                <input type="password" id="password" name="password" required  placeholder="Password" oninput="">
                 <img src="img/eye.svg" id="eyePassword" alt="">
             </div>
             <div class="input">

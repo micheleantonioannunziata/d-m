@@ -13,6 +13,7 @@
 </head>
 <body>
 <%
+    // ottieni carrello dalla sessione
     List<Prodotto> carrello = (List<Prodotto>) request.getSession().getAttribute("carrello");
     double prezzoTotale = 0.;
 %>
@@ -20,10 +21,15 @@
 <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <h3 class="big-text stroke">My Cart</h3>
-    <% if (carrello != null && !carrello.isEmpty()) { %>
+    <%
+        // se c'è qualcosa nel carrello
+        if (carrello != null && !carrello.isEmpty()) { %>
         <div class="box">
+
             <div class="grid-container">
-            <% for (Prodotto prodotto: carrello) { %>
+
+                <% // per ogni prodotto del carrello crea una card
+                    for (Prodotto prodotto: carrello) { %>
                 <div class="card scale-in-center">
                     <div class="img">
                         <img src="<%=prodotto.getUrlImmagine()%>" alt="">
@@ -31,8 +37,12 @@
                     <div class="content">
                         <h4 class="small-text"><%=prodotto.getNome()%></h4>
 
-                        <% for (Map.Entry<String, Integer> entry: prodotto.getTaglieQuantita().entrySet()) {
-                            prezzoTotale += prodotto.getPrezzo() * entry.getValue(); %>
+                        <%  // per ogni map del prodotto
+                            for (Map.Entry<String, Integer> entry: prodotto.getTaglieQuantita().entrySet()) {
+
+                                // ricalcola il prezzo totale del carrello
+                                prezzoTotale += prodotto.getPrezzo() * entry.getValue(); %>
+                            <!-- riga con info di taglia, quantità -->
                             <div class="sizes">
                                 <p><span>Size</span>: <%=entry.getKey()%>, <span>Amount</span>: <%=entry.getValue()%></p>
 
@@ -40,6 +50,8 @@
 
                                 <img src="img/trash.svg" alt="arrow">
                                     </button> --%>
+
+                                <!-- form per eliminazione dal carrello -->
                                 <form action="removeByCart-servlet" method="post">
                                     <input name="idProdotto" value="<%=prodotto.getId_Prodotto()%>" type="hidden">
                                     <input name="taglia" value="<%=entry.getKey()%>" type="hidden">
@@ -55,12 +67,14 @@
                 </div>
                 <% } %>
             </div>
+
                 <div class="checkOut">
                     <% prezzoTotale = Math.ceil(prezzoTotale); %>
                     <span class="small-text">Prezzo Totale:</span><span class="mid-text">€ <%= prezzoTotale %></span>
 
                     <button>Check Out</button>
                 </div>
+
             <% } %>
         </div>
 
