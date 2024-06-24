@@ -131,22 +131,36 @@ public class OrdineDAO{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public void doDelete(int idOrdine, int idProdotto, int idUtente, String taglia){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("delete from ordini where ID_Ordine = ? " +
+                            "and prodotto = ? and utente = ? and taglia = ?");
+            ps.setInt(1, idOrdine);
+            ps.setInt(2, idProdotto);
+            ps.setInt(3, idUtente);
+            ps.setString(4, taglia);
+            ps.executeUpdate();
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        public void doDelete(int idOrdine, int idProdotto, int idUtente, String taglia){
-            try (Connection con = ConPool.getConnection()) {
-                PreparedStatement ps =
-                        con.prepareStatement("delete from ordini where ID_Ordine = ? " +
-                                "and prodotto = ? and utente = ? and taglia = ?");
-                ps.setInt(1,idOrdine);
-                ps.setInt(2,idProdotto);
-                ps.setInt(3,idUtente);
-                ps.setString(4,taglia);
-                ps.executeUpdate();
-            }
-            catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+    public int doRetrieveMaxID_Ordine() {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("select max(id_ordine) from ordini");
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next())  return rs.getInt(1);
+
+            throw new RuntimeException("no results found.");
         }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -44,9 +44,15 @@
                     disabled
                     <% }
                 // se appartiene funzione js per attivazione al click
-                else { %>
-                    onclick="activeButton(this, <%= prodotto.getTaglieQuantita().get(taglia.getTaglia())%>)" required
-                    <% } %>
+                else {
+                    int quantitaMax = prodotto.getTaglieQuantita().get(taglia.getTaglia());
+
+                    if (quantitaMax > 0) { %>
+                        onclick="activeButton(this, <%= quantitaMax %>)" required
+                    <% } else { %>
+                        disabled
+                    <% }
+                } %>
             ><%= taglia.getTaglia() %></button>
             <% }
             }%>
@@ -77,23 +83,26 @@
             // rimuovi la classe active da tutte i bottoni
             buttons.forEach(button => button.classList.remove("active"));
 
-            // toggle per il button cliccato
-            arg.classList.toggle("active");
+            if (quantitaMax > 0) {
+                // toggle per il button cliccato
+                arg.classList.toggle("active");
 
-            // prendi tagliaInput e modifica value
-            const tagliaInput = document.getElementById('tagliaInput');
-            tagliaInput.value = arg.innerHTML;
+                // prendi tagliaInput e modifica value
+                const tagliaInput = document.getElementById('tagliaInput');
+                tagliaInput.value = arg.innerHTML;
 
-            // aggiorn quantitaInput
-            const quantitaInput = document.getElementById('quantitaInput');
-            quantitaInput.type = "number";
-            quantitaInput.min = 1;
-            quantitaInput.max = quantitaMax;
-            quantitaInput.required = true;
-            quantitaInput.value = quantitaInput.min;
+                // aggiorn quantitaInput
+                const quantitaInput = document.getElementById('quantitaInput');
+                quantitaInput.type = "number";
+                quantitaInput.min = 1;
+                quantitaInput.max = quantitaMax;
+                quantitaInput.required = true;
+                quantitaInput.value = quantitaInput.min;
 
-            // abilita submit
-            submit.disabled = false;
+                // abilita submit
+                submit.disabled = false;
+            }
+            else { arg.disabled = true }
         }
 
     </script>

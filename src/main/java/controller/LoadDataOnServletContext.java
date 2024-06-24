@@ -20,5 +20,9 @@ public class LoadDataOnServletContext extends HttpServlet {
         SquadraDAO squadraDAO = new SquadraDAO();
         List<Squadra> squadre = squadraDAO.doRetrieveAll();
         getServletContext().setAttribute("squadre", squadre);
+
+        // inserisci l'id dell'ultimo ordine
+        OrdineDAO ordineDAO = new OrdineDAO();
+        getServletContext().setAttribute("lastIdOrdine", ordineDAO.doRetrieveMaxID_Ordine());
     }
 }

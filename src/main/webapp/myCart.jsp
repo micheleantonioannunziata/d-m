@@ -71,8 +71,9 @@
                 <div class="checkOut">
                     <% prezzoTotale = Math.ceil(prezzoTotale); %>
                     <span class="small-text">Prezzo Totale:</span><span class="mid-text">€ <%= prezzoTotale %></span>
-
-                    <button>Check Out</button>
+                    <form action="checkOut-servlet" method="post">
+                        <button>Check Out</button>
+                    </form>
                 </div>
 
             <% } %>
