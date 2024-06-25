@@ -1,5 +1,6 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +25,9 @@ public class CheckOutServlet extends HttpServlet {
 
         if (u == null) {
             // se non è loggato non può fare l'ordine
-            address = "myCart.jsp";
+            address = "login.jsp";
+
+            req.setAttribute("error", "check out not valid for unlogged user");
         } else {
             List<Prodotto> carrello = (List<Prodotto>) req.getSession().getAttribute("carrello");
             OrdineDAO ordineDAO = new OrdineDAO();
@@ -59,6 +62,7 @@ public class CheckOutServlet extends HttpServlet {
             address = "redirectToUserArea";
         }
 
-        resp.sendRedirect(address);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(address);
+        dispatcher.forward(req, resp);
     }
 }

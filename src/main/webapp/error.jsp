@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <%@ include file="modules/header.jsp" %>
+    <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <%!
         public int getErrorCode(Exception exception) {
@@ -33,7 +33,7 @@
             <button onclick="location.href='fanZone.jsp'">Go back</button>
         </div>
         <div class="poster__img">
-            <img src="../img/zieloError.jpeg" alt="">
+            <img src="img/zieloError.jpeg" alt="">
         </div>
     </div>
 </body>

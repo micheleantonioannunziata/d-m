@@ -9,6 +9,30 @@
     <title>GridByFilter</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<style>
+    .filters{
+        padding: 20px;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        margin: 20vh auto 50px;
+        background: #f6f6f6;
+        border-radius: 10px;
+    }
+    select {
+        appearance: none;
+        min-width: 150px;
+        padding: 12px 15px;
+        border: 1px solid #d6d6d6;
+        border-radius: 10px;
+    }
+
+    @media only screen and (max-width: 1030px) {
+       .filters{ justify-content: space-around; }
+    }
+</style>
 <body>
     <script type="text/javascript" src="js/manageFilters.js"></script>
 
@@ -51,8 +75,7 @@
                     String lastSquadra = request.getParameter("squadra");
                 %>
 
-                <form action="filter-servlet" method="post" class="filters">
-
+                <div class="filters">
                     <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)">
                         <option value="" disabled selected>Tipologia</option>
                         <% for (String tipologia : tipologie) { %>
@@ -91,7 +114,7 @@
                     <select id="selectProduttore" name="produttore" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Produttore</option>
                     </select>
-                </form>
+                </div>
 
 
                 <div class="grid-container"></div>

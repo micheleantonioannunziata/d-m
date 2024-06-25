@@ -4,15 +4,13 @@ h3.stroke{margin-top: 20vh; text-transform: uppercase; padding-left: 3%}
 
 .grid-container{width: 50%; padding: 0}
 
-.grid-container .card{display: flex; justify-content: space-between; width: 100%}
+.grid-container .card{display: flex; justify-content: space-between; width: 100%; align-items: center}
 
 .grid-container .card .img{width: 280px; position: relative}
 
 .grid-container .card .img img{height: 200px}
 
-.grid-container .card .content{position: relative}
-
-.grid-container .card .content h2{position: absolute; bottom: 0; left: 0;}
+.grid-container .card .content{display: flex; flex-direction: column; justify-content: space-between;}
 
 .grid-container .card .content .sizes{display: flex; justify-content: space-between; align-items: center; padding: 5% 0;}
 
