@@ -28,9 +28,19 @@ public class ShowFilterServlet extends HttpServlet {
         TagliaDAO tagliaDAO = new TagliaDAO();
 
         // prendi taglie, produttori e collezioni di quella tipologia
-        List<Taglia> taglieFiltrate = tagliaDAO.doRetrieveByTipologia(tipologia);
-        List<String> produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
-        List<String> collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
+
+        List<Taglia> taglieFiltrate = null;
+        List<String> produttoriFiltrati = null, collezioniFiltrate = null;
+
+        if (tipologia.equalsIgnoreCase("all")) {
+            taglieFiltrate = tagliaDAO.doRetrieveAll();
+            produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "1", "1");
+            collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "1", "1");
+        } else {
+            taglieFiltrate = tagliaDAO.doRetrieveByTipologia(tipologia);
+            produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
+            collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
+        }
 
         // prepara per scrivere nella response
         response.setContentType("application/json");

@@ -78,6 +78,7 @@
                 <div class="filters">
                     <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)">
                         <option value="" disabled selected>Tipologia</option>
+                        <option value="All">All</option>
                         <% for (String tipologia : tipologie) { %>
                             <option value="<%= tipologia %>"
                                 <% if (tipologia.equalsIgnoreCase(lastTipologia)) { %>
@@ -91,6 +92,7 @@
 
                     <select id="selectSquadra" name="squadra" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Squadra</option>
+                        <option value="All">All</option>
                          <% for (Squadra squadra : squadre) { %>
                             <option value="<%= squadra.getNome() %>"
                                     <% if (squadra.getNome().equalsIgnoreCase(lastSquadra)) { %>

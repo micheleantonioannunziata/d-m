@@ -9,6 +9,7 @@
 
 ::selection{background: var(--color-primary); color: var(--color-secondary)}
 
+
 /* reset css */
 * {
     margin: 0;
@@ -145,9 +146,12 @@ body{overflow-x: hidden; transition: 0.8s}
 
 @media only screen and (max-width: 768px) {
     #fanZoneSection.poster, #loginSection.poster{flex-wrap: wrap;}
+        #fanZoneSection.poster {
+            margin-top: 15vh;
+            height: auto;}
     #fanZoneSection .poster__img, #fanZoneSection .poster__content,
     #loginSection .poster__img, #loginSection .poster__content {width: 100%;}
-    #fanZoneSection .poster__img img{height: 100%;}
+    #fanZoneSection .poster__img {display: none;}
     #fanZoneSection.poster {margin-top: 15vh;}
 }
 
@@ -158,7 +162,7 @@ body{overflow-x: hidden; transition: 0.8s}
 .mt-50{margin-top: 50px;}
 .mr-20 {margin-right: 20px;}
 .mid-text { font-size: 45px; font-weight: 600; }
-.big-text { font-size: 100px; font-weight: 900; }
+.big-text { font-size: 90px; font-weight: 900; }
 .normal-text { font-size: 30px; font-weight: 500; }
 .small-text { font-size: 18px; font-weight: 400; }
 

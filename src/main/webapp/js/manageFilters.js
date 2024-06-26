@@ -18,13 +18,13 @@ function manageFilters(tipologia) {
             })
 
             // se non è maglia, nascondi la select della squadra
-            if (tipologia !== "Maglia") {
+            if (tipologia !== "Maglia" && tipologia !== "All") {
                 document.getElementById("selectSquadra").classList.add("hidden");
             }
 
             // aggiorna taglie
             const selectTaglia = document.getElementById("selectTaglia");
-            selectTaglia.innerHTML = '<option value="" disabled selected>Taglia</option>'
+            selectTaglia.innerHTML = '<option value="" disabled selected>Taglia</option><option value="All">All</option>'
             taglie.forEach(taglia => {
                 const option = document.createElement("option");
                 option.value = taglia.taglia;
@@ -34,7 +34,7 @@ function manageFilters(tipologia) {
 
             // aggiorna produttori
             const selectProduttore = document.getElementById("selectProduttore");
-            selectProduttore.innerHTML = '<option value="" disabled selected>Produttore</option>'
+            selectProduttore.innerHTML = '<option value="" disabled selected>Produttore</option><option value="All">All</option>'
             produttori.forEach(produttore => {
                 const option = document.createElement("option");
                 option.value = produttore.nome;
@@ -44,7 +44,7 @@ function manageFilters(tipologia) {
 
             // aggiorna collezioni
             const selectCollezione = document.getElementById("selectCollezione");
-            selectCollezione.innerHTML = '<option value="" disabled selected>Collezione</option>'
+            selectCollezione.innerHTML = '<option value="" disabled selected>Collezione</option><option value="All">All</option>'
             collezioni.forEach(collezione => {
                 const option = document.createElement("option");
                 option.value = collezione.nome;

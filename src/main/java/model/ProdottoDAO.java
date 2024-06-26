@@ -80,26 +80,27 @@ public class ProdottoDAO {
                                           String produttore, String collezione) {
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> result = new ArrayList<>();
-            String baseQuery = "select distinct prodotti.* from prodotti left join prodottitaglie on id_prodotto = prodotto where 1=1";
+            String baseQuery = "select distinct prodotti.* from prodotti left join prodottitaglie " +
+                    "on id_prodotto = prodotto where 1=1";
             List<String> criteria = new ArrayList<>();
 
-            if (!tipologia.isEmpty()) {
+            if (!tipologia.isEmpty() && !tipologia.equalsIgnoreCase("all")) {
                 baseQuery += " AND tipologia = ?";
                 criteria.add(tipologia);
             }
-            if (!taglia.isEmpty()) {
+            if (!taglia.isEmpty() && !taglia.equalsIgnoreCase("all")) {
                 baseQuery += " AND taglia = ?";
                 criteria.add(taglia);
             }
-            if (!squadra.isEmpty()) {
+            if (!squadra.isEmpty() && !squadra.equalsIgnoreCase("all")) {
                 baseQuery += " AND squadra = ?";
                 criteria.add(squadra);
             }
-            if (!produttore.isEmpty()) {
+            if (!produttore.isEmpty() && !produttore.equalsIgnoreCase("all")) {
                 baseQuery += " AND produttore = ?";
                 criteria.add(produttore);
             }
-            if (!collezione.isEmpty()) {
+            if (!collezione.isEmpty() && !collezione.equalsIgnoreCase("all")) {
                 baseQuery += " AND collezione = ?";
                 criteria.add(collezione);
             }
