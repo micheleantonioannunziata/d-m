@@ -50,7 +50,7 @@ public class RedirectToUserArea extends HttpServlet {
         req.setAttribute("ordiniProdottiMap", ordiniProdottiMap);
 
         // ridirotta
-        RequestDispatcher dispatcher = req.getRequestDispatcher("userArea.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/userArea.jsp");
         dispatcher.forward(req,resp);
     }
 

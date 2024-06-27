@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<%
+    // forse non è MVC, bisogna fare un'altra servlet
+    if (session.getAttribute("utente") != null)
+        response.sendRedirect("redirectToUserArea");
+%>
+
 <div class="poster" id="loginSection">
     <div class="poster__content">
         <div class="logo mid-text">

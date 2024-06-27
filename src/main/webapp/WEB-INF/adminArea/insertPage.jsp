@@ -3,45 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/insertPage.css">
 </head>
 <body>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-        *{margin: 0;padding: 0;font-family: 'Montserrat', sans-serif;box-sizing: border-box;}
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center
-        }
-
-        h2 {
-            margin: 25px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-            align-items: center;
-        }
-
-        input {
-            margin: 25px 0;
-            padding: 12px 14px;
-            font-size: 17px;
-            width: 80%;
-        }
-
-        input[type="submit"] {
-            background: #70F495;
-            border: none;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-    </style>
     <%
         Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi");
         String nameTable = (String) request.getAttribute("tabella"); %>
@@ -76,7 +44,7 @@
                                     else if (columnName.equalsIgnoreCase("password"))
                                         type = "password";
                         %>
-                                    <input type="<%= type %>" name=" <%= columnName %>" placeholder="<%= columnName %>" required>
+                                    <input type="<%= type %>" name="<%= columnName %>" placeholder="<%= columnName %>" required>
                             <% break; }
                                case "decimal" : { %>
                                     <input type="number" step="0.01" name= "<%= columnName %>" placeholder="<%= columnName %>" required> <!-- step = precisione decim -->

@@ -1,4 +1,5 @@
-function redirectFilter(card) {
-    const squadra = card.getAttribute("data-squadra");
-    window.location.href = `gridItemByFilter.jsp?tipologia=Maglia&squadra=${encodeURIComponent(squadra)}`;
+function redirectFilter(arg, tipologia, criteria) {
+    const value = arg.getAttribute("data-value");
+    window.location.href =
+        `gridItemByFilter.jsp?tipologia=${encodeURIComponent(tipologia)}&${encodeURIComponent(criteria)}=${encodeURIComponent(value)}`;
 }

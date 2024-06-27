@@ -5,54 +5,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adminPage.css">
 </head>
 <body>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-    *{margin: 0;padding: 0;font-family: 'Montserrat', sans-serif;box-sizing: border-box;text-align: center;}
-
-    body{
-        display: flex;
-        flex-direction: column;
-    }
-
-    table {
-        width: 60%;
-        border-collapse: collapse;
-        margin: 50px auto;
-        overflow-x: auto;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #ddd;
-        color: #333;
-        cursor: pointer;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    table tr th:last-child, table tbody tr td:last-child,
-    table tbody tr th:nth-last-child(2), table tr td:nth-last-child(2){
-        background: white;
-        border: none;
-    }
-
-    button{border: none;background: none;}
-    button img{cursor: pointer;}
-    .scale-in-center{animation:scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both}
-    @keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
-</style>
 
 <%
     List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre");
@@ -62,6 +21,9 @@
     List<Utente> utenti = (List<Utente>) request.getAttribute("utenti");
     List<ProdottoTaglie> prodottiTaglie = (List<ProdottoTaglie>) request.getAttribute("prodottitaglie");
 %>
+
+<button onclick="location.href = 'redirectToUserArea'"
+    style="margin: 20px auto" class="small-text">Back to user area</button>
 
 <table class="scale-in-center">
     <tr>

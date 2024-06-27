@@ -56,7 +56,7 @@ public class AdminServlet extends HttpServlet {
         request.setAttribute("columnDataTypeTaglie", Helper.doRetrieveColumnDataType("taglie"));
 
         // ridirotta
-        RequestDispatcher dispatcher = request.getRequestDispatcher("adminPage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/adminArea/adminPage.jsp");
         dispatcher.forward(request, response);
     }
 }

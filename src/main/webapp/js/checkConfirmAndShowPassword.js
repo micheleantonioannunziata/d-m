@@ -10,9 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmPassword = confirmPasswordInput.value;
 
         // se non sono vuote e se sono uguali
-        if (password && confirmPassword && password === confirmPassword)
+        if (password && confirmPassword && password === confirmPassword) {
             submitBtn.disabled = false; // abilita
-        else    submitBtn.disabled = true;
+            submitBtn.style.cursor = "pointer";
+        }
+        else {
+            submitBtn.disabled = true;
+            submitBtn.style.cursor = "not-allowed"
+        }
     }
 
     function togglePasswordVisibility(input, icon) {

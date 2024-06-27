@@ -11,7 +11,7 @@
     <ul class="menuBar small-text">
         <li><a href="">About</a></li>
         <li><a href="fanZone.jsp">Fan Zone</a></li>
-        <li><a href="">Collections</a></li>
+        <li><a href="gridItemByFilter.jsp">Products</a></li>
     </ul>
 
     <div class="icons">
@@ -40,7 +40,7 @@
                 <!-- input con funziona ajax su evento onkeyup -->
                 <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
                        value="<%=lastQuery != null ? lastQuery : ""%>"
-                       onkeyup = "searchCards(this.value)">
+                       oninput = "searchCards(this.value)">
 
                     <button><img src="img/search.svg" alt=""></button>
             </div>

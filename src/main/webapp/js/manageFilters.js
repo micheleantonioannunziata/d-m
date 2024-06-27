@@ -1,7 +1,6 @@
-function manageFilters(tipologia) {
+function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
     var xhttp = new XMLHttpRequest();
 
-    // container.innerHTML = '';
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
 
@@ -15,7 +14,7 @@ function manageFilters(tipologia) {
             const selects = document.querySelectorAll(".filters select");
             selects.forEach(select => {
                 select.classList.remove("hidden");
-            })
+            });
 
             // se non è maglia, nascondi la select della squadra
             if (tipologia !== "Maglia" && tipologia !== "All") {
@@ -24,39 +23,48 @@ function manageFilters(tipologia) {
 
             // aggiorna taglie
             const selectTaglia = document.getElementById("selectTaglia");
-            selectTaglia.innerHTML = '<option value="" disabled selected>Taglia</option><option value="All">All</option>'
+            selectTaglia.innerHTML =
+                '<option value="" disabled selected>Taglia</option>';
+
             taglie.forEach(taglia => {
                 const option = document.createElement("option");
                 option.value = taglia.taglia;
                 option.text = taglia.taglia;
+                if (taglia.taglia === lastTaglia) option.selected = true;
                 selectTaglia.appendChild(option);
             });
 
             // aggiorna produttori
             const selectProduttore = document.getElementById("selectProduttore");
-            selectProduttore.innerHTML = '<option value="" disabled selected>Produttore</option><option value="All">All</option>'
+            selectProduttore.innerHTML =
+                '<option value="" disabled selected>Produttore</option>';
+
             produttori.forEach(produttore => {
                 const option = document.createElement("option");
                 option.value = produttore.nome;
                 option.text = produttore.nome;
+                if (produttore.nome === lastProduttore) option.selected = true;
                 selectProduttore.appendChild(option);
             });
 
             // aggiorna collezioni
             const selectCollezione = document.getElementById("selectCollezione");
-            selectCollezione.innerHTML = '<option value="" disabled selected>Collezione</option><option value="All">All</option>'
+            selectCollezione.innerHTML = '<option value="" disabled selected>Collezione</option>';
+
             collezioni.forEach(collezione => {
                 const option = document.createElement("option");
                 option.value = collezione.nome;
                 option.text = collezione.nome;
+                if (collezione.nome === lastCollezione) option.selected = true;
                 selectCollezione.appendChild(option);
             });
 
-            updateCards()
+            updateCards();
         }
-    };
+    }
 
-    // apri connessione ed invia richiesta alla servlet
+
+        // apri connessione ed invia richiesta alla servlet
     xhttp.open("GET", `showFilter-servlet?tipologia=${tipologia}`, true);
     xhttp.send();
 }
@@ -120,14 +128,32 @@ function searchCards(queryString){
     var xhttp = new XMLHttpRequest();
 
     // svuota container
-    const container = document.querySelector(".grid-container"); //prende solo il primo
+    const container = document.querySelector(".grid-container"); // prende solo il primo
     container.innerHTML = "";
+
+    // prendi classe dei filtri
+    const filters = document.querySelector(".filters");
+
+    if (queryString === "") {
+        container.innerHTML = "No results..."
+        filters.classList.remove("none")
+        container.style.marginTop = "0";
+        return
+    }
 
     xhttp.onreadystatechange = function () {
         if(xhttp.readyState === 4 && xhttp.status === 200){
 
             // ottieni ciò che è stato scritto dalla servlet nella risposta
             const prodotti = JSON.parse(this.responseText);
+
+            filters.classList.add("none");
+            container.style.marginTop = "20vh";
+
+            if (prodotti.length === 0) {
+                container.innerHTML = "No results..."
+                return
+            }
 
             // per ogni prodotto crea una card e mettila nel containe
             prodotti.forEach(prodotto => {

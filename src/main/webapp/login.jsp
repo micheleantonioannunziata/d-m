@@ -11,7 +11,7 @@
     <%
         // forse non è MVC, bisogna fare un'altra servlet
         if (session.getAttribute("utente") != null)
-            response.sendRedirect("userArea.jsp");
+            response.sendRedirect("redirectToUserArea");
     %>
 
     <div class="poster" id="loginSection">

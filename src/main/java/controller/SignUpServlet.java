@@ -44,6 +44,11 @@ public class SignUpServlet extends HttpServlet {
             address = "signup.jsp";
         }
 
+        else if (service.existsByUsername(username)) {
+            request.setAttribute("error", "utente già esistente");
+            address = "signup.jsp";
+        }
+
         // se tutto va bene
         else {
             utente.setUsername(username);
@@ -52,7 +57,7 @@ public class SignUpServlet extends HttpServlet {
             service.doSave(utente);
 
             request.getSession().setAttribute("utente", utente);
-            address = "userArea.jsp";
+            address = "WEB-INF/userArea.jsp";
         }
 
         // ridirotta

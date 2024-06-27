@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
+<script type="text/javascript" src="js/redirectFilter.js"></script>
+
 <body>
 
 <%@include file="WEB-INF/modules/header.jsp" %>
@@ -94,7 +96,7 @@
         <div class="text">
             <h2 class="mid-text white">UEFA Euro 2024</h2>
             <h4 class="small-text white">Unleash your skills with engineering!</h4>
-            <button class="small-text">Go now</button>
+            <button class="small-text" data-value="Serie A 23/24" onclick="redirectFilter(this, 'All', 'collezione')">Go now</button>
         </div>
     </div>
 </div>

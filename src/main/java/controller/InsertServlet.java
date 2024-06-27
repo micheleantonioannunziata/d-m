@@ -27,7 +27,7 @@ public class InsertServlet extends HttpServlet {
         req.setAttribute("tabella", tabella);
 
         // ridirotta
-        RequestDispatcher dispatcher = req.getRequestDispatcher("insertPage.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/adminArea/insertPage.jsp");
         dispatcher.forward(req,resp);
     }
 }

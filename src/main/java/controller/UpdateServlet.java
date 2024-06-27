@@ -80,7 +80,7 @@ public class UpdateServlet extends HttpServlet {
         }
 
         // ridirotta
-        RequestDispatcher dispatcher = request.getRequestDispatcher("updatePage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/adminArea/updatePage.jsp");
         dispatcher.forward(request, response);
     }
 }

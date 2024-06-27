@@ -8,34 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GridByFilter</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
-<style>
-    .filters{
-        padding: 20px;
-        width: 80%;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        row-gap: 20px;
-        margin: 20vh auto 50px;
-        background: #f6f6f6;
-        border-radius: 10px;
-    }
-    select {
-        appearance: none;
-        min-width: 150px;
-        padding: 12px 15px;
-        border: 1px solid #d6d6d6;
-        border-radius: 10px;
-    }
-
-    @media only screen and (max-width: 1030px) {
-       .filters{ justify-content: space-around; }
-    }
-</style>
-<body>
+    <link rel="stylesheet" href="css/gridItemByFilter.css">
     <script type="text/javascript" src="js/manageFilters.js"></script>
+</head>
 
+<body>
     <%@ include file="WEB-INF/modules/header.jsp" %>
 
     <%
@@ -66,19 +43,21 @@
         else {%>
 
                 <%
-                    List<String> tipologie =  Arrays.asList("Maglia", "Pallone", "Scarpetta");
+                    List<String> tipologie =  Arrays.asList("All", "Maglia", "Pallone", "Scarpetta");
 
                     // ottieni lista della squadre dalla servletContext
                     List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre");
 
                     String lastTipologia = request.getParameter("tipologia");
                     String lastSquadra = request.getParameter("squadra");
+                    String lastCollezione = request.getParameter("collezione");
+                    String lastProduttore = request.getParameter("produttore");
+                    String lastTaglia = request.getParameter("taglia");
                 %>
 
                 <div class="filters">
                     <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)">
                         <option value="" disabled selected>Tipologia</option>
-                        <option value="All">All</option>
                         <% for (String tipologia : tipologie) { %>
                             <option value="<%= tipologia %>"
                                 <% if (tipologia.equalsIgnoreCase(lastTipologia)) { %>
@@ -92,7 +71,10 @@
 
                     <select id="selectSquadra" name="squadra" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Squadra</option>
-                        <option value="All">All</option>
+                        <option value="All" <% if (lastSquadra != null && lastSquadra.equalsIgnoreCase("all")) { %>
+                                selected
+                                <% } %>
+                        >All</option>
                          <% for (Squadra squadra : squadre) { %>
                             <option value="<%= squadra.getNome() %>"
                                     <% if (squadra.getNome().equalsIgnoreCase(lastSquadra)) { %>
@@ -124,7 +106,7 @@
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
-                        if (tipologia)  manageFilters(tipologia);
+                        if (tipologia)  manageFilters(tipologia, '<%= lastTaglia %>', '<%=lastCollezione%>', '<%=lastProduttore%>');
                     });
                 </script>
 

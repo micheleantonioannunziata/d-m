@@ -21,7 +21,7 @@
             // crea card per ogni squadra
             for (Squadra squadra: squadre) {
          %>
-            <div class="card scale-in-center" data-squadra = "<%= squadra.getNome() %>" onclick = "redirectFilter(this)">
+            <div class="card scale-in-center" data-value = "<%= squadra.getNome() %>" onclick = "redirectFilter(this, 'Maglia', 'squadra')">
                 <img src="<%=squadra.getUrlImmagine()%>" alt="">
                 <h2 class="small-text"> <%= squadra.getNome() %></h2>
                 <span></span> <!-- rettangolino verde -->
