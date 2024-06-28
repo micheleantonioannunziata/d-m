@@ -9,7 +9,6 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/myCart.css">
-    <link rel="stylesheet" href="css/footer.css">
     <!-- <script src="js/removeByCart.js"></script> -->
 </head>
 <body>
@@ -79,7 +78,5 @@
 
             <% } %>
         </div>
-
-<%@include file="WEB-INF/modules/footer.jsp" %>
 </body>
 </html>
