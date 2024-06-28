@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GridByFilter</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/gridItemByFilter.css">
     <script type="text/javascript" src="js/manageFilters.js"></script>
 </head>
@@ -111,5 +112,6 @@
                 </script>
 
                     <% } %>
+                <%@include file="WEB-INF/modules/footer.jsp" %>
 </body>
 </html>

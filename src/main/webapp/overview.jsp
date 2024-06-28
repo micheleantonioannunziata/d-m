@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Overview</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
 
@@ -106,5 +107,6 @@
         }
 
     </script>
+    <%@include file="WEB-INF/modules/footer.jsp" %>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D&M</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <script type="text/javascript" src="js/redirectFilter.js"></script>
@@ -104,5 +105,8 @@
 <h1 class="big-text">Stay Ahead of the Game</h1>
 <h2 class="mid-text">Explore the Latest Football News</h2>
 </div>
+
+<%@include file="WEB-INF/modules/footer.jsp" %>
+
 </body>
 </html>
