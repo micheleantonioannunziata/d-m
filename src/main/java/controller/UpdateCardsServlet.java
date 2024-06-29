@@ -26,10 +26,12 @@ public class UpdateCardsServlet extends HttpServlet {
         String produttore = request.getParameter("produttore");
         String collezione = request.getParameter("collezione");
 
+        String rangePrice = request.getParameter("prezzo");
+
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
         // prendi dati dal db
-        List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione);
+        List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione, rangePrice);
 
         JSONArray prodotti = new JSONArray();
 

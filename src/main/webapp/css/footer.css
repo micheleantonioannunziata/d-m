@@ -1,7 +1,6 @@
 footer {
     background: black;
     color: var(--color-primary);
-    margin-top: 30px;
 }
 
 footer .footContainer {
@@ -10,7 +9,12 @@ footer .footContainer {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    row-gap: 20px;
 }
+
+footer .footContainer .logo{ font-style: italic}
+
+footer .footContainer .logo a{color: var(--color-primary)}
 
 .footContainer .contacts {
     width: 25%;

@@ -44,7 +44,7 @@
         border: none;
         border-radius: 50px;}
 
-    .writing{padding: 0 3%}
+    .writing{padding: 20px 3%}
     .writing h1{text-transform: uppercase}
     .writing h2{font-weight: normal}
 

@@ -38,8 +38,9 @@
                         </button>
                     </form>
                 </div>
-                    <% }
-    }
+                    <% } %>
+            </div>
+        <% }
        // se non è stato cercato nulla, gestisci i filtri
         else {%>
 
@@ -54,6 +55,8 @@
                     String lastCollezione = request.getParameter("collezione");
                     String lastProduttore = request.getParameter("produttore");
                     String lastTaglia = request.getParameter("taglia");
+
+                    double start = 50. , stop = 200., step = 50.;
                 %>
 
                 <div class="filters">
@@ -98,6 +101,17 @@
 
                     <select id="selectProduttore" name="produttore" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Produttore</option>
+                    </select>
+
+                    <select id="selectPrezzo" name="prezzo" class="hidden" onchange="updateCards()">
+                        <option value="" disabled selected>Range Price</option>
+                        <option value="All">All</option>
+                        <% for (double prezzo = start; prezzo < stop; prezzo += step) {%>
+                            <option value="<%=(int) prezzo%> - <%=(int) (prezzo + step)%>"
+                                ><%=(int) prezzo%> - <%=(int) (prezzo + step)%></option>
+                        <% } %>
+
+                        <option value="<%=(int) stop%> + "><%=(int) stop%> + </option>
                     </select>
                 </div>
 

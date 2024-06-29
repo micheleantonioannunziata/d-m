@@ -79,6 +79,7 @@ function updateCards() {
     const produttore = document.getElementById("selectProduttore").value || "";
     const collezione = document.getElementById("selectCollezione").value || "";
     const squadra = document.getElementById("selectSquadra").value || "";
+    const prezzo = document.getElementById("selectPrezzo").value || "";
 
     container.innerHTML = '';
 
@@ -100,7 +101,8 @@ function updateCards() {
         `&taglia=${encodeURIComponent(taglia)}` +
         `&produttore=${encodeURIComponent(produttore)}` +
         `&collezione=${encodeURIComponent(collezione)}` +
-        `&squadra=${encodeURIComponent(squadra)}`;
+        `&squadra=${encodeURIComponent(squadra)}` +
+        `&prezzo=${encodeURIComponent(prezzo)}`;
 
     xhttp.open("GET",
         `updateCards-servlet?${queryString}`,
@@ -136,8 +138,10 @@ function searchCards(queryString){
 
     if (queryString === "") {
         container.innerHTML = "No results..."
-        filters.classList.remove("none")
-        container.style.marginTop = "0";
+        if (filters != null && filters.classList.contains("none")) {
+            filters.classList.remove("none")
+            container.style.marginTop = "0";
+        }
         return
     }
 
@@ -147,8 +151,10 @@ function searchCards(queryString){
             // ottieni ciò che è stato scritto dalla servlet nella risposta
             const prodotti = JSON.parse(this.responseText);
 
-            filters.classList.add("none");
-            container.style.marginTop = "20vh";
+            if (filters != null && !filters.classList.contains("none")) {
+                filters.classList.add("none");
+                container.style.marginTop = "20vh";
+            }
 
             if (prodotti.length === 0) {
                 container.innerHTML = "No results..."

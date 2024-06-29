@@ -77,7 +77,7 @@ public class ProdottoDAO {
     }
 
     public List<Prodotto> doRetrieveByAll(String taglia, String squadra, String tipologia,
-                                          String produttore, String collezione) {
+                                          String produttore, String collezione, String rangePrice) {
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> result = new ArrayList<>();
             String baseQuery = "select distinct prodotti.* from prodotti left join prodottitaglie " +
@@ -103,6 +103,21 @@ public class ProdottoDAO {
             if (!collezione.isEmpty() && !collezione.equalsIgnoreCase("all")) {
                 baseQuery += " AND collezione = ?";
                 criteria.add(collezione);
+            }
+            if (!rangePrice.isEmpty() && !rangePrice.equalsIgnoreCase("all")) {
+                String[] prices;
+                if (rangePrice.contains(" - ")) {
+                    prices = rangePrice.split(" - ");
+                    baseQuery += "and prezzo between ? and ?";
+                    criteria.add(prices[0]);
+                    criteria.add(prices[1]);
+                }
+
+                else if (rangePrice.contains("+")) {
+                    prices = rangePrice.split(" + ");
+                    baseQuery += "and prezzo >= ?";
+                    criteria.add(prices[0]);
+                }
             }
 
             PreparedStatement ps = con.prepareStatement(baseQuery);
@@ -198,8 +213,6 @@ public class ProdottoDAO {
                     "where nome like ";
 
             query += "'" + searchPattern + "'";
-
-            System.out.println(query);
 
             PreparedStatement ps = con.prepareStatement(query);
 

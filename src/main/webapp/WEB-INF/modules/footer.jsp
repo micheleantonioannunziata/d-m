@@ -1,23 +1,23 @@
 <footer>
     <div class="footContainer">
         <div class="logo big-text">
-            D<span class="big-text">&</span>M
+            <a href="index.jsp">D<span class="mid-text">&</span>M</a>
         </div>
         <div class="contacts">
             <div class="contact">
-                <img src="img/telefono.png">
+                <img src="img/phone.svg">
                 <h4 class="small-text">+39 3336289210</h4>
             </div>
             <div class="contact">
-                <img src="img/mailWhite.jpeg">
+                <img src="img/mailWhite.svg">
                 <h4 class="small-text" style="font-size: 14px">gianniDangelo@gmail.com</h4>
             </div>
             <div class="contact">
-                <img src="img/instagram.png">
+                <img src="img/instagram.svg">
                 <h4 class="small-text">ciao</h4>
             </div>
             <div class="contact">
-                <img src="img/facebook.png">
+                <img src="img/facebook.svg">
                 <h4 class="small-text">a capocchij</h4>
             </div>
         </div>
