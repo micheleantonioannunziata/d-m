@@ -9,7 +9,7 @@
     </div>
 
     <ul class="menuBar small-text">
-        <li><a href="">About</a></li>
+        <li><a href="about.jsp">About</a></li>
         <li><a href="fanZone.jsp">Fan Zone</a></li>
         <li><a href="gridItemByFilter.jsp">Products</a></li>
     </ul>
@@ -27,7 +27,7 @@
                 <form action="searchBar-servlet" class="searchBar"> <!-- form con flag redirect -->
                     <input type="hidden" name="redirect" value="true">
 
-                    <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                    <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
                            value="<%=lastQuery != null ? lastQuery : ""%>" >
 
                     <button><img src="img/search.svg" alt=""></button>
@@ -52,7 +52,7 @@
             else ref = "redirectToUserArea";
         %>
 
-        <a href="<%= ref %>"><img src="img/user.svg" alt="" class="mr-20"></a>
+        <a href="<%= ref %>"><img src="img/user.svg" alt=""></a>
         <a href="myCart.jsp" style="position: relative">
             <img src="img/shopping-cart.svg" alt="">
             <% // prendi carrello dalla sessione

@@ -31,7 +31,7 @@
                     <img src="<%=p.getUrlImmagine()%>" alt="">
                     <h4 class="small-text"><%=p.getNome()%></h4>
                     <h2 class="normal-text">€ <%=p.getPrezzo()%></h2>
-                    <form action="overview-servlet" method="post">
+                    <form action="overview-servlet" method="get">
                         <input name="idProdotto" value="<%=p.getId_Prodotto()%>" type="hidden">
                         <button>
                             <img src="img/arrow-right-circle.svg" alt="arrow">
