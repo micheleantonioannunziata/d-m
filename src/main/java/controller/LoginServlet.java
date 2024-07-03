@@ -15,49 +15,28 @@ import org.json.simple.JSONObject;
 
 @WebServlet("/login-servlet")
 public class LoginServlet extends HttpServlet {
-
-    /*  doGet non ajax
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UtenteDAO service = new UtenteDAO();
-        String errorMessage = "";
-        JSONObject object = new JSONObject();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        boolean exists = service.existsByUsername(username);
-
-
-        if (!exists)    errorMessage = "no user";
-        else {
-            Utente utente = service.doRetrieveByUsernamePassword(username, password);
-
-            if (utente == null) errorMessage = "wrong password";
-            else    request.getSession().setAttribute("utente", utente);
-        }
-
-
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-
-        object.put("errorMessage", errorMessage);
-
-        out.println(object);
-        out.flush();
-    } */
-
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UtenteDAO service = new UtenteDAO();
         String address = "";
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        boolean exists = service.existsByUsername(username);
+        String error = SignUpServlet.checkInputValue(username, "", password, "");
 
-        if (!exists) {
+        // controlla valori dell'input
+        if (!error.isEmpty()) {
+            address = "login.jsp";
+            request.setAttribute("error", error);
+        }
+
+        // verifica esistenza utente dall'username
+        else if (!new UtenteDAO().existsByUsername(username)) {
             request.setAttribute("error", "no user");
             address = "login.jsp";
         }
         else {
+
+            // verifica password dell'utente
             Utente utente = service.doRetrieveByUsernamePassword(username, password);
             if (utente == null) {
                 request.setAttribute("error", "password wrong");

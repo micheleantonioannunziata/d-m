@@ -20,14 +20,14 @@
             <a href="index.jsp">D<span class="normal-text">&</span>M</a>
         </div>
 
-        <form action="signup-servlet" method="post">
+        <form action="signup-servlet" method="post" onsubmit="return validateForm()">
             <div class="input">
                 <img src="img/users.svg">
-                <input type="text" name="username" required placeholder="Username">
+                <input type="text" id="username" name="username" required placeholder="Username">
             </div>
             <div class="input">
                 <img src="img/mail.svg">
-                <input type="email" name="email" required placeholder="Email">
+                <input type="email" id="email" name="email" required placeholder="Email">
             </div>
             <div class="input">
                 <img src="img/unlock.svg">
@@ -44,11 +44,15 @@
                 <a href="login.jsp">Log in</a>
             </h4>
 
-            <% String error = (String) request.getAttribute("error");
-                if (error != null) {
-            %>
-            <p><%= error %></p>
-            <%}%>
+            <% String error = (String) request.getAttribute("error"); %>
+
+            <p id="error"
+                <% if (error != null) { %>
+                    style="display: block"
+                <% }%>
+            >
+                <%= error != null ? error : "" %>
+            </p>
 
             <input type="submit" value="Sign up" id = "submitBtn">
         </form>
@@ -58,5 +62,7 @@
     </div>
 </div>
 <script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>
+<script type="text/javascript" src="js/validateForm.js">
+</script>
 </body>
 </html>

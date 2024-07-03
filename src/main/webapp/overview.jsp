@@ -13,7 +13,7 @@
 <body>
 
     <style>
-        #overviewSection.poster{overflow: hidden;}
+        #overviewSection.poster{overflow: hidden; height: auto }
         #overviewSection.poster .poster__content{
             position: relative;
             padding: 0 3%;
@@ -34,6 +34,7 @@
         #overviewSection.poster .poster__img img.zoom-image {
             width: 100%;
             transition: transform 0.3s ease;
+            position: relative;
         }
 
         #overviewSection.poster .poster__img:hover img.zoom-image {
@@ -79,9 +80,9 @@
         input#quantitaInput:focus-visible{ border: 1px solid black}
 
         @media (max-width: 950px) {
-            #overviewSection.poster{flex-direction: column; column-gap: 20px}
+            #overviewSection.poster{flex-direction: column; column-gap: 20px; justify-content: center}
             #overviewSection.poster .poster__content {width: 100%; margin-bottom: 20px}
-            #overviewSection.poster .poster__img{width: 100%}
+            #overviewSection.poster .poster__img{width: 70%}
         }
 
         .active {background: #70F495;}

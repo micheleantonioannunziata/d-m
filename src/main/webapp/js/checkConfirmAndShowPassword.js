@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword') || null;
     const submitBtn = document.getElementById('submitBtn');
     const eyePassword = document.getElementById('eyePassword');
     const eyePasswordConfirm = document.getElementById('eyeConfirmPassword');
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmPassword = confirmPasswordInput.value;
 
         // se non sono vuote e se sono uguali
-        if (password && confirmPassword && password === confirmPassword) {
+        if (confirmPassword !== null && password && confirmPassword && password === confirmPassword) {
             submitBtn.disabled = false; // abilita
             submitBtn.style.cursor = "pointer";
         }
@@ -30,8 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    passwordInput?.addEventListener('input', validatePasswords);
-    confirmPasswordInput?.addEventListener('input', validatePasswords);
+    if (confirmPasswordInput !== null) {
+        passwordInput?.addEventListener('input', validatePasswords);
+        confirmPasswordInput?.addEventListener('input', validatePasswords);
+    }
 
     eyePassword?.addEventListener('click', function() {
         togglePasswordVisibility(passwordInput, eyePassword);
