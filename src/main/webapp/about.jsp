@@ -6,53 +6,9 @@
     <title>About</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
-
-<style>
-    .poster#aboutSection{
-        height: 85vh;
-        margin-top: 15vh;
-        align-items: center;
-    }
-
-    .poster#aboutSection .poster__content h3{
-        text-transform: uppercase;
-    }
-
-    .poster#aboutSection .poster__content p {
-        margin-top: 12%;
-    }
-
-    .poster#aboutSection .poster__img img{height: 100%}
-
-    #wallpaper{
-        height: 130vh;
-        width: 100%;
-        position: relative;
-    }
-    #wallpaper img{
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        z-index: 0;
-    }
-
-    #wallpaper h1{
-        position: absolute;
-        z-index: 1;
-        padding: 0 3%;
-        text-transform: uppercase;
-        bottom: 10%;
-    }
-
-    @media only screen and (max-width: 800px) {
-        .poster#aboutSection .poster__content { width: 100%; }
-        .poster#aboutSection .poster__img{ display: none}
-    }
-
-</style>
 
 <%@include file="WEB-INF/modules/header.jsp"%>
 

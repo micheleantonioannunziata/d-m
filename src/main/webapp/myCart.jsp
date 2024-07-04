@@ -9,7 +9,6 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/myCart.css">
-    <!-- <script src="js/removeByCart.js"></script> -->
 </head>
 <body>
 <%
@@ -46,11 +45,6 @@
                             <div class="sizes">
                                 <p><span>Size</span>: <%=entry.getKey()%>, <span>Amount</span>: <%=entry.getValue()%></p>
 
-                                <%--<button onclick='loadData(<%= prodotto.getId_Prodotto() %>, "<%= entry.getKey() %>")'>
-
-                                <img src="img/trash.svg" alt="arrow">
-                                    </button> --%>
-
                                 <!-- form per eliminazione dal carrello -->
                                 <form action="removeByCart-servlet" method="post">
                                     <input name="idProdotto" value="<%=prodotto.getId_Prodotto()%>" type="hidden">
@@ -72,7 +66,7 @@
                     <% prezzoTotale = Math.ceil(prezzoTotale); %>
                     <span class="small-text">Prezzo Totale:</span><span class="mid-text">€ <%= prezzoTotale %></span>
                     <form action="checkOut-servlet" method="post">
-                        <button>Check Out</button>
+                        <button class="btnCheck normal-text">Check Out</button>
                     </form>
                 </div>
 

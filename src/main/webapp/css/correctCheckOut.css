@@ -1,0 +1,25 @@
+body {
+    overflow: hidden;
+}
+.box {
+    margin-top: 40px;
+    padding: 0 3%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.box img{
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
+
+.box .text {
+    text-align: center;
+}
+
+.box .text h1{text-transform: uppercase}

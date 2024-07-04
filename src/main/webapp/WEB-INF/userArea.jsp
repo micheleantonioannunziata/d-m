@@ -40,6 +40,8 @@
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
+
+    if (u == null)  response.sendRedirect("login.jsp");
 %>
 
 <h3 class="big-text stroke">My Account</h3>
@@ -47,12 +49,12 @@
 <!-- visualizza info dell'utente -->
 <div class="user-info">
     <div>
-        <p class="small-text"><span>Username:</span> <%=u.getUsername()%></p>
-        <p class="small-text"><span>Email:</span> <%=u.getEmail()%></p>
+        <p class="small-text"><span>Username:</span> ${utente.username}</p>
+        <p class="small-text"><span>Email:</span> ${utente.email}</p>
     </div>
     <div class="buttons">
 
-        <% if(u.isAdmin()) { %>
+        <% if(u != null && u.isAdmin()) { %>
             <form action = "admin-servlet" method="post" style="padding: 0 20px">
                 <button type="submit">Admin Area</button>
             </form>

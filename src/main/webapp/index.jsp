@@ -16,44 +16,6 @@
 
 <%@include file="WEB-INF/modules/header.jsp" %>
 
-<style>
-    .panels{    margin-top: 15vh;
-        height: 85vh;
-        padding: 0 3%;
-        display: flex;
-        justify-content: space-between;
-        column-gap: 30px;}
-
-    .panel{width: 50%;
-        height: 70%; position: relative}
-
-    .panel img{width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        z-index: 0; border-radius: 10px}
-
-    .panel .text {position: absolute; z-index: 1; left: 10%; bottom: 10%}
-
-    .panel .text h2{padding: 20px 0; font-weight: bolder}
-    .panel .text h4{padding-bottom: 100px; width: 60% }
-
-    .panel .text button{    padding: 6px 15px;
-        font-weight: bold;
-        background: white;
-        border: none;
-        border-radius: 50px;}
-
-    .writing{padding: 20px 3%}
-    .writing h1{text-transform: uppercase}
-    .writing h2{font-weight: normal}
-
-    @media only screen and (max-width: 900px) {
-        .panels { flex-direction: column; row-gap: 30px}
-        .panel{ width: 100%; }
-    }
-
-</style>
 
 <div id="hero">
     <div class="white z2">

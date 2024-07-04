@@ -10,15 +10,15 @@
             </div>
             <div class="contact">
                 <img src="img/mailWhite.svg">
-                <h4 class="small-text" style="font-size: 14px">gianniDangelo@gmail.com</h4>
+                <h4 class="small-text">dM@gmail.com</h4>
             </div>
             <div class="contact">
                 <img src="img/instagram.svg">
-                <h4 class="small-text">ciao</h4>
+                <h4 class="small-text">dMofficial</h4>
             </div>
             <div class="contact">
                 <img src="img/facebook.svg">
-                <h4 class="small-text">a capocchij</h4>
+                <h4 class="small-text">dMofficial</h4>
             </div>
         </div>
     </div>

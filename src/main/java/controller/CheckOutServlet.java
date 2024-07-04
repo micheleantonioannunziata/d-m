@@ -59,7 +59,7 @@ public class CheckOutServlet extends HttpServlet {
             // svuota carrello
             req.getSession().removeAttribute("carrello");
 
-            address = "redirectToUserArea";
+            address = "WEB-INF/modules/correctCheckOut.jsp";
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(address);

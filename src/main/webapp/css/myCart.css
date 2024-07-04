@@ -18,16 +18,6 @@ h3.stroke{margin-top: 20vh; text-transform: uppercase; padding-left: 3%}
 
 .checkOut{width: 35%; position: relative; margin-top: 20px}
 
-.checkOut button{display: block;
-    margin: 100px auto;
-    width: 100%;
-    background: var(--color-primary);
-    border: none;
-    padding: 12px 0;
-    font-size: 20px;
-    font-weight: 800;
-    border-radius: 50px;}
-
 .checkOut span.small-text{position: absolute; top: 0; left: 0;}
 
 .checkOut span.mid-text{position: absolute; top: 0; right: 0}

@@ -9,89 +9,10 @@
     <title>Item Overview</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/overview.css">
 </head>
 <body>
-
-    <style>
-        #overviewSection.poster{overflow: hidden; height: auto }
-        #overviewSection.poster .poster__content{
-            position: relative;
-            padding: 0 3%;
-            height: 50%;
-        }
-
-        #overviewSection.poster .poster__content .firstLine{
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #overviewSection.poster .poster__content .firstLine h3{
-            width: 60%;
-        }
-
-        #overviewSection.poster .poster__img img.zoom-image {
-            width: 100%;
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        #overviewSection.poster .poster__img:hover img.zoom-image {
-            transform: scale(1.1);
-        }
-
-        #overviewSection.poster .poster__content .buttons{
-            margin-top: 10%;
-            display: flex;
-            column-gap: 2%;
-        }
-
-        #overviewSection.poster .poster__content .buttons button{
-            border-radius: 5px;
-            border: 1px solid black;
-        }
-
-        #overviewSection.poster .poster__content form{
-            margin-top: 15%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        #overviewSection.poster .poster__content form button{
-            padding: 17px 35px;
-            background: var(--color-primary);
-            border: none;
-            font-weight: 700;
-            border-radius: 50px;
-        }
-
-        input#quantitaInput{
-            border-radius: 5px;
-            text-align: center;
-            width: 100px;
-            padding: 10px;
-            border: 1px solid black;
-            margin-right: 20px;
-        }
-
-        input#quantitaInput:focus-visible{ border: 1px solid black}
-
-        @media (max-width: 950px) {
-            #overviewSection.poster{flex-direction: column; column-gap: 20px; justify-content: center}
-            #overviewSection.poster .poster__content {width: 100%; margin-bottom: 20px}
-            #overviewSection.poster .poster__img{width: 70%}
-        }
-
-        .active {background: #70F495;}
-        button[disabled] { cursor: not-allowed; border: none}
-
-        .poster#overviewSection{ margin-top: 15vh}
-        .poster#overviewSection .poster__img img{height: 100%}
-    </style>
-    <%
+ <%
         // ottieni prodotto
         Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");
         List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");%>
@@ -141,7 +62,7 @@
                 <input type="hidden" name="idProdotto" value="<%= prodotto.getId_Prodotto() %>">
                 <input id="tagliaInput" type="hidden" name="taglia" value="">
                 <input id="quantitaInput" type="hidden" name="quantita">
-                <button class="normal-text" type="submit" disabled>Add to cart</button>
+                <button class="btnCheck normal-text" type="submit" disabled>Add to cart</button>
             </form>
         </div>
 

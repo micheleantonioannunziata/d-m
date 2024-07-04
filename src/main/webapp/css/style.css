@@ -423,3 +423,52 @@ body{overflow-x: hidden; transition: 0.8s}
 /* animazione stupida ma volevo vedere se funzionava */
 .scale-in-center{animation:scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both}
 @keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
+
+
+button.btnCheck {
+    display: block;
+    margin: 100px auto;
+    width: 100%;
+    background: var(--color-primary);
+    border: none;
+    padding: 12px 0;
+    font-weight: 800;
+    border-radius: 50px;
+}
+
+/* panels */
+.panels{    margin-top: 15vh;
+    height: 85vh;
+    padding: 0 3%;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 30px;}
+
+.panel{width: 50%;
+    height: 70%; position: relative}
+
+.panel img{width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: 0; border-radius: 10px}
+
+.panel .text {position: absolute; z-index: 1; left: 10%; bottom: 10%}
+
+.panel .text h2{padding: 20px 0; font-weight: bolder}
+.panel .text h4{padding-bottom: 100px; width: 60% }
+
+.panel .text button{    padding: 6px 15px;
+    font-weight: bold;
+    background: white;
+    border: none;
+    border-radius: 50px;}
+
+.writing{padding: 20px 3%}
+.writing h1{text-transform: uppercase}
+.writing h2{font-weight: normal}
+
+@media only screen and (max-width: 900px) {
+    .panels { flex-direction: column; row-gap: 30px}
+    .panel{ width: 100%; }
+}
