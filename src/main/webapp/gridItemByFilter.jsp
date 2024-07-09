@@ -45,7 +45,7 @@
         else {%>
 
                 <%
-                    List<String> tipologie =  Arrays.asList("All", "Maglia", "Pallone", "Scarpetta");
+                    List<String> tipologie =  Arrays.asList("All", "Maglia", "Pallone", "Scarpa");
 
                     // ottieni lista della squadre dalla servletContext
                     List<Squadra> squadre = (List<Squadra>) application.getAttribute("squadre");

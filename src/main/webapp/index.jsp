@@ -36,7 +36,7 @@
             Whether you're cheering for your favourite team or celebrating the latest victories,
             join us as we unite fans from around the world in the thrilling world of football fandom!
         </p>
-        <button onclick="location.href='fanZone.jsp'">Explore</button>
+        <a href="fanZone.jsp"><button>Explore</button></a>
     </div>
     <div class="poster__img">
         <img src="img/fanZoneSection.png" alt="">
@@ -50,7 +50,7 @@
         <div class="text">
             <h2 class="mid-text white">Nike MDS</h2>
             <h4 class="small-text white">Elevate your game on the pitch!</h4>
-            <button class="small-text">Go now</button>
+            <button class="small-text" data-value="Nike Mercurial" onclick="redirectFilter(this, 'Scarpa', 'collezione')">Go now</button>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
         <div class="text">
             <h2 class="mid-text white">UEFA Euro 2024</h2>
             <h4 class="small-text white">Unleash your skills with engineering!</h4>
-            <button class="small-text" data-value="Serie A 23/24" onclick="redirectFilter(this, 'All', 'collezione')">Go now</button>
+            <button class="small-text" data-value="Euro 2024" onclick="redirectFilter(this, 'All', 'collezione')">Go now</button>
         </div>
     </div>
 </div>

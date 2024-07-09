@@ -1,4 +1,4 @@
-package controller;
+package controller.master;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +24,5 @@ public class LoadDataOnServletContext extends HttpServlet {
         // inserisci l'id dell'ultimo ordine
         OrdineDAO ordineDAO = new OrdineDAO();
         getServletContext().setAttribute("lastIdOrdine", ordineDAO.doRetrieveMaxID_Ordine());
-
-        System.out.println(getServletContext().getAttribute("lastIdOrdine"));
     }
 }

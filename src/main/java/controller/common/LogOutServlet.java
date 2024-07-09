@@ -1,4 +1,4 @@
-package controller;
+package controller.common;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -52,6 +52,8 @@ public class LogOutServlet extends HttpServlet {
                     carrelloDAO.doSave(c);
                 }
         }
+
+        request.getSession().invalidate();
 
         // ridirotta
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

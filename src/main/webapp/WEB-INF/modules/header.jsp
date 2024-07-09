@@ -38,7 +38,7 @@
             else { %>
             <div class="searchBar">
                 <!-- input con funziona ajax su evento onkeyup -->
-                <input type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
                        value="<%=lastQuery != null ? lastQuery : ""%>"
                        oninput = "searchCards(this.value)">
 

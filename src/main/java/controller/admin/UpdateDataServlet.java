@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -48,10 +48,15 @@ public class UpdateDataServlet extends HttpServlet {
                 p.setNome(req.getParameter(newValues.get(1)));
                 p.setPrezzo(Double.parseDouble(req.getParameter(newValues.get(2))));
                 p.setTipologia(req.getParameter(newValues.get(3)));
-                p.setSquadra(req.getParameter(newValues.get(4)));
+
+                if (!newValues.get(4).equalsIgnoreCase("null"))
+                    p.setSquadra(req.getParameter(newValues.get(4)));
+                else p.setSquadra(null);
+
                 p.setProduttore(req.getParameter(newValues.get(5)));
                 p.setCollezione(req.getParameter(newValues.get(6)));
-                p.setCollezione(req.getParameter(newValues.get(7)));
+                p.setUrlImmagine(req.getParameter(newValues.get(7)));
+
 
                 prodottoDAO.doUpdate(p, Integer.parseInt(req.getParameter(oldValues.get(0))));
             }

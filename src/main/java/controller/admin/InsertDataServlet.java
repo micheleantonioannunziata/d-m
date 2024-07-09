@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -31,14 +31,17 @@ public class InsertDataServlet extends HttpServlet {
                 p.setNome(req.getParameter(paramNames.get(1)));
                 p.setPrezzo(Double.parseDouble(req.getParameter(paramNames.get(2))));
                 p.setTipologia(req.getParameter(paramNames.get(3)));
-                p.setSquadra(req.getParameter(paramNames.get(4)));
+
+                if (!req.getParameter(paramNames.get(4)).equals("null"))
+                    p.setSquadra(req.getParameter(paramNames.get(4)));
+
                 p.setProduttore(req.getParameter(paramNames.get(5)));
                 p.setCollezione(req.getParameter(paramNames.get(6)));
 
                 int id = prodottoDAO.doSave(p);
                 p.setId(id);
 
-                Part filePart = req.getPart("urlImmagine");
+                Part filePart = req.getPart("urlimmagine");
                 String fileName = filePart.getSubmittedFileName(); // prendi nome del file caricato (serve solo per catturare l'estennsione)
                 String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // prendi estansione del file caricato
                 String directory = "img/prod/";
