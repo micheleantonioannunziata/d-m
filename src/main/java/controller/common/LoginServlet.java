@@ -1,17 +1,14 @@
-package controller;
+package controller.common;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.*;
-import org.json.simple.JSONObject;
 
 @WebServlet("/login-servlet")
 public class LoginServlet extends HttpServlet {

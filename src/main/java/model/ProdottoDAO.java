@@ -108,14 +108,14 @@ public class ProdottoDAO {
                 String[] prices;
                 if (rangePrice.contains(" - ")) {
                     prices = rangePrice.split(" - ");
-                    baseQuery += "and prezzo between ? and ?";
+                    baseQuery += " and prezzo between ? and ?";
                     criteria.add(prices[0]);
                     criteria.add(prices[1]);
                 }
 
                 else if (rangePrice.contains("+")) {
                     prices = rangePrice.split(" + ");
-                    baseQuery += "and prezzo >= ?";
+                    baseQuery += " and prezzo >= ?";
                     criteria.add(prices[0]);
                 }
             }
@@ -273,7 +273,12 @@ public class ProdottoDAO {
             ps.setString(1, prodotto.getNome());
             ps.setDouble(2, prodotto.getPrezzo());
             ps.setString(3, prodotto.getTipologia());
-            ps.setString(4, prodotto.getSquadra());
+
+
+
+            if (!prodotto.getSquadra().equals("null"))
+                ps.setString(4, prodotto.getSquadra());
+            else ps.setNull(4, java.sql.Types.VARCHAR);
             ps.setString(5, prodotto.getProduttore());
             ps.setString(6, prodotto.getCollezione());
             ps.setInt(7, id); // id da passare come parametro
