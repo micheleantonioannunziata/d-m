@@ -113,7 +113,6 @@
            data-default-value="<%= defaultValue %>"
            data-has-focused="false"
            onfocus="setDefaultValue(this)"
-
            <% if (!entry.getKey().contains("default")) { %>
                required
             <% } %>

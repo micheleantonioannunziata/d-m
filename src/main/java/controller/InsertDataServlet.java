@@ -60,7 +60,7 @@ public class InsertDataServlet extends HttpServlet {
                 // parto da 1 perché il primo è tabella
                 s.setNome(req.getParameter(paramNames.get(1)));
 
-                Part filePart = req.getPart("urlImmagine");
+                Part filePart = req.getPart("urlimmagine");
                 String fileName = filePart.getSubmittedFileName(); // prendi nome del file caricato (serve solo per catturare l'estennsione)
                 String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // prendi estansione del file caricato
                 String directory = "img/squadre/";
