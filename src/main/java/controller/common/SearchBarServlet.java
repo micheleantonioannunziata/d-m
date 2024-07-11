@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet(name = "searchBarServlet", value = "/searchBar-servlet")
@@ -30,6 +31,8 @@ public class SearchBarServlet extends HttpServlet {
 
         // effettua query
         List<Prodotto> prodottiCercati = prodottoDAO.doRetrieveBySearch(queryString);
+
+        prodottiCercati.sort(Comparator.comparing(Prodotto::getNome));
 
         // se si arriva ttramite il form
         if(redirect != null && redirect.equalsIgnoreCase("true")) {

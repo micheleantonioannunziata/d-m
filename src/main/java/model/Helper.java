@@ -10,8 +10,8 @@ public class Helper {
 
     // metodo che restuisce un map che rappresenta le colonne della tabella passata
     // chiave: colonna, valore: tipo
-    public static Map<String,String> doRetrieveColumnDataType(String tabella){
-        Map<String,String> columnTypes = new LinkedHashMap<>();
+    public static Map<String,String> doRetrieveColumnDataType(String tabella) {
+        Map<String, String> columnTypes = new LinkedHashMap<>();
 
         try (Connection con = ConPool.getConnection()) {
 
@@ -38,8 +38,7 @@ public class Helper {
                 // inserisci
                 columnTypes.put(columnName, columnType);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 

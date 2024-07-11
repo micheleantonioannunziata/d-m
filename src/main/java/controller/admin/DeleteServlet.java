@@ -17,6 +17,7 @@ public class DeleteServlet extends HttpServlet {
 
         // ottieni tabella
         String tabella = request.getParameter("tabella");
+        String address = "admin-servlet";
 
         // in base alla tabella fai le operazioni
         switch (tabella.toLowerCase()) {
@@ -38,6 +39,11 @@ public class DeleteServlet extends HttpServlet {
 
                 UtenteDAO utenteDAO = new UtenteDAO();
                 utenteDAO.doDelete(id);
+
+                Utente utente = (Utente) request.getSession().getAttribute("utente");
+
+                if (id == utente.getId_Utente())
+                    address = "logOut-servlet";
             }
             case "ordini" -> {
                 int idOrdine = Integer.parseInt(request.getParameter("idOrdine"));
@@ -72,7 +78,7 @@ public class DeleteServlet extends HttpServlet {
             }
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin-servlet");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
 }

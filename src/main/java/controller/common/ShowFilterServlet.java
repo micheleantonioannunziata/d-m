@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet(name = "showFilterServlet", value = "/showFilter-servlet")
@@ -41,6 +42,10 @@ public class ShowFilterServlet extends HttpServlet {
             produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
             collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
         }
+
+        taglieFiltrate.sort(Comparator.comparing(Taglia::getTaglia));
+        produttoriFiltrati.sort(String::compareToIgnoreCase);
+        collezioniFiltrate.sort(String::compareToIgnoreCase);
 
         Taglia all = new Taglia();
         all.setTaglia("All");

@@ -73,7 +73,7 @@ public class UtenteDAO{
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, utente.getUsername());
             ps.setString(2, utente.getEmail());
-            ps.setString(3, utente.getPassword());
+            ps.setString(3, utente.getPasswordHash());
             ps.setBoolean(4, utente.isAdmin());
 
             if (ps.executeUpdate() != 1) {
@@ -92,12 +92,12 @@ public class UtenteDAO{
     public void doUpdate(Utente utente, int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE taglie SET id_utente=?, username=?, email=?, passwordhash=?, isAdmin=? WHERE id_utente=?");
+                    "UPDATE utenti SET id_utente=?, username=?, email=?, passwordhash=?, isAdmin=? WHERE id_utente=?");
 
             ps.setInt(1, utente.getId_Utente());
             ps.setString(2, utente.getUsername());
             ps.setString(3, utente.getEmail());
-            ps.setString(4, utente.getPassword());
+            ps.setString(4, utente.getPasswordHash());
             ps.setBoolean(5, utente.isAdmin());
             ps.setInt(6, id);
 

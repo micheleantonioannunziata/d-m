@@ -90,8 +90,9 @@ public class InsertDataServlet extends HttpServlet {
                 // parto da 1 perché il primo è tabella
                 t.setTaglia(req.getParameter(paramNames.get(1)));
                 t.setTipologia(req.getParameter(paramNames.get(2)));
-                if (!req.getParameter(paramNames.get(3)).isEmpty())
-                    t.setDescrizione(req.getParameter(paramNames.get(3)));
+                if (!req.getParameter(paramNames.get(3)).equalsIgnoreCase("null"))
+                    t.setDescrizione(null);
+                else t.setDescrizione(req.getParameter(paramNames.get(3)));
 
                 tagliaDAO.doSave(t);
 

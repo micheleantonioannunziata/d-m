@@ -204,7 +204,7 @@
         <td><%= u.getId_Utente() %></td>
         <td><%= u.getUsername() %></td>
         <td><%= u.getEmail() %></td>
-        <td><%= u.getPassword() %></td>
+        <td><%= u.getPasswordHash() %></td>
         <td><%= u.isAdmin() %></td>
         <td>
             <form action="update-servlet" method="post">
