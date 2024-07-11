@@ -15,7 +15,8 @@
  <%
         // ottieni prodotto
         Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");
-        List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");%>
+        List<Taglia> taglie = (List<Taglia>) application.getAttribute("taglie");
+ %>
 
     <%@include file="WEB-INF/modules/header.jsp"%>
 

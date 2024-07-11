@@ -81,7 +81,9 @@ public class TagliaDAO{
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, taglia.getTaglia());
             ps.setString(2, taglia.getTipologia());
-            ps.setString(3, taglia.getDescrizione());
+            if (!taglia.getDescrizione().equals("null"))
+                ps.setString(3, taglia.getDescrizione());
+            else ps.setNull(3, java.sql.Types.VARCHAR);
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }

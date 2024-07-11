@@ -32,6 +32,9 @@
         for (Method m: methods) {
             String getName = "get" + name;
             if (name.startsWith("is"))   getName = name;
+
+            System.out.println(getName);
+
             if (m.getName().equalsIgnoreCase(getName))
                 return m;
         }
@@ -53,10 +56,9 @@
 <%
     Map<String,String> colonneTipi = (Map<String, String>) request.getAttribute("colonneTipi"); //nome colonne + tipo colonna
     String nameTable = (String) request.getAttribute("tabella");
-    Object bean = request.getAttribute("bean"); //tupla che si vuole aggiornare
-    Method[] getterMethods = getters(bean.getClass().getMethods()); //passa tutti i metodi della classe della tupla che si vuole aggiornare
+    Object bean = request.getAttribute("bean"); //tabella che si vuole aggiornare
+    Method[] getterMethods = getters(bean.getClass().getMethods()); //passa tutti i metodi della classe della tabella che si vuole aggiornare
     // riceverà solamente i metodi getters
-
 %>
 
 <h2>Modifica nella tabella <%= nameTable%></h2>
@@ -66,37 +68,33 @@
     <!-- i metodi getters serviranno per ricevere i valori dei vari campi che possono essere modificati -->
     <%
         for (Map.Entry<String, String> entry : colonneTipi.entrySet()) { //per ogni colonna + tipo della tupla che si vuole aggiornare
-    %>
-    <%
-        String dataType = entry.getValue().toLowerCase(); //il tipo della colonna
+            String columnName = entry.getKey(); //il nome della colonna
 
-        String columnName = entry.getKey(); //il nome della colonna
+            String dataType = entry.getValue().toLowerCase(); //il tipo della colonna
 
-        if (columnName.contains("Hash"))    columnName = "password"; //trovo una colonna di nome password
+            if (dataType.contains("(")) //prendo la sottostringa che va da 0 fino all' (, prima delle parentesi tonde
+                dataType = dataType.substring(0, entry.getValue().indexOf('(')); //prendo il tipo del dato
 
-        if (dataType.contains("(")) //prendo la sottostringa che va da 0 fino all' (, prima delle parentesi tonde
-            dataType = dataType.substring(0, entry.getValue().indexOf('(')); //prendo il tipo del dato
+            Object defaultValue;
+            String[] parts = columnName.split(" - "); //separo il contenuto di columnName aggiungendo tutto in un array
+            try {
+                if (parts[0].contains("default"))
+                    parts[0] = parts[0].substring(0, parts[0].indexOf("default") - 1); //prendo ciò che ci sta prima di default
 
-        Object defaultValue;
-        String[] parts = columnName.split(" - "); //separo il contenuto di columnName aggiungendo tutto in un array
-        try {
-            if (parts[0].contains("default"))
-                parts[0] = parts[0].substring(0, parts[0].indexOf("default") - 1); //prendo ciò che ci sta prima di default
 
-            defaultValue = getterByName(getterMethods, parts[0]).invoke(bean); //prendo il metodo Getter corrispondente a quel valore (in part[0])
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+                defaultValue = getterByName(getterMethods, parts[0]).invoke(bean); // prendo il metodo Getter corrispondente a quel valore (in part[0])
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        if (parts.length > 1) {
-            if (parts[1].equalsIgnoreCase("pk") || parts[1].contains("auto")) {
+            if (parts.length > 1) {
+                if (parts[1].equalsIgnoreCase("pk") || parts[1].contains("auto")) {
     %>
             <input type="hidden" name="old<%=parts[0]%>" value="<%=defaultValue%>"> <!-- stampo il valore nell'input tramite il metodo getter, stiamo considerando CHIAVE PRIMARIA (OLD) -->
     <%
-            if (entry.getKey().contains("auto"))    continue;
+                if (entry.getKey().contains("auto"))    continue;
+                }
             }
-        }
-
     %>
     <%
         switch(dataType) {

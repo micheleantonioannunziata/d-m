@@ -119,8 +119,8 @@ public class UpdateDataServlet extends HttpServlet {
                 u.setEmail(req.getParameter(newValues.get(2)));
                 u.setPassword(req.getParameter(newValues.get(3)));
 
-                if(req.getParameter("isAdmin") != null) // se admin è stato selezionato
-                    u.setAdmin(req.getParameter("isAdmin").equalsIgnoreCase("on"));
+                if(req.getParameter("isadmin") != null) // se admin è stato selezionato
+                    u.setAdmin(req.getParameter("isadmin").equalsIgnoreCase("on"));
                 else u.setAdmin(false);
 
                 utenteDAO.doUpdate(u, Integer.parseInt(req.getParameter(oldValues.get(0))));

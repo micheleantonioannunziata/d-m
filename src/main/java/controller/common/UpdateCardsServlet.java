@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet(name = "updateCardsServlet", value = "/updateCards-servlet")
@@ -32,6 +33,8 @@ public class UpdateCardsServlet extends HttpServlet {
 
         // prendi dati dal db
         List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione, rangePrice);
+
+        prodottiFiltrati.sort(Comparator.comparing(Prodotto::getNome));
 
         JSONArray prodotti = new JSONArray();
 

@@ -24,6 +24,7 @@ public class UpdateServlet extends HttpServlet {
 
         // setta attributi nella request
         request.setAttribute("colonneTipi", columnDataType);
+
         request.setAttribute("tabella", tabella);
 
         // effettua operazioni in base alla tabella
