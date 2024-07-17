@@ -17,34 +17,6 @@ import java.util.Map;
 @WebServlet(name = "loginServlet", value = "/cartHandler-servlet")
 public class CartHandlerServlet extends HttpServlet {
 
-    public static void addProductToCart(List<Prodotto> carrello, Prodotto p, String taglia, Integer quantita) {
-        int pos = -1; //per tenere traccia del dove è stato rimosso un prodotto
-        Map<String, Integer> taglieQuantita = new HashMap<>();
-
-        for (int i = 0; i < carrello.size(); i++) {
-            Prodotto prodotto = carrello.get(i);
-
-            // se il prodott da aggiungere è già presente
-            if (prodotto.getId_Prodotto() == p.getId_Prodotto()) {
-                carrello.remove(i); // rimuovilo
-
-                // aggiorna map
-                taglieQuantita = prodotto.getTaglieQuantita();
-                pos = i; // segnati la posizione in cui lo hai rimosso
-                break;
-            }
-        }
-
-        taglieQuantita.put(taglia, quantita); //inserisco la taglia e la quantità del prodotto che l'utente vuole "sovraaggiungere"
-        p.setTaglieQuantita(taglieQuantita);
-
-        // se lo trovi aggiungilo nella posizione in cui lo hai rimosso con taglie e quantità dell'ultima selezione
-        if (pos >= 0) carrello.add(pos, p);
-
-        // altrimenti mettilo e basta
-        else carrello.add(p);
-    }
-
     public static void loadOldCart(List<Carrello> carrelloDB, List<Prodotto> carrello) {
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
@@ -55,7 +27,8 @@ public class CartHandlerServlet extends HttpServlet {
             Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(c.getIdProdotto());
 
             // gestisci aggiunta
-            addProductToCart(carrello, p, c.getTaglia(), c.getQuantita());
+
+            AddToCart.addProductToCart(p, carrello, c.getTaglia(), c.getQuantita());
         }
     }
 
@@ -68,11 +41,11 @@ public class CartHandlerServlet extends HttpServlet {
         Utente utente = (Utente) request.getSession().getAttribute("utente");
 
         // se è stato scelto il carrello vecchio
-        if (utente != null && loadOld!= null && loadOld.equalsIgnoreCase("true")) {
+        if (utente != null && loadOld != null && loadOld.equalsIgnoreCase("true")) {
 
             CarrelloDAO carrelloDAO = new CarrelloDAO();
 
-            // "svuota" carrello attuale (ha scelto quello vecchio)
+            // lista di prodotti vuota
             List<Prodotto> carrello = new ArrayList<>();
 
             // ottieni carrello db

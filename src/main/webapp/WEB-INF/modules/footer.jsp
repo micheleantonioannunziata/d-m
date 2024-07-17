@@ -1,7 +1,7 @@
 <footer>
     <div class="footContainer">
         <div class="logo big-text">
-            <a href="index.jsp">D<span class="-text">&</span>M</a>
+            <a href="index.jsp">D<span class="text">&</span>M</a>
         </div>
         <div class="contacts">
             <div class="contact">

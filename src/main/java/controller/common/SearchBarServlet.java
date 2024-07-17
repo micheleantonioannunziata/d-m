@@ -32,9 +32,10 @@ public class SearchBarServlet extends HttpServlet {
         // effettua query
         List<Prodotto> prodottiCercati = prodottoDAO.doRetrieveBySearch(queryString);
 
+        // ordina prodotti in base al nome
         prodottiCercati.sort(Comparator.comparing(Prodotto::getNome));
 
-        // se si arriva ttramite il form
+        // se si arriva tramite il form - da una pagina diversa dai filtri
         if(redirect != null && redirect.equalsIgnoreCase("true")) {
 
             // metti nella richiesta
@@ -45,7 +46,7 @@ public class SearchBarServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        // se si arriva tramite input con chiamata ajax
+        // se si arriva tramite input con chiamata ajax dalla pagina dei filtri
         else {
 
             // bisogna scrivere l'oggett json nella risposta

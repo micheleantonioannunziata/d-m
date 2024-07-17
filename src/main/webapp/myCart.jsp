@@ -9,6 +9,7 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/myCart.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 <%

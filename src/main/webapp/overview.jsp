@@ -9,6 +9,7 @@
     <title>Item Overview</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/overview.css">
 </head>
 <body>

@@ -24,7 +24,7 @@ public class RedirectToUserArea extends HttpServlet {
         OrdineDAO ordineDAO = new OrdineDAO();
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
-        // prendi li ordini dell'utente
+        // prendi gli ordini dell'utente
         List<Ordine> ordini = ordineDAO.doRetrieveByUser(u.getId_Utente());
 
         // crea map con chiave: id_ordine e valore: lista con tutti i prodotti di quell'ordine

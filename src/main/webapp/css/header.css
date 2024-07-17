@@ -1,0 +1,131 @@
+/* header */
+header {
+    top: 0; /* tutto in alto a sinistra */
+    left: 0;
+    background-color: var(--color-secondary);
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3%;
+    position: fixed; /* posizione fissa nella finistre, rimane attaccato lì */
+    z-index: 999;
+}
+
+header .logo {
+    font-style: italic /* corsivo */
+}
+
+header .logo a{
+    color: var(--color-primary)
+}
+
+header ul.menuBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 40%; /* larghezza minima */
+    list-style: none; /* togli decorazione della lista */
+}
+
+header ul.menuBar li a {
+    color: var(--color-primary);
+    font-weight: 300;
+}
+
+header .icons {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 20px;
+}
+
+header .icons a span {
+    position: absolute;
+    font-size: 18px;
+    font-weight: 300;
+    top: -15px;
+    left: 20px;
+    background: var(--color-primary);
+    width: 23px;
+    height: 23px;
+    text-align: center; /* centra il testo */
+    border-radius: 50%;
+}
+
+header .icons img { width: 25px; }
+
+header .searchBar {
+    display: flex;
+    align-items: center;
+    border-bottom: 1.7px solid var(--color-primary);
+}
+
+header .searchBar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--color-primary);
+}
+
+header .searchBar button{background: none; border: none}
+
+@media only screen and (max-width: 500px) {
+    header .icons{column-gap: 10px}
+    header .icons img { width: 18px }
+    header .icons a span{font-size: 15px; width: 20px; height: 20px; left: 13px}
+}
+
+/* hamburger menu */
+.hamburger{display: none;}
+
+@media only screen and (max-width: 768px) { /* su schermi tra 0 e 768px */
+
+    header ul.menuBar{
+        position: absolute;
+        top: 15vh;
+        right: -100%; /* metti tutto a destra */
+        background: black;
+        height: 60vh;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .menuBar li a{padding: 15px 30px; font-size: 20px;}
+
+    header ul.menuBar.menu--open{right:0;}
+
+    .hamburger{
+        position: relative;
+        display: block;
+        width: 30px;
+        height: 30px;
+    }
+
+    .hamburger.active span:first-child {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 50%;
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:last-child {
+        position: absolute;
+        transform: rotate(-45deg);
+        top: 50%;
+    }
+
+    .hamburger.active span{transition: transform .3s ease-in-out}
+
+    .hamburger span{
+        height: 3px;
+        width: 100%;
+        display: block;
+        background: var(--color-primary);
+        margin-bottom: 5px;
+    }
+}

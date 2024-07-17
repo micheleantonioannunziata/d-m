@@ -10,33 +10,38 @@
     <title>User Area</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/userArea.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
+
+<%@include file="modules/header.jsp" %>
+
 <%
     Map<Integer, List<Prodotto>> ordiniProdottiMap = (Map<Integer, List<Prodotto>>) request.getAttribute("ordiniProdottiMap");
     double prezzoTotale;
 %>
 
+<% String choose = (String) request.getAttribute("loadCart");
+    if (choose != null && choose.equalsIgnoreCase("choose")) { %>
+    <!-- popup overlay -->
+    <div id="popup-overlay"></div>
 
-<!-- popup overlay -->
-<div id="popup-overlay"></div>
+    <!-- popup -->
+    <div id="popup">
+        <p>Quale carrello desideri caricare?</p>
 
-<!-- popup -->
-<div id="popup">
-    <p>Quale carrello desideri caricare?</p>
+        <!-- forms per caricare il carrello scelto -->
+        <form action="cartHandler-servlet" method="post">
+            <input type="hidden" name="loadOld" value="true">
+            <button class="popup-button" type="submit">Carrello vecchio</button>
+        </form>
+        <form action="cartHandler-servlet" method="post">
+            <input type="hidden" name="loadOld" value="false">
+            <button class="popup-button" type="submit">Carrello attuale</button>
+        </form>
+    </div>
 
-    <!-- forms per caricare il carrello scelto -->
-    <form action="cartHandler-servlet" method="post">
-        <input type="hidden" name="loadOld" value="true">
-        <button class="popup-button" type="submit">Carrello vecchio</button>
-    </form>
-    <form action="cartHandler-servlet" method="post">
-        <input type="hidden" name="loadOld" value="false">
-        <button class="popup-button" type="submit">Carrello attuale</button>
-    </form>
-</div>
-
-<%@include file="modules/header.jsp" %>
+<% } %>
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
@@ -116,28 +121,6 @@
 <% }
 }%>
 
-
-<script>
-    // mostra
-    function showPopup() {
-        document.getElementById('popup-overlay').style.display = 'block';
-        document.getElementById('popup').style.display = 'block';
-    }
-
-    // nascondi
-    function hidePopup() {
-        document.getElementById('popup-overlay').style.display = 'none';
-        document.getElementById('popup').style.display = 'none';
-    }
-
-    // prendi attributo dalla richiesta (arriva da loginServlet) ed eventualmente mostra popup
-    <% String choose = (String) request.getAttribute("loadCart");
-    if (choose != null && choose.equalsIgnoreCase("choose")) { %>
-        showPopup();
-    <% } else { %>
-        hidePopup(); // superfluo ma lo faccio comunque
-    <% } %>
-</script>
 
 </body>
 </html>

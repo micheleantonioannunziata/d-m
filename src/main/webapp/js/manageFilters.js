@@ -111,6 +111,9 @@ function updateCards() {
 }
 
 function generateCard(prodotto) {
+
+    // template literal
+
     return `
         <div class="card scale-in-center">
             <img src="${prodotto.urlImmagine}" alt="">
@@ -136,12 +139,16 @@ function searchCards(queryString){
     // prendi classe dei filtri
     const filters = document.querySelector(".filters");
 
+    // se l'utente cerca una stringa vuota
     if (queryString === "") {
         container.innerHTML = "No results..."
+
+        // adegua design
         if (filters != null && filters.classList.contains("none")) {
             filters.classList.remove("none")
             container.style.marginTop = "0";
         }
+
         return
     }
 
@@ -151,11 +158,13 @@ function searchCards(queryString){
             // ottieni ciò che è stato scritto dalla servlet nella risposta
             const prodotti = JSON.parse(this.responseText);
 
+            // adegua e nascondi filtri
             if (filters != null && !filters.classList.contains("none")) {
                 filters.classList.add("none");
                 container.style.marginTop = "20vh";
             }
 
+            // se non ci sono prodotti per quella ricerca
             if (prodotti.length === 0) {
                 container.innerHTML = "No results..."
                 return
