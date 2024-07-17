@@ -33,7 +33,7 @@
             String getName = "get" + name;
             if (name.startsWith("is"))   getName = name;
 
-            System.out.println(getName);
+            //System.out.println(getName);
 
             if (m.getName().equalsIgnoreCase(getName))
                 return m;

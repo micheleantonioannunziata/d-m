@@ -69,8 +69,9 @@ public class ProdottoTaglieDAO{
     public void doUpdate(ProdottoTaglie prodottoTaglie, int prodotto, String taglia) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "UPDATE prodottitaglie SET prodotto=?, taglia=?, quantita=?" +
+                    "UPDATE prodottitaglie SET prodotto=?, taglia=?, quantita=? " +
                             "WHERE prodotto=? and taglia=?");
+
 
             ps.setInt(1, prodottoTaglie.getProdotto());
             ps.setString(2, prodottoTaglie.getTaglia());

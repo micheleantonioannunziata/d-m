@@ -49,5 +49,5 @@
     <script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>
     <script type="text/javascript" src="js/validateForm.js"></script>
 
-    </body>
+    </body>cheConfival
 </html>

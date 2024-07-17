@@ -9,7 +9,7 @@
     <title>GridByFilter</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/gridItemByFilter.css">
+    <link rel="stylesheet"g href="css/gridItemByFilter.css">
     <script type="text/javascript" src="js/manageFilters.js"></script>
 </head>
 

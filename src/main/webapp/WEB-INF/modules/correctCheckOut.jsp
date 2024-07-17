@@ -12,7 +12,7 @@
 <%@include file="header.jsp" %>
 
 <style>
-</style>
+</style>C
 
 <div class="box">
   <img src="img/correctCheckOut.jpg">

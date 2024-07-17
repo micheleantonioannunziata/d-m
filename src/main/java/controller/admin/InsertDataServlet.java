@@ -111,8 +111,8 @@ public class InsertDataServlet extends HttpServlet {
                 u.setEmail(req.getParameter(paramNames.get(2)));
                 u.setPassword(req.getParameter(paramNames.get(3)));
 
-                if(req.getParameter("isAdmin") != null) // se admin è stato selezionato
-                    u.setAdmin(req.getParameter("isAdmin").equalsIgnoreCase("on"));
+                if(req.getParameter("isadmin") != null) // se admin è stato selezionato
+                    u.setAdmin(req.getParameter("isadmin").equalsIgnoreCase("on"));
                 else u.setAdmin(false);
 
                 utenteDAO.doSave(u);

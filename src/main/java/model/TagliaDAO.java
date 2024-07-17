@@ -9,13 +9,14 @@ public class TagliaDAO{
         try (Connection con = ConPool.getConnection()) {
             List<Taglia> result = new ArrayList<>();
             PreparedStatement ps =
-                    con.prepareStatement("select distinct taglia, tipologia from taglie");
+                    con.prepareStatement("select distinct taglia, tipologia, descrizione from taglie");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Taglia t = new Taglia();
                 t.setTaglia(rs.getString(1));
                 t.setTipologia(rs.getString(2));
+                t.setDescrizione(rs.getString(3));
 
                 result.add(t);
             }

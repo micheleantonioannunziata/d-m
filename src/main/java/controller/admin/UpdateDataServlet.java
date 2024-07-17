@@ -101,8 +101,9 @@ public class UpdateDataServlet extends HttpServlet {
                     if(taglia.getTaglia().equalsIgnoreCase(req.getParameter(oldValues.get(0)))) {
                         taglia.setTaglia(req.getParameter(newValues.get(1)));
                         taglia.setTipologia(req.getParameter(newValues.get(2)));
-                        if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null"))
-                            t.setDescrizione(req.getParameter(newValues.get(3)));
+                        if (!req.getParameter(newValues.get(3)).isEmpty() && !req.getParameter(newValues.get(3)).equalsIgnoreCase("null")) {
+                            taglia.setDescrizione(req.getParameter(newValues.get(3)));
+                        }
                     }
                 }
 

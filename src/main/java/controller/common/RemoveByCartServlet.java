@@ -30,21 +30,24 @@ public class RemoveByCartServlet extends HttpServlet {
             boolean flag = false;
 
             for (Prodotto p : carrello) {
+                System.out.println("prodotto selezionato = " + p.getNome());
 
                 // rimuovi taglia del prodotto indicato
                 for (Map.Entry<String, Integer> entry : p.getTaglieQuantita().entrySet()) {
+                    //System.out.println("taglia del prodotto = " + entry.getKey());
                     if (p.getId_Prodotto() == id && taglia.equalsIgnoreCase(entry.getKey())) {
                         p.getTaglieQuantita().remove(entry.getKey());
                         flag = true;
                         break;
                     }
+                }
 
-                    // se non ci sono più taglie per quel prodotto
-                    if (flag && p.getTaglieQuantita().isEmpty()) {
-                        // rimuovilo dal carrello
-                        carrello.remove(p);
-                        break;
-                    }
+                // se non ci sono più taglie per quel prodotto
+                if (flag && p.getTaglieQuantita().isEmpty()) {
+                    // rimuovilo dal carrello
+
+                    carrello.remove(p);
+                    break;
                 }
             }
         }

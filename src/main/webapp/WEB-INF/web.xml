@@ -5,6 +5,6 @@
          version="6.0">
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/modules/error.jsp</location>
+        <location>/errors/error.jsp</location>
     </error-page>
 </web-app>
