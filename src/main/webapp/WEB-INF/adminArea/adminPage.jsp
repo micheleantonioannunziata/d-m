@@ -32,7 +32,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="squadre" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -56,7 +56,7 @@
                 <input type="hidden" value="squadre" name="tabella">
                 <input type="hidden" value="<%=s.getNome()%>" name="idSquadra">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -65,7 +65,7 @@
                 <input type="hidden" value="squadre" name="tabella">
                 <input type="hidden" value="<%=s.getNome()%>" name="idSquadra">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>
@@ -80,7 +80,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="taglie" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -105,7 +105,7 @@
                 <input type="hidden" value="taglie" name="tabella">
                 <input type="hidden" value="<%=t.getTaglia()%>" name="idTaglia">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -114,7 +114,7 @@
                 <input type="hidden" value="taglie" name="tabella">
                 <input type="hidden" value="<%=t.getTaglia()%>" name="idTaglia">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>
@@ -129,7 +129,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="prodotti" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -159,7 +159,7 @@
                 <input type="hidden" value="prodotti" name="tabella">
                 <input type="hidden" value="<%=p.getId_Prodotto()%>" name="idProdotto">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -168,7 +168,7 @@
                 <input type="hidden" value="prodotti" name="tabella">
                 <input type="hidden" value="<%=p.getId_Prodotto()%>" name="idProdotto">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>
@@ -184,7 +184,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="utenti" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -211,7 +211,7 @@
                 <input type="hidden" value="utenti" name="tabella">
                 <input type="hidden" value="<%=u.getId_Utente()%>" name="idUtente">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -220,7 +220,7 @@
                 <input type="hidden" name="tabella" value="utenti">
                 <input type="hidden" name="idUtente" value="<%=u.getId_Utente()%>">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>
@@ -236,7 +236,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="ordini" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -267,7 +267,7 @@
                 <input type="hidden" name="idUtente" value="<%=o.getUtente()%>">
                 <input type="hidden" name="taglia" value="<%=o.getTaglia()%>">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -279,7 +279,7 @@
                 <input type="hidden" name="idUtente" value="<%=o.getUtente()%>">
                 <input type="hidden" name="taglia" value="<%=o.getTaglia()%>">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>
@@ -295,7 +295,7 @@
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="prodottitaglie" name="tabella">
                 <button type="submit">
-                    <img src="img/plus-circle.svg" alt="">
+                    <img src="img/plus-circle.svg" alt="add">
                 </button>
             </form>
         </th>
@@ -320,7 +320,7 @@
                 <input type="hidden" name="idProdotto" value="<%=p.getProdotto()%>">
                 <input type="hidden" name="taglia" value="<%=p.getTaglia()%>">
                 <button type="submit">
-                    <img src="img/refresh-cw.svg" alt="">
+                    <img src="img/refresh-cw.svg" alt="update">
                 </button>
             </form>
         </td>
@@ -330,7 +330,7 @@
                 <input type="hidden" name="idProdotto" value="<%=p.getProdotto()%>">
                 <input type="hidden" name="taglia" value="<%=p.getTaglia()%>">
                 <button type="submit">
-                    <img src="img/trash.svg" alt="">
+                    <img src="img/trash.svg" alt="delete">
                 </button>
             </form>
         </td>

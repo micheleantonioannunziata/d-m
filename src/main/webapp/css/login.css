@@ -1,0 +1,91 @@
+/* login form */
+.poster#loginSection {
+    background: linear-gradient(141deg, rgba(255,255,255,1) 59%, rgba(0,0,0,1) 100%);
+    overflow-y: hidden;
+}
+
+#loginSection.poster .poster__img img{
+    width: 80%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#loginSection.poster .poster__content .logo{
+    height: 15vh;
+    font-style: italic;
+    display: flex;
+    align-items: center
+}
+
+#loginSection.poster .poster__content .logo a{color: var(--color-primary)}
+
+#loginSection.poster .poster__content form{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#loginSection.poster .poster__content form .input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+#loginSection.poster .poster__content form .input input,
+#loginSection.poster .poster__content form input{
+    margin: 25px 0;
+    padding: 12px 14px;
+    font-size: 17px;
+    width: 75%;
+}
+
+#loginSection.poster .poster__content form input[type = submit] {
+    width: 100%;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+#loginSection.poster .poster__content form h4{padding: 20px 0;}
+
+#loginSection.poster .poster__content form h4 a{
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+#loginSection.poster .poster__content form p{background: #fd9e9e;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 2px;
+    width: 50%;
+    margin: 10px auto;
+    font-weight: 600;
+    color: #d02e2e;
+    /* display: none; con ajax */
+}
+
+#loginSection.poster .poster__content form .input img#eyePassword,
+#loginSection.poster .poster__content form .input img#eyeConfirmPassword{
+    position: absolute;
+    right: 2%;
+    width: 30px;
+}
+
+#error{display: none}
+
+@media only screen and (max-width: 1200px) {
+    #loginSection.poster .poster__img{position: relative;}
+    #loginSection.poster .poster__img img{position: absolute; bottom: 0;}
+}
+
+@media only screen and (max-width: 768px) {
+    #loginSection.poster{flex-wrap: wrap;}
+    #loginSection.poster .poster__content {width: 100%; padding-top: 0;}
+    #loginSection.poster .poster__img{width: 0;}
+    #fanZoneSection .poster__img img{height: 100%;}
+}

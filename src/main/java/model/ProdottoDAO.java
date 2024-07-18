@@ -21,7 +21,7 @@ public class ProdottoDAO {
             p.setCollezione(rs.getString(7));
             p.setUrlImmagine(rs.getString(8));
 
-            // prendi tutte le taglie (e le quantità associate) del prodotto
+            // prendi tutte le taglie (e le quant0ità associate) del prodotto
             p.setTaglieQuantita(this.doRetrieveTaglieQuantitaById(p.getId_Prodotto()));
 
             list.add(p);
@@ -78,8 +78,10 @@ public class ProdottoDAO {
 
     public List<Prodotto> doRetrieveByAll(String taglia, String squadra, String tipologia,
                                           String produttore, String collezione, String rangePrice) {
+
         try (Connection con = ConPool.getConnection()) {
             List<Prodotto> result = new ArrayList<>();
+
             String baseQuery = "select distinct prodotti.* from prodotti left join prodottitaglie " +
                     "on id_prodotto = prodotto where 1=1";
             List<String> criteria = new ArrayList<>();
@@ -104,6 +106,8 @@ public class ProdottoDAO {
                 baseQuery += " AND collezione = ?";
                 criteria.add(collezione);
             }
+
+            //ex. 50 - 100
             if (!rangePrice.isEmpty() && !rangePrice.equalsIgnoreCase("all")) {
                 String[] prices;
                 if (rangePrice.contains(" - ")) {
@@ -113,6 +117,7 @@ public class ProdottoDAO {
                     criteria.add(prices[1]);
                 }
 
+                // ex.  200+
                 else if (rangePrice.contains("+")) {
                     prices = rangePrice.split(" + ");
                     baseQuery += " and prezzo >= ?";
@@ -122,9 +127,11 @@ public class ProdottoDAO {
 
             PreparedStatement ps = con.prepareStatement(baseQuery);
 
+            //segnaposti (per inserire valori nella query) partono da 1 e non da 0
             for (int i = 0; i < criteria.size(); i++)
                 ps.setString(i + 1, criteria.get(i));
 
+            //copio risultato fornito dalla query (ResultSet) in una lista
             this.copyResultIntoList(ps.executeQuery(), result);
 
             return result;

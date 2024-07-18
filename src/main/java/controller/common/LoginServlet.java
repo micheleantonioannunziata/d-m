@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                     // richiama funziona di CartHandler
                     CartHandlerServlet.loadOldCart(carrelloDB, carrello);
 
+                    // aggiorna carrello in sessione
                     request.getSession().setAttribute("carrello", carrello);
                 }
 

@@ -6,6 +6,7 @@
   <title>Correct Check Out</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/correctCheckOut.css">
+  <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 
@@ -15,7 +16,7 @@
 </style>C
 
 <div class="box">
-  <img src="img/correctCheckOut.jpg">
+  <img src="img/correctCheckOut.jpg" alt="zielo winner scudetto with Naples">
 
   <div class="text">
     <h1 class="big-text stroke">Order N ${lastIdOrdine} Successfull</h1>

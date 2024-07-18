@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // se non sono vuote e se sono uguali
         if (confirmPassword !== null && password && confirmPassword && password === confirmPassword) {
             submitBtn.disabled = false; // abilita
-            submitBtn.style.cursor = "pointer";
+            submitBtn.style.cursor = "pointer"; //cambia cursore
         }
         else {
             submitBtn.disabled = true;
@@ -30,11 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /*aggiungo eventListener per verificare l'uguaglianza tra password e la sua conferma per capire se disabilitare
+      il bottone oppure no (evento catturato ogni volta che modifico qualcosa nel campo input) */
+
     if (confirmPasswordInput !== null) {
-        passwordInput?.addEventListener('input', validatePasswords);
+        passwordInput?.addEventListener('input', validatePasswords); //se è null non viene aggiunto
         confirmPasswordInput?.addEventListener('input', validatePasswords);
     }
 
+    //aggiungo eventListener per mostrare e nascondere il testo dell'input e cambiare l'immagine degli occhi
     eyePassword?.addEventListener('click', function() {
         togglePasswordVisibility(passwordInput, eyePassword);
     });

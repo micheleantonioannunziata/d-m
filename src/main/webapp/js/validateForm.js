@@ -3,6 +3,7 @@
         return pattern.test(str);
 }
 
+// gestione errori input lato client
  function validateForm() {
      const username = document.getElementById("username").value;
      const email = document.getElementById("email") || null;

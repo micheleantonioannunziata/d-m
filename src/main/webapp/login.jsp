@@ -5,6 +5,7 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
     <body>
 
@@ -16,14 +17,14 @@
 
             <form action="login-servlet" method="post" onsubmit="return validateForm()">
                 <div class="input">
-                    <img src="img/mail.svg" alt="">
+                    <img src="img/mail.svg" alt="mail">
                     <input id="username" type="text" name="username" required placeholder="Username">
                 </div>
 
                 <div class="input">
-                    <img src="img/unlock.svg">
+                    <img src="img/unlock.svg" alt="unlock">
                     <input id="password" type="password" name="password" required  placeholder="Password">
-                    <img src="img/eye.svg" id="eyePassword" alt="">
+                    <img src="img/eye.svg" id="eyePassword" alt="eye">
                 </div>
 
                 <h4 class="small-text">Haven't you an account yet?
@@ -42,12 +43,12 @@
             </form>
         </div>
         <div class="poster__img">
-            <img src="img/zieloLogin.png" alt="">
+            <img src="img/zieloLogin.png" alt="zielo">
         </div>
     </div>
 
     <script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>
     <script type="text/javascript" src="js/validateForm.js"></script>
 
-    </body>cheConfival
+    </body>
 </html>

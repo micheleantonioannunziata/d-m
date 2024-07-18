@@ -8,8 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GridByFilter</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet"g href="css/gridItemByFilter.css">
+    <link rel="stylesheet" href="css/gridItemByFilter.css">
+
+
     <script type="text/javascript" src="js/manageFilters.js"></script>
 </head>
 
@@ -20,13 +24,14 @@
         // ottieni prodottiCercati
         List <Prodotto> prodottiCercati = (List<Prodotto>) request.getAttribute("prodottiCercati");
 
-        // se è stato cercato un prodotto fai un container
+        // se è stato cercato un prodotto da una pagina diversa
         if (prodottiCercati != null && !prodottiCercati.isEmpty()) { %>
-           <div class="grid-container" style="margin-top: 20vh">
 
-            <%
+    <div class="grid-container" style="margin-top: 20vh">
+        <%
             // e per ogni prodotto crea una card
             for (Prodotto p: prodottiCercati) { %>
+
                 <div class="card scale-in-center">
                     <img src="<%=p.getUrlImmagine()%>" alt="">
                     <h4 class="small-text"><%=p.getNome()%></h4>
@@ -41,7 +46,7 @@
                     <% } %>
             </div>
         <% }
-       // se non è stato cercato nulla, gestisci i filtri
+       // se si arriva a questa pagina senza aver cercato nulla, gestisci i filtri
         else {%>
 
                 <%
@@ -56,23 +61,32 @@
                     String lastProduttore = request.getParameter("produttore");
                     String lastTaglia = request.getParameter("taglia");
 
+                    // servono per gestire i prezzi
                     double start = 50. , stop = 200., step = 50.;
                 %>
 
+                <!-- creo le select, sono tutte nascoste tranne tipologia, una volta selezionata
+                     una tipologia spariamo colpi -->
                 <div class="filters">
-                    <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)">
+
+                    <label for="selectTipologia"></label>
+                    <select id="selectTipologia" name="tipologia" onchange = "manageFilters(this.value)"> <!-- passo tipologia selezionata -->
                         <option value="" disabled selected>Tipologia</option>
-                        <% for (String tipologia : tipologie) { %>
-                            <option value="<%= tipologia %>"
-                                <% if (tipologia.equalsIgnoreCase(lastTipologia)) { %>
+
+                        <%
+                            // mostra tipologie sempre
+                            for (String tipologia : tipologie) { %>
+                                <option value="<%= tipologia %>"
+                                        <% if (tipologia.equalsIgnoreCase(lastTipologia)) { %>
                                     selected
-                                <% } %>
+                                        <% } %>
                             >
                                 <%= tipologia %>
                             </option>
                         <% } %>
                     </select>
 
+                    <label for="selectSquadra"></label>
                     <select id="selectSquadra" name="squadra" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Squadra</option>
                         <option value="All" <% if (lastSquadra != null && lastSquadra.equalsIgnoreCase("all")) { %>
@@ -91,18 +105,22 @@
                         <% } %>
                     </select>
 
+                    <label for="selectTaglia"></label>
                     <select id="selectTaglia" name="taglia" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Taglia</option>
                     </select>
 
+                    <label for="selectCollezione"></label>
                     <select id="selectCollezione" name="collezione" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Collezione</option>
                     </select>
 
+                    <label for="selectProduttore"></label>
                     <select id="selectProduttore" name="produttore" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Produttore</option>
                     </select>
 
+                    <label for="selectPrezzo"></label>
                     <select id="selectPrezzo" name="prezzo" class="hidden" onchange="updateCards()">
                         <option value="" disabled selected>Range Price</option>
                         <option value="All">All</option>
@@ -119,6 +137,8 @@
                 <div class="grid-container"></div>
 
                 <script>
+                    // al caricamento del documento
+                    // settaggio parametri da url
                     document.addEventListener("DOMContentLoaded", function() {
                         const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
                         if (tipologia)  manageFilters(tipologia, '<%= lastTaglia %>', '<%=lastCollezione%>', '<%=lastProduttore%>');

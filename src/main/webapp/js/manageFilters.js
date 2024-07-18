@@ -1,3 +1,4 @@
+//aggiornamento select
 function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
     var xhttp = new XMLHttpRequest();
 
@@ -5,6 +6,7 @@ function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
         if (this.readyState === 4 && this.status === 200) {
 
             // prendi il json scritto dalla servlet
+            // 1 oggetto con 3 coppie, valore di ogni coppia è un array
             const data = JSON.parse(this.responseText);
             const taglie = data.taglie;
             const collezioni = data.collezioni;
@@ -28,10 +30,11 @@ function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
 
             taglie.forEach(taglia => {
                 const option = document.createElement("option");
-                option.value = taglia.taglia;
-                option.text = taglia.taglia;
-                if (taglia.taglia === lastTaglia) option.selected = true;
-                selectTaglia.appendChild(option);
+                option.value = taglia.taglia; //elemento array e chiave
+                option.text = taglia.taglia; //ciò che visualizzo nell'option
+                if (taglia.taglia === lastTaglia)
+                    option.selected = true;
+                selectTaglia.appendChild(option); //inserisco l'option come figlio di selectTaglia
             });
 
             // aggiorna produttori
@@ -43,7 +46,8 @@ function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
                 const option = document.createElement("option");
                 option.value = produttore.nome;
                 option.text = produttore.nome;
-                if (produttore.nome === lastProduttore) option.selected = true;
+                if (produttore.nome === lastProduttore)
+                    option.selected = true;
                 selectProduttore.appendChild(option);
             });
 
@@ -55,7 +59,8 @@ function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
                 const option = document.createElement("option");
                 option.value = collezione.nome;
                 option.text = collezione.nome;
-                if (collezione.nome === lastCollezione) option.selected = true;
+                if (collezione.nome === lastCollezione)
+                    option.selected = true;
                 selectCollezione.appendChild(option);
             });
 
@@ -95,7 +100,7 @@ function updateCards() {
         }
     };
 
-    // query string con tutti i valori delle select
+    // query string con tutti i valori delle select (come creare la richiesta asincrona)
     const queryString =
         `tipologia=${encodeURIComponent(tipologia)}` +
         `&taglia=${encodeURIComponent(taglia)}` +
@@ -104,16 +109,17 @@ function updateCards() {
         `&squadra=${encodeURIComponent(squadra)}` +
         `&prezzo=${encodeURIComponent(prezzo)}`;
 
-    xhttp.open("GET",
-        `updateCards-servlet?${queryString}`,
-        true);
+    xhttp.open("GET", `updateCards-servlet?${queryString}`, true);
     xhttp.send();
 }
 
 function generateCard(prodotto) {
+
+    // template literal
+
     return `
         <div class="card scale-in-center">
-            <img src="${prodotto.urlImmagine}" alt="">
+            <img src="${prodotto.urlImmagine}" alt="${prodotto.nome}">
             <h4 class="small-text">${prodotto.nome}</h4>
             <h2 class="normal-text">€ ${prodotto.prezzo}</h2>
             <form action="overview-servlet" method="post">
@@ -136,12 +142,16 @@ function searchCards(queryString){
     // prendi classe dei filtri
     const filters = document.querySelector(".filters");
 
+    // se l'utente cerca una stringa vuota
     if (queryString === "") {
         container.innerHTML = "No results..."
+
+        // adegua design
         if (filters != null && filters.classList.contains("none")) {
             filters.classList.remove("none")
             container.style.marginTop = "0";
         }
+
         return
     }
 
@@ -151,11 +161,13 @@ function searchCards(queryString){
             // ottieni ciò che è stato scritto dalla servlet nella risposta
             const prodotti = JSON.parse(this.responseText);
 
+            // adegua e nascondi filtri
             if (filters != null && !filters.classList.contains("none")) {
                 filters.classList.add("none");
                 container.style.marginTop = "20vh";
             }
 
+            // se non ci sono prodotti per quella ricerca
             if (prodotti.length === 0) {
                 container.innerHTML = "No results..."
                 return

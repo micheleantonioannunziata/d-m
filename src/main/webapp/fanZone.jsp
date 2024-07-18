@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fan Zone</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fanZone.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
     <script type="text/javascript" src = "js/redirectFilter.js"></script>
 </head>
 <body>
@@ -23,7 +25,7 @@
             for (Squadra squadra: squadre) {
          %>
             <div class="card scale-in-center" data-value = "<%= squadra.getNome() %>" onclick = "redirectFilter(this, 'Maglia', 'squadra')">
-                <img src="<%=squadra.getUrlImmagine()%>" alt="">
+                <img src="<%=squadra.getUrlImmagine()%>" alt="<%= squadra.getNome() %>">
                 <h2 class="small-text"> <%= squadra.getNome() %></h2>
                 <span></span> <!-- rettangolino verde -->
             </div>

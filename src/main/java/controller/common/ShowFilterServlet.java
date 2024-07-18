@@ -33,11 +33,14 @@ public class ShowFilterServlet extends HttpServlet {
         List<Taglia> taglieFiltrate;
         List<String> produttoriFiltrati, collezioniFiltrate;
 
+        //prendo tutto
         if (tipologia.equalsIgnoreCase("all")) {
             taglieFiltrate = tagliaDAO.doRetrieveAll();
             produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "1", "1");
             collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "1", "1");
-        } else {
+        }
+
+        else {
             taglieFiltrate = tagliaDAO.doRetrieveByTipologia(tipologia);
             produttoriFiltrati = prodottoDAO.doRetrieveColumnByCriteria("produttore", "tipologia", tipologia);
             collezioniFiltrate = prodottoDAO.doRetrieveColumnByCriteria("collezione", "tipologia", tipologia);
@@ -47,6 +50,7 @@ public class ShowFilterServlet extends HttpServlet {
         produttoriFiltrati.sort(String::compareToIgnoreCase);
         collezioniFiltrate.sort(String::compareToIgnoreCase);
 
+        //inserisco un nuovo campo All per selezionare tutto
         Taglia all = new Taglia();
         all.setTaglia("All");
         taglieFiltrate.add(0, all);

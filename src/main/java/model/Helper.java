@@ -15,7 +15,7 @@ public class Helper {
 
         try (Connection con = ConPool.getConnection()) {
 
-            // effettua query describe
+            // effettua query describe (resituisce info relative alla tabella)
             PreparedStatement ps = con.prepareStatement("describe " + tabella);
             ResultSet resultSet = ps.executeQuery();
 

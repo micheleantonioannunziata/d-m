@@ -5,6 +5,7 @@
     <title>Sign up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
 
@@ -26,12 +27,12 @@
             <div class="input">
                 <img src="img/unlock.svg">
                 <input type="password" id="password" name="password" required  placeholder="Password" oninput="">
-                <img src="img/eye.svg" id="eyePassword" alt="">
+                <img src="img/eye.svg" id="eyePassword" alt="eye">
             </div>
             <div class="input">
                 <img src="img/check-square.svg">
                 <input type="password" id = "confirmPassword" name="confirmPassword" required  placeholder="Confirm Password">
-                <img id="eyeConfirmPassword" src="img/eye.svg" alt="">
+                <img id="eyeConfirmPassword" src="img/eye.svg" alt="eye">
             </div>
 
             <h4 class="small-text">Have you already an account?
@@ -52,7 +53,7 @@
         </form>
     </div>
     <div class="poster__img" style="width: 50%">
-        <img src="img/zieloSignUp.png" alt="">
+        <img src="img/zieloSignUp.png" alt="zielo-Fish-Man">
     </div>
 </div>
 <script type="text/javascript" src="js/checkConfirmAndShowPassword.js"></script>

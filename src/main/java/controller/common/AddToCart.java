@@ -18,8 +18,32 @@ import java.util.Map;
 @WebServlet(name = "AddToCart", value = "/addToCart-servlet")
 public class AddToCart extends HttpServlet {
 
+    public static void addProductToCart(Prodotto p, List<Prodotto> carrello, String taglia, int quantita) {
+        Map<String, Integer> tagliaQuantita = new HashMap<>();
+
+        // verifica se già sta nel carrello
+        Prodotto prod = isProductAlreadyInCart(carrello, p.getId_Prodotto());
+
+
+        // se già sta nel carrello
+        if (prod != null) {
+
+            // modifica map
+            tagliaQuantita = prod.getTaglieQuantita();
+            tagliaQuantita.put(taglia, quantita); // considera la sua map
+            prod.setTaglieQuantita(tagliaQuantita);
+        }
+
+        else {
+            // aggiungi al carrello con map aggiornata
+            tagliaQuantita.put(taglia, quantita);
+            p.setTaglieQuantita(tagliaQuantita);
+            carrello.add(p);
+        }
+    }
+
     // metodo che verifica che quel prodotto già c'è nel carrello
-    Prodotto isProductAlreadyInCart(List<Prodotto> carrello, int id){
+    public static Prodotto isProductAlreadyInCart(List<Prodotto> carrello, int id){
         if (carrello.isEmpty())     return null;
 
         for (Prodotto prodotto: carrello)
@@ -48,26 +72,8 @@ public class AddToCart extends HttpServlet {
         // ottieni taglia e quantità
         String taglia = req.getParameter("taglia");
         int quantita = Integer.parseInt(req.getParameter("quantita"));
-
-        // se viene passato una taglia non valida dobbiamo capire come gestire gli errori
-
-        Map<String, Integer> tagliaQuantita = new HashMap<>();
-
-        // verifica se già sta nel carrello
-        Prodotto prod = isProductAlreadyInCart(carrello, id);
-
-        // se già sta nel carrello, considera la sua map
-        if (prod != null) {
-            carrello.remove(prod);
-            tagliaQuantita = prod.getTaglieQuantita();
-        }
-
-        // aggiungi entry - se già esiste quella taglia la modifica da solo
-        tagliaQuantita.put(taglia, quantita);
-
-        // aggiungi al carrello con map modificata
-        p.setTaglieQuantita(tagliaQuantita);
-        carrello.add(p);
+        
+        addProductToCart(p, carrello, taglia, quantita);
 
         // aggiorna carrello
         req.getSession().setAttribute("carrello", carrello);

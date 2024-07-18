@@ -24,17 +24,17 @@ public class RedirectToUserArea extends HttpServlet {
         OrdineDAO ordineDAO = new OrdineDAO();
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
-        // prendi li ordini dell'utente
+        // prendi gli ordini dell'utente
         List<Ordine> ordini = ordineDAO.doRetrieveByUser(u.getId_Utente());
 
         // crea map con chiave: id_ordine e valore: lista con tutti i prodotti di quell'ordine
         Map<Integer, List<Prodotto>> ordiniProdottiMap = new HashMap<>();
 
         for (Ordine o : ordini) {
-            // ottieni prodotto dell'ordine
+            // ottieni prodotto dell'ordine senza taglia e quantità
             Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(o.getProdotto());
 
-            // aggiorna map taglia quantità
+            // aggiorna map taglia quantità in base alle informazioni dell'ordine
             Map<String, Integer> tQ = p.getTaglieQuantita();
             tQ.put(o.getTaglia(), o.getQuantita());
             p.setTaglieQuantita(tQ);

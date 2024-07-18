@@ -6,6 +6,7 @@
     <title>About</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/about.css">
 </head>
 <body>
@@ -26,13 +27,13 @@
         </p>
     </div>
     <div class="poster__img">
-        <img src="img/zieloAbout.jpg" alt="">
+        <img src="img/zieloAbout.jpg" alt="zielo free kick">
     </div>
 </div>
 
 
 <div id="wallpaper">
-    <img src="img/sportswear.png" alt="">
+    <img src="img/sportswear.png" alt="leao, theo, musah">
 
     <h1 class="big-text white">Your Journey to Victory Starts Here</h1>
 </div>

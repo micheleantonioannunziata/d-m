@@ -9,6 +9,7 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/myCart.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 <%
@@ -31,7 +32,7 @@
                     for (Prodotto prodotto: carrello) { %>
                 <div class="card scale-in-center">
                     <div class="img">
-                        <img src="<%=prodotto.getUrlImmagine()%>" alt="">
+                        <img src="<%=prodotto.getUrlImmagine()%>" alt="<%= prodotto.getNome() %>">
                     </div>
                     <div class="content">
                         <h4 class="small-text"><%=prodotto.getNome()%></h4>
