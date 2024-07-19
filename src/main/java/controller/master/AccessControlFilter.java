@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebFilter(filterName = "/AccessControlFilter", urlPatterns = "/*")
 public class AccessControlFilter  extends HttpFilter implements Filter {
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
@@ -22,17 +21,13 @@ public class AccessControlFilter  extends HttpFilter implements Filter {
 
         String path = httpServletRequest.getServletPath();
 
+        // se l'utente è loggato ma si tenta di accedere a login/signup.jsp
         if ((path.contains("login.jsp") || path.contains("signup.jsp")) && utente != null) {
+
+            // forza l'accesso ad un'altra risorsa - rimanda alla userArea.jsp
             httpServletResponse.sendRedirect("redirectToUserArea");
             return;
         }
-
-        if (path.contains("userArea.jsp") && utente != null) {
-            httpServletResponse.sendRedirect("index.jsp");
-            return;
-        }
-
-
 
         chain.doFilter(req, res);
     }

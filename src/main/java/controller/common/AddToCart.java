@@ -18,6 +18,9 @@ import java.util.Map;
 @WebServlet(name = "AddToCart", value = "/addToCart-servlet")
 public class AddToCart extends HttpServlet {
 
+    // metodo che permette di aggiungere nel carrello (lista passata)
+    // un'istanza del prodotto passato (o aggiornare lo stesso in base
+    // all'entry <taglia, quantità>)
     public static void addProductToCart(Prodotto p, List<Prodotto> carrello, String taglia, int quantita) {
         Map<String, Integer> tagliaQuantita = new HashMap<>();
 
@@ -27,7 +30,6 @@ public class AddToCart extends HttpServlet {
 
         // se già sta nel carrello
         if (prod != null) {
-
             // modifica map
             tagliaQuantita = prod.getTaglieQuantita();
             tagliaQuantita.put(taglia, quantita); // considera la sua map
@@ -72,7 +74,7 @@ public class AddToCart extends HttpServlet {
         // ottieni taglia e quantità
         String taglia = req.getParameter("taglia");
         int quantita = Integer.parseInt(req.getParameter("quantita"));
-        
+
         addProductToCart(p, carrello, taglia, quantita);
 
         // aggiorna carrello

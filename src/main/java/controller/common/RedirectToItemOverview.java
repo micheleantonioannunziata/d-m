@@ -26,7 +26,9 @@ public class RedirectToItemOverview extends HttpServlet {
         // setta nella request
         req.setAttribute("prodotto", prodotto);
 
-        // ridirotta
+        // ridirotta - competenza esclusiva della servlet chiamata
+        // (il controllo passa completamente al chiamato che avrà
+        // l'onore e l'onere di produrre la risposta)
         RequestDispatcher dispatcher = req.getRequestDispatcher("overview.jsp");
         dispatcher.forward(req,resp);
     }

@@ -4,13 +4,13 @@
 
 <header>
     <div class="logo mid-text">
-        <a href="index.jsp">D<span class="normal-text">&</span>M</a>
+        <a href="index.jsp" title="home">D<span class="normal-text">&</span>M</a>
     </div>
 
     <ul class="menuBar small-text">
-        <li><a href="about.jsp">About</a></li>
-        <li><a href="fanZone.jsp">Fan Zone</a></li>
-        <li><a href="gridItemByFilter.jsp">Products</a></li>
+        <li><a href="about.jsp" title="about">About</a></li>
+        <li><a href="fanZone.jsp" title="fanZone">Fan Zone</a></li>
+        <li><a href="gridItemByFilter.jsp" title="products">Products</a></li>
     </ul>
 
     <div class="icons">
@@ -27,10 +27,12 @@
                 <form action="searchBar-servlet" class="searchBar"> <!-- form con flag redirect -->
                     <input type="hidden" name="redirect" value="true">
 
-                    <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
-                           value="<%=lastQuery != null ? lastQuery : ""%>" >
+                    <label>
+                        <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                               value="<%=lastQuery != null ? lastQuery : ""%>" >
+                    </label>
 
-                    <button><img src="img/search.svg" alt="search"></button>
+                    <button title="search"><img src="img/search.svg" alt="search"></button>
 
                 </form>
         <% }
@@ -38,11 +40,13 @@
             else { %>
             <div class="searchBar">
                 <!-- input con funziona ajax su evento oninput -->
-                <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
-                       value="<%=lastQuery != null ? lastQuery : ""%>"
-                       oninput = "searchCards(this.value)">
+                <label>
+                    <input class="small-text" type="text" name="queryString" placeholder="Search ..." autocomplete="off"
+                           value="<%=lastQuery != null ? lastQuery : ""%>"
+                           oninput = "searchCards(this.value)">
+                </label>
 
-                    <button><img src="img/search.svg" alt="search"></button>
+                <button title="search"><img src="img/search.svg" alt="search"></button>
             </div>
             <% } %>
 
@@ -53,10 +57,10 @@
             else ref = "redirectToUserArea";
         %>
 
-        <a href="<%= ref %>">
+        <a href="<%= ref %>" title="user">
             <img src="img/user.svg" alt="user">
         </a>
-        <a href="myCart.jsp" style="position: relative">
+        <a href="myCart.jsp" style="position: relative" title="cart">
             <img src="img/shopping-cart.svg" alt="cart">
             <% // prendi carrello dalla sessione
                 List<Prodotto> cart = (List<Prodotto>) request.getSession().getAttribute("carrello");

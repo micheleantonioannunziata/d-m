@@ -30,11 +30,11 @@ function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
 
             taglie.forEach(taglia => {
                 const option = document.createElement("option");
-                option.value = taglia.taglia; //elemento array e chiave
-                option.text = taglia.taglia; //ciò che visualizzo nell'option
+                option.value = taglia.taglia; // elemento array e chiave
+                option.text = taglia.taglia; // ciò che visualizzo nell'option
                 if (taglia.taglia === lastTaglia)
                     option.selected = true;
-                selectTaglia.appendChild(option); //inserisco l'option come figlio di selectTaglia
+                selectTaglia.appendChild(option); // inserisco l'option come figlio di selectTaglia
             });
 
             // aggiorna produttori
@@ -181,6 +181,6 @@ function searchCards(queryString){
     }
 
     // prepara chiamata asincrona alla servlet
-    xhttp.open("GET","searchBar-servlet?queryString="+queryString, true)
+    xhttp.open("GET","searchBar-servlet?queryString=" + queryString, true)
     xhttp.send();
 }

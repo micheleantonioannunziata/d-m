@@ -38,7 +38,7 @@
             Whether you're cheering for your favourite team or celebrating the latest victories,
             join us as we unite fans from around the world in the thrilling world of football fandom!
         </p>
-        <a href="fanZone.jsp"><button>Explore</button></a>
+        <a href="fanZone.jsp" title="fanZone"><button title="fanZone">Explore</button></a>
     </div>
     <div class="poster__img">
         <img src="img/fanZoneSection.png" alt="Cristiano Ronaldo">
@@ -53,7 +53,7 @@
         <div class="text">
             <h2 class="mid-text white">Nike MDS</h2>
             <h4 class="small-text white">Elevate your game on the pitch!</h4>
-            <button class="small-text"
+            <button title="viewProduct" class="small-text"
                     data-value="Nike Mercurial"
                     onclick="redirectFilter(this, 'Scarpa', 'collezione')"
             >Go now</button>
@@ -67,7 +67,7 @@
             <h4 class="small-text white">Unleash your skills with engineering!</h4>
 
             <!-- data-value serve alla funzione chiamata al click del button -->
-            <button class="small-text"
+            <button title="viewProduct" class="small-text"
                     data-value ="Euro 2024"
                     onclick="redirectFilter(this, 'All', 'collezione')"
             >Go now</button>

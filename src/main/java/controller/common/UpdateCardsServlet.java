@@ -26,19 +26,19 @@ public class UpdateCardsServlet extends HttpServlet {
         String tipologia = request.getParameter("tipologia");
         String produttore = request.getParameter("produttore");
         String collezione = request.getParameter("collezione");
-
         String rangePrice = request.getParameter("prezzo");
 
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
         // prendi dati dal db
-        List<Prodotto> prodottiFiltrati = prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione, rangePrice);
+        List<Prodotto> prodottiFiltrati =
+                prodottoDAO.doRetrieveByAll(taglia, squadra, tipologia, produttore, collezione, rangePrice);
 
+        // ordinali in funzione del loro nome
         prodottiFiltrati.sort(Comparator.comparing(Prodotto::getNome));
 
-        JSONArray prodotti = new JSONArray();
-
         // formatta in json
+        JSONArray prodotti = new JSONArray();
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
@@ -51,7 +51,8 @@ public class UpdateCardsServlet extends HttpServlet {
             prodotti.add(object);
         }
 
-        // scrivi nella risposta
+        // scrivi nella risposta un mega array
+        // che contiene un oggetto per ciascun prodotto
         out.print(prodotti);
         out.flush();
     }
