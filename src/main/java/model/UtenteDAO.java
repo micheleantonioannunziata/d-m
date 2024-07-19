@@ -66,6 +66,21 @@ public class UtenteDAO{
         }
     }
 
+    public boolean existsByMail(String mail) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("select * from utenti where email = ?");
+            ps.setString(1, mail);
+
+            ResultSet rs = ps.executeQuery();
+
+            // restituisce true se il risultato della query dà almeno una riga
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void doSave(Utente utente) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
