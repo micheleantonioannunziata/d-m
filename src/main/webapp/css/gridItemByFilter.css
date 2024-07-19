@@ -11,7 +11,7 @@
     border-radius: 10px;
 }
 select {
-    appearance: none;
+    appearance: none; /* toglie 'v' dalla select */
     min-width: 150px;
     padding: 12px 15px;
     border: 1px solid #d6d6d6;

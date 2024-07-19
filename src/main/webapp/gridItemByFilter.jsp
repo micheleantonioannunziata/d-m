@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet"g href="css/gridItemByFilter.css">
+    <link rel="stylesheet" href="css/gridItemByFilter.css">
     <link rel="stylesheet" href="css/gridItemByFilter.css">
 
 
@@ -138,11 +138,12 @@
 
                 <script>
                     // al caricamento del documento
-                    // settaggio parametri da url
+                    // settaggio parametri da url (se viene fatta una richiesta inserendo i parametri tramite URL)
                     document.addEventListener("DOMContentLoaded", function() {
                         const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
                         if (tipologia)  manageFilters(tipologia, '<%= lastTaglia %>', '<%=lastCollezione%>', '<%=lastProduttore%>');
                     });
+                    //se tipologia è " " -> false
                 </script>
 
                     <% } %>
