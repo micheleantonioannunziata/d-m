@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String error = SignUpServlet.checkInputValue(username, "", password, "");
 
-        // controlla valori dell'input
+        // se ci sono errori
         if (!error.isEmpty()) {
             address = "login.jsp";
             request.setAttribute("error", error);
@@ -39,6 +39,8 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("error", "password wrong");
                 address = "login.jsp";
             }
+
+            // superati tutti i controlli
             else {
                 // aggiungi bean
                 request.getSession().setAttribute("utente", utente);
@@ -52,7 +54,8 @@ public class LoginServlet extends HttpServlet {
                 // considera carrello nel db
                 List<Carrello> carrelloDB = carrelloDAO.doRetrieveByUtente(utente.getId_Utente());
 
-                if (carrello == null)   carrello = new ArrayList<>();
+                if (carrello == null)
+                    carrello = new ArrayList<>();
 
                 // se il carrello attuale è vuoto, carica ciò che sta nel db (se esiste)
                 if (carrello.isEmpty() && !carrelloDB.isEmpty()) {

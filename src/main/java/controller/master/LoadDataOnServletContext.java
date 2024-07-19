@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 
 // servlet con priorità maggiore, viene inizializzata prima di tutte le altre
+// inserisce cose nella servlet context (contesto intero dell'applicazione),
+// memoria condivisa tra tutti gli utenti, richieste e servlet dell'applicazione
 @WebServlet(name = "loadDataOnServletContext", value = "/loadData-servletContext", loadOnStartup = 0)
 public class LoadDataOnServletContext extends HttpServlet {
 

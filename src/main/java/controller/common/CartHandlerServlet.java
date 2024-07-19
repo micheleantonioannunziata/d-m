@@ -17,6 +17,8 @@ import java.util.Map;
 @WebServlet(name = "loginServlet", value = "/cartHandler-servlet")
 public class CartHandlerServlet extends HttpServlet {
 
+    // metodo che carica il vecchio carrello (il primo passato)
+    // nel nuovo (secondo argomento)
     public static void loadOldCart(List<Carrello> carrelloDB, List<Prodotto> carrello) {
         ProdottoDAO prodottoDAO = new ProdottoDAO();
 
@@ -27,7 +29,6 @@ public class CartHandlerServlet extends HttpServlet {
             Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(c.getIdProdotto());
 
             // gestisci aggiunta
-
             AddToCart.addProductToCart(p, carrello, c.getTaglia(), c.getQuantita());
         }
     }
@@ -61,6 +62,5 @@ public class CartHandlerServlet extends HttpServlet {
         // ridirotta
         RequestDispatcher dispatcher = request.getRequestDispatcher("redirectToUserArea");
         dispatcher.forward(request, response);
-
     }
 }

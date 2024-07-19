@@ -15,6 +15,8 @@ import java.io.IOException;
 @WebServlet(name = "signUpServlet", value = "/signup-servlet")
 public class SignUpServlet extends HttpServlet {
 
+    // metodo che verifica l'esistenza di un carattere speciale/numero
+    // all'interno della strnga passata in input
     public static boolean containsSpecialCharactersOrNumbers(String str) {
         for (char c : str.toCharArray())
             if (!Character.isLetter(c) && !Character.isWhitespace(c))
@@ -23,6 +25,8 @@ public class SignUpServlet extends HttpServlet {
         return false; // nessun carattere speciale o numero trovato
     }
 
+    // metodo che restituisce una stringa indicante l'eventuale errore presente
+    // nei parametri passati
     public static String checkInputValue(String username, String email, String password, String confirmPassword) {
 
         // effettua controlli
@@ -59,7 +63,7 @@ public class SignUpServlet extends HttpServlet {
             address = "signup.jsp";
         }
 
-        // verifica esistenza utente
+        // verifica esistenza utente in base a username e email
         else if (new UtenteDAO().existsByUsername(username) || new UtenteDAO().existsByMail(email)) {
             request.setAttribute("error", "utente già esistente");
             address = "signup.jsp";

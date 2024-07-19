@@ -12,6 +12,7 @@
     margin-top: 12%;
 }
 
+.poster#aboutSection .poster__img{width: 40%}
 .poster#aboutSection .poster__img img{height: 100%}
 
 #wallpaper{
