@@ -52,8 +52,8 @@ create table if not exists ordini (
     quantita int,
     prezzo decimal(10, 2) default 0,
     primary key(id_ordine, utente, prodotto, taglia),
-    foreign key (utente) references utenti(id_utente) on delete cascade on update cascade,
-    foreign key (prodotto, taglia) references prodottitaglie(prodotto, taglia) on delete cascade on update cascade
+    foreign key (utente) references utenti(id_utente),
+    foreign key (prodotto, taglia) references prodottitaglie(prodotto, taglia)
     );
 
 create table if not exists carrello (
