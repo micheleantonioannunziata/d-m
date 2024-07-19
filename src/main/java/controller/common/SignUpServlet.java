@@ -63,7 +63,7 @@ public class SignUpServlet extends HttpServlet {
             address = "signup.jsp";
         }
 
-        // verifica esistenza utente
+        // verifica esistenza utente in base a username e email
         else if (new UtenteDAO().existsByUsername(username) || new UtenteDAO().existsByMail(email)) {
             request.setAttribute("error", "utente già esistente");
             address = "signup.jsp";

@@ -29,6 +29,20 @@ public class AccessControlFilter  extends HttpFilter implements Filter {
             return;
         }
 
+        if (path.contains("WEB-INF")) {
+            httpServletResponse.sendRedirect("index.jsp");
+            return;
+        }
+
+        // se l'utente è loggato ma si tenta di accedere a login/signup.jsp
+        if ((path.contains("userArea.jsp") || path.contains("redirectToUserArea")) && utente == null) {
+
+            // forza l'accesso ad un'altra risorsa - rimanda alla userArea.jsp
+            httpServletResponse.sendRedirect("index.jsp");
+            return;
+        }
+
+
         chain.doFilter(req, res);
     }
 }
