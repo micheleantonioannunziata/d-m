@@ -30,6 +30,9 @@ public class RedirectToUserArea extends HttpServlet {
         // crea map con chiave: id_ordine e valore: lista con tutti i prodotti di quell'ordine
         Map<Integer, List<Prodotto>> ordiniProdottiMap = new HashMap<>();
 
+        // crea map con chiave: id_ordine e valore: prezzo ordine
+        Map<Integer, Double> ordiniPrezziMap = new HashMap<>();
+
         for (Ordine o : ordini) {
             // ottieni prodotto dell'ordine senza taglia e quantità
             Prodotto p = prodottoDAO.doRetrieveByIdWithoutMap(o.getProdotto());
@@ -44,10 +47,18 @@ public class RedirectToUserArea extends HttpServlet {
             // e successivamente aggiunge alla lista il prodotto
             ordiniProdottiMap.computeIfAbsent(o.getID_Ordine(), k -> new ArrayList<>())
                     .add(p);
+
+            // aggiungi prezzo se non c'è nel map
+            if (!ordiniPrezziMap.containsKey(o.getID_Ordine()))
+                ordiniPrezziMap.put(o.getID_Ordine(), o.getPrezzo());
+            // altrimenti aggiornalo
+            else
+                ordiniPrezziMap.put(o.getID_Ordine(), ordiniPrezziMap.get(o.getID_Ordine()) + o.getPrezzo());
         }
 
         // metti nella request
         req.setAttribute("ordiniProdottiMap", ordiniProdottiMap);
+        req.setAttribute("ordiniPrezziMap", ordiniPrezziMap);
 
         // ridirotta
         RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/userArea.jsp");

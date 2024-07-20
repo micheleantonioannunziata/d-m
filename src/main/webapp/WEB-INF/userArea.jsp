@@ -18,7 +18,7 @@
 
 <%
     Map<Integer, List<Prodotto>> ordiniProdottiMap = (Map<Integer, List<Prodotto>>) request.getAttribute("ordiniProdottiMap");
-    double prezzoTotale;
+    Map<Integer, Double> ordiniPrezziMap = (Map<Integer, Double>) request.getAttribute("ordiniPrezziMap");
 %>
 
 <% String choose = (String) request.getAttribute("loadCart");
@@ -45,9 +45,6 @@
 
 <%
     Utente u = (Utente) session.getAttribute("utente");
-
-    if (u == null)
-        response.sendRedirect("login.jsp");
 %>
 
 <h3 class="big-text stroke">My Account</h3>
@@ -55,7 +52,7 @@
 <!-- visualizza info dell'utente -->
 <div class="user-info">
     <div>
-        <p class="small-text"><span>Username:</span> ${utente.username}</p>
+        <p class="small-text"><span>Username:</span> ${utente.username}</p> <!-- expression language -->
         <p class="small-text"><span>Email:</span> ${utente.email}</p>
     </div>
     <div class="buttons">
@@ -81,15 +78,11 @@
 %>
     <h3 class="mid-text" style="margin-top: 20px">Order History</h3>
     <% // per ogni ordine
-        for (Map.Entry<Integer, List<Prodotto>> entry: ordiniProdottiMap.entrySet()) {
-
-            // ristabilisci prezzo
-            prezzoTotale = 0.;
-
+        for (Map.Entry<Integer, List<Prodotto>> ordine: ordiniProdottiMap.entrySet()) {
             // prendi prodotti
-            List<Prodotto> prodotti = entry.getValue();%>
+            List<Prodotto> prodotti = ordine.getValue();%>
 
-        <h3 class="normal-text">Order n. <%=entry.getKey()%></h3>
+        <h3 class="normal-text">Order n. <%=ordine.getKey()%></h3>
     <div class="grid-container">
         <%
             // per ogni prodotto nell'ordine
@@ -103,7 +96,7 @@
             <%
                 // aggiungi info taglia quantità
                 for (Map.Entry<String, Integer> tQ: p.getTaglieQuantita().entrySet()) {
-                    prezzoTotale += p.getPrezzo() * tQ.getValue(); // ricalcola prezzo %>
+            %>
                 <div class="sizes small-text">
                     <div>
                         <p><span>Size</span>: <%=tQ.getKey()%></p>
@@ -112,15 +105,15 @@
                         <p><span>Amount</span>: <%=tQ.getValue()%></p>
                     </div>
                 </div>
-
-            <% } %>
-
+            <%
+                } %>
         </div>
-        <% } %>
+        <%  } %>
     </div>
-    <h3 class="small-text">Total: € <%=Math.ceil(prezzoTotale)%></h3>
-<% }
-}%>
+    <h3 class="small-text">Total: € <%= Math.ceil(ordiniPrezziMap.get(ordine.getKey())) %></h3>
+<%
+        }
+    }%>
 
 
 </body>
