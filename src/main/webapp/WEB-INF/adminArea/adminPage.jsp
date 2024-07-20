@@ -27,7 +27,7 @@
 
 <table class="scale-in-center">
     <tr>
-        <th colspan="2">Squadre</th>
+        <th colspan="2">Squadre</th> <!-- 2 colonne (colspan) -->
         <th>
             <form action="insert-servlet" method="post">
                 <input type="hidden" value="squadre" name="tabella">

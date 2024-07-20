@@ -105,7 +105,9 @@
                 // abilita submit
                 submit.disabled = false;
             }
-            else { button.disabled = true }
+            else {
+                button.disabled = true
+            }
         }
 
     </script>

@@ -19,7 +19,7 @@ public class AdminServlet extends HttpServlet {
         Utente u = (Utente) request.getSession().getAttribute("utente");
 
         // se è un utente amministratore ok
-        if (u.isAdmin()) doPost(request, response);
+        if (u != null && u.isAdmin()) doPost(request, response);
 
         // altrimenti non è ok
         else response.sendRedirect("index.jsp");
@@ -28,7 +28,7 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // ottieni tutti i dati del db per ciascuna tabella
+        // ottieni tutti i dati del db per ciascuna tabella (squadre e taglie stanno nel context)
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         List<Prodotto> prodotti = prodottoDAO.doRetrieveAll();
 

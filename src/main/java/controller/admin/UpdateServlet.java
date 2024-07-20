@@ -30,8 +30,8 @@ public class UpdateServlet extends HttpServlet {
         // effettua operazioni in base alla tabella
         switch (tabella.toLowerCase()) {
 
-            // in ogni caso prende le pk della tabella passate dalla request
-            // e setta un attributo bean risultante da una query nella request
+            // in ogni caso prende le pk della tabella passata dalla request
+            // e setta un attributo bean risultante da una query nella request (ciò che voglio modificare)
 
             case "squadre" -> {
                 String id = request.getParameter("idSquadra");

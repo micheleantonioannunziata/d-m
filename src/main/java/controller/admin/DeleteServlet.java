@@ -42,6 +42,7 @@ public class DeleteServlet extends HttpServlet {
 
                 Utente utente = (Utente) request.getSession().getAttribute("utente");
 
+                //se admin elimina se stesso
                 if (id == utente.getId_Utente())
                     address = "logOut-servlet";
             }

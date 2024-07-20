@@ -28,7 +28,8 @@ public class UpdateDataServlet extends HttpServlet {
 
         for (String param: paramNames) {
             // in old ci saranno le chiavi primarie della tabella
-            if (param.startsWith("old")) oldValues.add(param);
+            if (param.startsWith("old"))
+                oldValues.add(param);
             else newValues.add(param);
         }
 
@@ -42,6 +43,7 @@ public class UpdateDataServlet extends HttpServlet {
                 ProdottoDAO prodottoDAO = new ProdottoDAO();
                 Prodotto p = new Prodotto();
 
+                //perchè è auto-increment
                 p.setId(Integer.parseInt(req.getParameter(oldValues.get(0))));
 
                 // parto da 1 perché il primo è tabella
@@ -49,6 +51,7 @@ public class UpdateDataServlet extends HttpServlet {
                 p.setPrezzo(Double.parseDouble(req.getParameter(newValues.get(2))));
                 p.setTipologia(req.getParameter(newValues.get(3)));
 
+                //squadra può essere null
                 if (!newValues.get(4).equalsIgnoreCase("null"))
                     p.setSquadra(req.getParameter(newValues.get(4)));
                 else p.setSquadra(null);
@@ -69,6 +72,7 @@ public class UpdateDataServlet extends HttpServlet {
 
                 s.setUrlImmagine(req.getParameter(newValues.get(2))); // setta url
 
+                //modifica nel db in base alla chiave vecchia
                 squadraDAO.doUpdate(s, req.getParameter(oldValues.get(0)));
 
                 // aggiorna servletContext

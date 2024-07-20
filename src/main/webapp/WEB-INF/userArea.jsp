@@ -46,7 +46,8 @@
 <%
     Utente u = (Utente) session.getAttribute("utente");
 
-    if (u == null)  response.sendRedirect("login.jsp");
+    if (u == null)
+        response.sendRedirect("login.jsp");
 %>
 
 <h3 class="big-text stroke">My Account</h3>

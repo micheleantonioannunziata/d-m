@@ -33,6 +33,12 @@ public class Utente {
 
     // hashing password
     public void setPassword(String password) {
+        //se è stata goà hashata allora non la hasho proprio
+        if(password.length() == 40){
+            this.passwordhash = password;
+            return;
+        }
+
         try {
             MessageDigest digest =
                     MessageDigest.getInstance("SHA-1");

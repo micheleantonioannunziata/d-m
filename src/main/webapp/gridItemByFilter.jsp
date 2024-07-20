@@ -141,7 +141,8 @@
                     // settaggio parametri da url (se viene fatta una richiesta inserendo i parametri tramite URL)
                     document.addEventListener("DOMContentLoaded", function() {
                         const tipologia = "<%= lastTipologia != null ? lastTipologia : "" %>";
-                        if (tipologia)  manageFilters(tipologia, '<%= lastTaglia %>', '<%=lastCollezione%>', '<%=lastProduttore%>');
+                        if (tipologia)
+                            manageFilters(tipologia, '<%= lastTaglia %>', '<%=lastCollezione%>', '<%=lastProduttore%>');
                     });
                     //se tipologia è " " -> false
                 </script>
