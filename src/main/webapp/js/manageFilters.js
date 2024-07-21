@@ -1,4 +1,4 @@
-//aggiornamento select
+// aggiornamento select
 function manageFilters(tipologia, lastTaglia, lastCollezione, lastProduttore) {
     var xhttp = new XMLHttpRequest();
 
@@ -133,8 +133,6 @@ function generateCard(prodotto) {
 }
 
 function searchCards(queryString){
-    var xhttp = new XMLHttpRequest();
-
     // svuota container
     const container = document.querySelector(".grid-container"); // prende solo il primo
     container.innerHTML = "";
@@ -144,7 +142,7 @@ function searchCards(queryString){
 
     // se l'utente cerca una stringa vuota
     if (queryString === "") {
-        container.innerHTML = "No results..."
+        container.innerHTML = "No results ..."
 
         // adegua design
         if (filters != null && filters.classList.contains("none")) {
@@ -155,32 +153,40 @@ function searchCards(queryString){
         return
     }
 
-    xhttp.onreadystatechange = function () {
-        if(xhttp.readyState === 4 && xhttp.status === 200){
+    // inizio richiesta
+    fetch(`searchBar-servlet?queryString=${queryString}`)
 
-            // ottieni ciò che è stato scritto dalla servlet nella risposta
-            const prodotti = JSON.parse(this.responseText);
+        // gestione risposta
+        .then(response => {
+            if (response.ok)
+                return response.json();
 
+            throw new Error('Error: response is not ok');
+        })
+
+        // elaborazione dati
+        .then(prodotti => {
             // adegua e nascondi filtri
             if (filters != null && !filters.classList.contains("none")) {
                 filters.classList.add("none");
                 container.style.marginTop = "20vh";
             }
 
-            // se non ci sono prodotti per quella ricerca
+            // ae non ci sono prodotti per quella ricerca
             if (prodotti.length === 0) {
-                container.innerHTML = "No results..."
-                return
+                container.innerHTML = "No results ...";
+                return;
             }
 
-            // per ogni prodotto crea una card e mettila nel containe
+            // per ogni prodotto crea una card e mettila nel container
             prodotti.forEach(prodotto => {
                 container.innerHTML += generateCard(prodotto);
             });
-        }
-    }
+        })
 
-    // prepara chiamata asincrona alla servlet
-    xhttp.open("GET","searchBar-servlet?queryString=" + queryString, true)
-    xhttp.send();
+        // gestione errori
+        .catch(error => {
+            console.error('Fetch operation problem:', error);
+            container.innerHTML = "Error loading results ...";
+        });
 }

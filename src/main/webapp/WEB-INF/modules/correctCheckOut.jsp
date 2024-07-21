@@ -19,7 +19,7 @@
   <img src="img/correctCheckOut.jpg" alt="zielo winner scudetto with Naples">
 
   <div class="text">
-    <h1 class="big-text stroke">Order N ${lastIdOrdine} Successfull</h1>
+    <h1 class="big-text stroke">Order N ${idOrdine} Successfull</h1>
     <h4 class="small-text">Thank you for your purchase! Your order has been placed successfully and is now being processed.</h4>
   </div>
 </div>

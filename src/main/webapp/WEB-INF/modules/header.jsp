@@ -32,7 +32,7 @@
                                value="<%=lastQuery != null ? lastQuery : ""%>" >
                     </label>
 
-                    <button title="search"><img src="img/search.svg" alt="search"></button>
+                    <button title="search" type="submit"><img src="img/search.svg" alt="search"></button>
 
                 </form>
         <% }
@@ -50,14 +50,7 @@
             </div>
             <% } %>
 
-        <%
-            String ref;
-            if (session.getAttribute("utente") == null)
-                ref = "login.jsp";
-            else ref = "redirectToUserArea";
-        %>
-
-        <a href="<%= ref %>" title="user">
+        <a href="login.jsp" title="user">
             <img src="img/user.svg" alt="user">
         </a>
         <a href="myCart.jsp" style="position: relative" title="cart">

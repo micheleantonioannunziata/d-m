@@ -33,7 +33,7 @@ public class CheckOutServlet extends HttpServlet {
             OrdineDAO ordineDAO = new OrdineDAO();
 
             // prendi ultimo id
-            int idOrdine = (int) getServletContext().getAttribute("lastIdOrdine");
+            int idOrdine = ordineDAO.doRetrieveMaxID_Ordine();
 
             ++idOrdine;
 
@@ -53,12 +53,11 @@ public class CheckOutServlet extends HttpServlet {
                     ordineDAO.doSave(o);
                 }
 
-            // aggiorna idOrdine nella servlet context
-            getServletContext().setAttribute("lastIdOrdine", idOrdine);
 
             // svuota carrello
             req.getSession().removeAttribute("carrello");
 
+            req.setAttribute("idOrdine", idOrdine);
             address = "WEB-INF/modules/correctCheckOut.jsp";
         }
 

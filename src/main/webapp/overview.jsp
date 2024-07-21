@@ -80,33 +80,40 @@
             // considera tutti i button delle taglie
             let buttons = document.querySelectorAll(".poster__content .buttons > button");
 
-            // condiera submit del form
-            let submit = document.querySelector("form button[type=submit]");
+            // considera submit del form
+            let submit = document.querySelector(".poster__content form button[type=submit]");
+
+            // considera input per quantità
+            const quantitaInput = document.getElementById('quantitaInput');
+
+            // considera input nascosto per taglia
+            const tagliaInput = document.getElementById('tagliaInput');
 
             // rimuovi la classe active da tutte i bottoni (1 bottone deve essere attivo)
             buttons.forEach(btn => btn.classList.remove("active"));
 
             if (quantitaMax > 0) {
-                // toggle per il button cliccato
-                button.classList.toggle("active");
+                button.classList.add("active");
 
                 // prendi tagliaInput e modifica value
-                const tagliaInput = document.getElementById('tagliaInput');
-                tagliaInput.value = button.innerHTML; //scrivi la taglia in tagliaInput
+                tagliaInput.value = button.innerHTML; // scrivi la taglia in tagliaInput
 
                 // aggiorn quantitaInput
-                const quantitaInput = document.getElementById('quantitaInput');
                 quantitaInput.type = "number";
                 quantitaInput.min = 1;
                 quantitaInput.max = quantitaMax;
                 quantitaInput.required = true;
-                quantitaInput.value = quantitaInput.min; //inizialmente mette quantità pari a 1
+                quantitaInput.value = quantitaInput.min; // inizialmente mette quantità pari a 1
 
                 // abilita submit
                 submit.disabled = false;
             }
             else {
+
+                // se la quantità è 0 disabilita tutto
                 button.disabled = true
+                quantitaInput.type = "hidden"
+                submit.disabled = true
             }
         }
 

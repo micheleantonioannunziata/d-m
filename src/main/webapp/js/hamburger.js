@@ -6,6 +6,6 @@ function hamburgerToggle() {
     let menuBar = document.querySelector("header ul.menuBar");
 
     menuBar.classList.toggle("menu--open");
-    //diventa una X
+    // diventa una X
     hamburger.classList.toggle("active");
 }

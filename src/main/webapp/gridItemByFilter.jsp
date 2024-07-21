@@ -33,12 +33,12 @@
             for (Prodotto p: prodottiCercati) { %>
 
                 <div class="card scale-in-center">
-                    <img src="<%=p.getUrlImmagine()%>" alt="">
+                    <img src="<%=p.getUrlImmagine()%>" alt="<%= p.getNome() %>">
                     <h4 class="small-text"><%=p.getNome()%></h4>
                     <h2 class="normal-text">€ <%=p.getPrezzo()%></h2>
-                    <form action="overview-servlet" method="get">
+                    <form action="overview-servlet" method="post">
                         <input name="idProdotto" value="<%=p.getId_Prodotto()%>" type="hidden">
-                        <button>
+                        <button type="submit">
                             <img src="img/arrow-right-circle.svg" alt="arrow">
                         </button>
                     </form>

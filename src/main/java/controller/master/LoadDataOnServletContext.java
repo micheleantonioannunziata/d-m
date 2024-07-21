@@ -27,9 +27,5 @@ public class LoadDataOnServletContext extends HttpServlet {
         List<Squadra> squadre = squadraDAO.doRetrieveAll();
         squadre.sort(Comparator.comparing(Squadra::getNome));
         getServletContext().setAttribute("squadre", squadre);
-
-        // inserisci l'id dell'ultimo ordine
-        OrdineDAO ordineDAO = new OrdineDAO();
-        getServletContext().setAttribute("lastIdOrdine", ordineDAO.doRetrieveMaxID_Ordine());
     }
 }

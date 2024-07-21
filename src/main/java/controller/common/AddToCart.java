@@ -27,7 +27,6 @@ public class AddToCart extends HttpServlet {
         // verifica se già sta nel carrello
         Prodotto prod = isProductAlreadyInCart(carrello, p.getId_Prodotto());
 
-
         // se già sta nel carrello
         if (prod != null) {
             // modifica map
@@ -50,7 +49,8 @@ public class AddToCart extends HttpServlet {
 
         for (Prodotto prodotto: carrello)
             // se c'è lo restituisci
-            if (prodotto.getId_Prodotto() == id)      return prodotto;
+            if (prodotto.getId_Prodotto() == id)
+                return prodotto;
 
         return null;
     }

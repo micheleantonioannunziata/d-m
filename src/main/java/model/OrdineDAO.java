@@ -157,7 +157,7 @@ public class OrdineDAO{
 
             if (rs.next())  return rs.getInt(1);
 
-            throw new RuntimeException("no results found.");
+            else return 1;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
