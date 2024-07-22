@@ -27,9 +27,6 @@ body{
     overflow-x: hidden; /* nascondi tutto ciò che supera il 100vw */
 }
 
-
-
-
 /* hero section */
 #hero {
     position: relative; /* posizione reletiva al contenitore stesso */
@@ -221,9 +218,27 @@ button.btnCheck {
     }
 }
 
-/* animazione stupida ma volevo vedere se funzionava */
-.scale-in-center{animation:scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both}
-@keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
+/* animazione stupida  */
+.scale-in-center{
+    /*
+        dura 0.5s con una certa velocità (cubic-bezier), e le proprietà vengono mantenute
+        anche alla fine dell'animazione (both)
+     */
+    animation: scale-in-center .5s cubic-bezier(.25,.46,.45,.94) both
+}
+@keyframes scale-in-center{
+    /* inizio animazione */
+    0% {
+        transform: scale(0); /* riduci in scala 0 */
+        opacity: 0
+    }
+
+    /* fine animazione */
+    100% {
+        transform: scale(1);
+        opacity: 1
+    }
+}
 
 /* panels */
 .panels{

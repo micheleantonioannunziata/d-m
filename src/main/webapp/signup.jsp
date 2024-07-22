@@ -18,20 +18,25 @@
         <form action="signup-servlet" method="post" onsubmit="return validateForm()">
             <div class="input">
                 <img src="img/users.svg">
-                <input type="text" id="username" name="username" required placeholder="Username">
+                <input type="text" id="username" name="username" required placeholder="Username"
+                    pattern="[^\s]{5,20}"> <!-- qualsiasi carattere eccetto uno spazio bianco -->
             </div>
             <div class="input">
                 <img src="img/mail.svg">
-                <input type="email" id="email" name="email" required placeholder="Email">
+                <input type="email" id="email" name="email" required placeholder="Email"
+                    pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2, }$">
             </div>
             <div class="input">
                 <img src="img/unlock.svg">
-                <input type="password" id="password" name="password" required  placeholder="Password" oninput="">
+                <!-- da 6 a 20 caratteri, almeno uno deve essere un numero oppure un carattere speciale -->
+                <input type="password" id="password" name="password" required  placeholder="Password"
+                    pattern="^(?=.*[0-9\W])(?!.*\s)[A-Za-z0-9\W]{6,20}$"> <!-- lookahead positivo, negativo -->
                 <img src="img/eye.svg" id="eyePassword" alt="eye">
             </div>
             <div class="input">
                 <img src="img/check-square.svg">
-                <input type="password" id = "confirmPassword" name="confirmPassword" required  placeholder="Confirm Password">
+                <input type="password" id = "confirmPassword" name="confirmPassword" required  placeholder="Confirm Password"
+                       pattern="^(?=.*[0-9\W])(?!.*\s)[A-Za-z0-9\W]{6,20}$">
                 <img id="eyeConfirmPassword" src="img/eye.svg" alt="eye">
             </div>
 
@@ -49,7 +54,7 @@
                 <%= error != null ? error : "" %>
             </p>
 
-            <input type="submit" value="Sign up" id = "submitBtn">
+            <input type="submit" value="Create an account" id = "submitBtn">
         </form>
     </div>
     <div class="poster__img" style="width: 50%">

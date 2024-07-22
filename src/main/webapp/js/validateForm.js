@@ -1,6 +1,8 @@
  function containsSpecialCharactersOrNumbers(str) {
-        const pattern = /[^a-zA-Z\s]/;
-        return pattern.test(str);
+
+    // ^ è un negatore
+    const pattern = /[^a-zA-Z\s]/;  // \s rappresenta lo spazio bianco
+    return pattern.test(str);
 }
 
 // gestione errori input lato client
